@@ -30,7 +30,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sdip.Core">
+      <HintPath>..\Assemblies\Sdip.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,7 +57,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\IgnoreMappingAttribute.cs" />
+    <Compile Include="Models\Base\Account.cs" />
+    <Compile Include="Models\Base\AccountNavView.cs" />
+    <Compile Include="Models\Base\AccountNavigationRef.cs" />
+    <Compile Include="Models\Base\AccountRoleRef.cs" />
+    <Compile Include="Models\Base\AccountRoleRefView.cs" />
+    <Compile Include="Models\Base\AccountStatus.cs" />
+    <Compile Include="Models\Base\AccountToken.cs" />
+    <Compile Include="Models\Base\ActionLog.cs" />
+    <Compile Include="Models\Base\Dict.cs" />
+    <Compile Include="Models\Base\DictMap.cs" />
+    <Compile Include="Models\Base\Nav.cs" />
+    <Compile Include="Models\Base\NavRoleRef.cs" />
+    <Compile Include="Models\Base\No.cs" />
+    <Compile Include="Models\Base\Role.cs" />
+    <Compile Include="Models\Dp\Project.cs" />
+    <Compile Include="Models\Dp\ProjectInfo.cs" />
+    <Compile Include="Models\Dp\ProjectInfoType.cs" />
+    <Compile Include="Models\Dp\Developer.cs" />
+    <Compile Include="Models\Dp\Promotion.cs" />
+    <Compile Include="Modules\Enumerations.cs" />
+    <Compile Include="Modules\StringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DbQuickService.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

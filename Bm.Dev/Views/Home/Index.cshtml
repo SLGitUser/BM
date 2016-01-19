@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>服务列表</h2>
+<ul class="list-group">
+    <li class="list-group-item"><a href="@Url.Action("SyncModelToDb")">同步模型结构到数据库</a></li>
+    <li class="list-group-item"><a href="@Url.Action("ClearCache")">清理缓存</a></li>
+</ul>

@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "同步模型到数据库";
+}
+
+<h2>同步模型到数据库</h2>
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <p class="notice warning-small">
+        同步模型到数据库。
+    </p>
+        <p class="notice warning-small">
+            警告:选中已经存在的表将会删除原表!请谨慎操作!
+        </p>
+
+        <h3>
+            字段和熟悉同步规则
+        </h3>
+        <p>
+            根据模型查找数据库表，遍历数据库字段。
+        </p>
+        <ul>
+            <li>如果数据库字段没有注释，同步为模型的属性说明。</li>
+            <li>如果属性标记了最大长度，同步为字段的最大长度。</li>
+            <li>如果属性标记了最大长度，同步为字段的最大长度。</li>
+        </ul>
+        <div style="margin: 10px 0">过滤：<input type="text" id="filter" placeholder="" value="" style="padding: 4px; height: 20px;" onkeydown="$$('div.model').each(function (ele){ ele.toggleClass('hide', ele.get('data-value').indexOf(this.value) == -1); }.bind(this))" /></div>
+
+    var modelNames = (List<string>)ViewData["modelNames"];
+    <h1>新表</h1>
+    foreach (var name in modelNames)
+    {
+        <div class="model" data-value="@name"><input type="checkbox" name="modelName" value="@name" /> @name  </div>
+    }
+    var existModelNames = (List<string>)ViewData["existModelNames"];
+    <hr />
+    <h1>已存在表</h1>
+    foreach (var name in existModelNames)
+    {
+        <div class="model" data-value="@name"><input type="checkbox" name="modelName" value="@name" /> @name </div>
+    }
+
+    <div class="buttons">
+        <input class="button orange" type="submit" value="同步模型到数据库" />
+        <input class="button blue" type="button" onclick="self.location.href='/'" value="返回" />
+    </div>
+}

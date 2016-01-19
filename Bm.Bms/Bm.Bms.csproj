@@ -94,6 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Base\BaseAreaRegistration.cs" />
+    <Compile Include="Areas\Base\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Biz\BizAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -103,6 +106,11 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="User.Vars.config" />
+    <Content Include="Areas\Base\Views\web.config" />
+    <Content Include="Areas\Biz\Views\web.config" />
+    <Content Include="Areas\Base\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Base\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Base\Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -112,8 +120,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Base\Models\" />
+    <Folder Include="Areas\Biz\Controllers\" />
+    <Folder Include="Areas\Biz\Models\" />
+    <Folder Include="Areas\Biz\Views\Shared\" />
+    <Folder Include="Content\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

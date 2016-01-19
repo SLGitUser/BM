@@ -111,6 +111,7 @@
     <Content Include="Areas\Base\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Base\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Base\Views\Home\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

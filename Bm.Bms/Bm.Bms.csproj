@@ -96,10 +96,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Base\BaseAreaRegistration.cs" />
     <Compile Include="Areas\Base\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Base\Controllers\SessionController.cs" />
     <Compile Include="Areas\Biz\BizAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Modules\BaseController.cs" />
+    <Compile Include="Modules\BaseAuthController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +114,7 @@
     <Content Include="Areas\Base\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Base\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Base\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Base\Views\Session\Login.cshtml" />
     <None Include="Properties\PublishProfiles\deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -129,6 +133,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\BaseAuth\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

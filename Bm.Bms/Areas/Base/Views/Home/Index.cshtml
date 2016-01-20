@@ -28,10 +28,10 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     @*<style type="text/css">
-        .skin-blue-light .main-header .navbar {
-            background-color: #3c8dbc;
-        }
-    </style>*@
+            .skin-blue-light .main-header .navbar {
+                background-color: #3c8dbc;
+            }
+        </style>*@
 </head>
 <body class="hold-transition skin-blue-light sidebar-mini">
     <div class="wrapper">
@@ -290,7 +290,7 @@
                                         <a href="#" class="btn btn-default btn-flat">个人信息</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">注销登录</a>
+                                        <a href="@Url.Action("Logout", "Session", new { Area = "Base" })" class="btn btn-default btn-flat">注销登录</a>
                                     </div>
                                 </li>
                             </ul>
@@ -319,73 +319,80 @@
                     </div>
                 </div>
                 @*<!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-                <!-- /.search form -->*@
+                    <form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- /.search form -->*@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">功能导航</li>
-                    <li>
-                        <a href="pages/widgets.html">
-                            <i class="fa fa-dashboard"></i> <span>今日报告</span>
-                            <small class="label pull-right bg-green">new</small>
-                        </a>
-                    </li>
-                    @*<li class="active treeview">
+                    <li class="active treeview">
                         <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>今日报告</span> <i class="fa fa-angle-left pull-right"></i>
+                            <i class="fa fa-dashboard"></i> <span>信息查询</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="http://123.56.185.114:8000/al/index.html"><i class="fa fa-circle-o"></i> 我的任务</a></li>
-                            <li class="active"><a href="http://123.56.185.114:8000/al/index2.html"><i class="fa fa-circle-o"></i> 我的消息</a></li>
+                            <li class="active"><a href="/base/home/index"><i class="fa fa-circle-o"></i> 今日动态</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 客户查询</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 经纪人查询</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 确客活动查询</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 正在界定客户查询</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 当前流失客户查询</a></li>
                         </ul>
-                    </li>*@
+                    </li>
+                    @*<li class="active treeview">
+                            <a href="#">
+                                <i class="fa fa-dashboard"></i> <span>今日报告</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/base/home/index><i class="fa fa-circle-o"></i> 我的任务</a></li>
+                                <li class="active"><a href="/base/home/index"><i class="fa fa-circle-o"></i> 我的消息</a></li>
+                            </ul>
+                        </li>*@
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-files-o"></i>
-                            <span>开发商</span>
+                            <span>楼盘管理</span>
                             <i class="fa fa-angle-left pull-right"></i>
                             @*<span class="label label-primary pull-right">4</span>*@
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> 开发商信息</a></li>
-                            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> 楼盘信息</a></li>
-                            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 佣金规则</a></li>
-                            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> 销售经理信息</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 开发商信息</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 楼盘信息</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 佣金规则</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 销售经理信息</a></li>
                         </ul>
                     </li>
-                    @*<li>
-                        <a href="pages/widgets.html">
-                            <i class="fa fa-th"></i> <span>Widgets</span>
-                            <small class="label pull-right bg-green">new</small>
-                        </a>
-                    </li>*@
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-pie-chart"></i>
-                            <span>经济公司</span>
+                            <span>经纪公司管理</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> 经济公司</a></li>
-                            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> 经纪人</a></li>
-                            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> 开票</a></li>
-                            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> 提现</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 经纪公司信息</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 经纪人管理</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 开票</a></li>
+                            <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 提现</a></li>
                         </ul>
                     </li>
-                    <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>帮助文档</span></a></li>
+                    @*<li>
+                            <a href="pages/widgets.html">
+                                <i class="fa fa-th"></i> <span>Widgets</span>
+                                <small class="label pull-right bg-green">new</small>
+                            </a>
+                        </li>*@
+                    <li><a href="/base/home/index"><i class="fa fa-book"></i> <span>系统使用说明</span></a></li>
                     @*<li class="header">常用</li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>*@
+                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>*@
                 </ul>
             </section>
             <!-- /.sidebar -->

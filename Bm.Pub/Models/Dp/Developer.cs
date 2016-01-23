@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using com.senlang.Sdip.Data;
 
 namespace Bm.Models.Dp
@@ -9,6 +10,7 @@ namespace Bm.Models.Dp
     /// 开发商
     /// </summary>
     [DisplayName("开发商")]
+    [Table("dp_developer")]
     public sealed class Developer : IId, IStamp
     {
         #region Implementation of IId

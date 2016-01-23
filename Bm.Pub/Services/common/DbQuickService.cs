@@ -3,14 +3,21 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using Dapper;
+using DapperExtensions;
+using DapperExtensions.Sql;
 using MySql.Data.MySqlClient;
 
-namespace Bm.Services
+namespace Bm.Services.common
 {
     public class DbQuickService
     {
 
         private readonly IDbConnection _db;
+
+        static DbQuickService()
+        {
+            DapperExtensions.DapperExtensions.SqlDialect = new MySqlDialect();
+        }
 
         public DbQuickService()
         {
@@ -29,16 +36,18 @@ namespace Bm.Services
             return _db.Query<T>(sql).ToList();
         }
 
-        public dynamic Q(string sql)
+
+        public bool Execute(string sql, object para = null)
         {
-            return _db.Query(sql).ToList();
+            return _db.Execute(sql, para) >= 0;
         }
 
-        public bool Execute(string sql)
+        public bool Create<TModel>(TModel model)
+            where TModel : class
         {
-            return _db.Execute(sql) >= 0;
+            int id = _db.Insert(model);
+            return id >= 1;
         }
-
 
 
         ~DbQuickService()

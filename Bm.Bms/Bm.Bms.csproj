@@ -43,11 +43,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.12\lib\net40\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Sdip.Core">
+      <HintPath>..\Assemblies\Sdip.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -89,7 +96,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Areas\Biz\Views\Developer\Create.cshtml" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +112,7 @@
     <Compile Include="Areas\Base\Controllers\HomeController.cs" />
     <Compile Include="Areas\Base\Controllers\SessionController.cs" />
     <Compile Include="Areas\Biz\BizAreaRegistration.cs" />
+    <Compile Include="Areas\Biz\Controllers\DeveloperController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -112,10 +127,12 @@
     <Content Include="Areas\Base\Views\web.config" />
     <Content Include="Areas\Biz\Views\web.config" />
     <Content Include="Areas\Base\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Base\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Base\Views\Home\Index.cshtml" />
     <Content Include="Areas\Base\Views\Session\Login.cshtml" />
+    <Content Include="Areas\Biz\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Biz\Views\Developer\Index.cshtml" />
     <None Include="Properties\PublishProfiles\deploy.pubxml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -126,14 +143,18 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Base\Models\" />
-    <Folder Include="Areas\Biz\Controllers\" />
+    <Folder Include="Areas\Base\Views\Shared\" />
     <Folder Include="Areas\Biz\Models\" />
     <Folder Include="Areas\Biz\Views\Shared\" />
-    <Folder Include="Content\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\" />
     <Folder Include="Views\BaseAuth\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bm.Pub\Bm.Pub.csproj">
+      <Project>{938CF792-DD27-4A29-8779-5CAF50711B55}</Project>
+      <Name>Bm.Pub</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

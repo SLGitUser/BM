@@ -32,8 +32,7 @@ namespace Bm.Services.common
         public T ExecuteScalar<T>(string sql)
         {
             return _db.ExecuteScalar<T>(sql);
-        }
-
+        } 
         public IList<T> Query<T>(string sql)
         {
             return _db.Query<T>(sql).ToList();
@@ -69,16 +68,13 @@ namespace Bm.Services.common
                 return isDelete;
             }
         }
-        public bool Update<TModel>(int id,string No,string Name)
+        public bool Update<TModel>(TModel model)
             where TModel : class
         {
             using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=password01!"))
             {
                 cn.Open();
-                var models = cn.Get<Developer>(id);
-                models.Name = Name;
-                models.No = No;
-                var isUpdate =cn.Update(models);
+                var isUpdate =cn.Update(model);
                 cn.Close();
                 return isUpdate;             
             }

@@ -84,16 +84,26 @@ namespace Bm.Areas.Biz.Controllers
                 var list = new DbQuickService().SelectList<Developer>(predicate);
                 Developer develop = list[0];
                 return View(develop);
-            } 
+            }
             else
             {
                 ViewBag.Message = "修改失败";
                 return RedirectToAction("Index");
             } 
         }
-        public ActionResult Upadte(int id,string No,string Name)
+        [HttpPost]
+        public ActionResult Edit(FormCollection collection)
         {
-            bool result = new DbQuickService().Update<Developer>(id, No, Name);
+            var model = new Developer();
+            TryUpdateModel(model, collection);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorInfo = "invalid";
+                return View(model);
+            }
+            model.UpdatedBy = "SYSTEM";
+
+            bool result = new DbQuickService().Update<Developer>(model);
             if (result)
             { 
                 return RedirectToAction("Index");
@@ -101,23 +111,6 @@ namespace Bm.Areas.Biz.Controllers
             return View();
         }
      
-       
-        // POST: Biz/Developer/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: Biz/Developer/Delete/5
         public ActionResult Delete(int[] ids)
         {

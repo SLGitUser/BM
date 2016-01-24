@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using Bm.Models.Dp;
 using Bm.Modules;
 using Bm.Services;
 using Bm.Services.common;
+using com.senlang.Sdip.Util;
+using DapperExtensions;
 
 namespace Bm.Areas.Biz.Controllers
 {
@@ -20,10 +24,17 @@ namespace Bm.Areas.Biz.Controllers
         }
 
         // GET: Biz/Developer/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int[] ids)
         {
-            var models = new DbQuickService().Query<Developer>("select * from developer");
-            return View(models);
+            if (ids.IsNullOrEmpty())
+            {
+                ViewBag.Message = "删除失败";
+                return RedirectToAction("Index");
+            }
+            var predicate = Predicates.Field<Developer>(f => f.Id, Operator.Eq, ids[0]);
+            ViewBag.ids = ids;
+            var list = new DbQuickService().SelectList<Developer>(predicate);
+            return View(list);
         }
 
         // GET: Biz/Developer/Create
@@ -86,24 +97,51 @@ namespace Bm.Areas.Biz.Controllers
         }
 
         // GET: Biz/Developer/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int[] ids)
         {
-            return View();
+            if (ids.IsNullOrEmpty())
+            {
+                ViewBag.Message = "删除失败";
+                return RedirectToAction("Index");
+            }
+            //var developerList = new List<Developer>();
+            //var models = new Queue<Developer>();
+            var predicate = Predicates.Field<Developer>(f => f.Id, Operator.Eq, ids[0]);
+            ViewBag.ids = ids;
+            var list = new DbQuickService().SelectList<Developer>(predicate);
+            //foreach (var id in ids)
+            //{
+            //    developerList.Add(models.FirstOrDefault(m=>m.Id.Equals(id)));
+            //}
+            return View(list);
         }
 
         // POST: Biz/Developer/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int[] ids, FormCollection collection)
         {
-            try
+            if (ids.IsNullOrEmpty())
             {
-                // TODO: Add delete logic here
-
+                ViewBag.Message = "删除失败";
                 return RedirectToAction("Index");
             }
-            catch
+            var predicate = Predicates.Field<Developer>(f => f.Id, Operator.Eq, ids[0]);
+            var list = new DbQuickService().SelectList<Developer>(predicate);
+            try
             {
-                return View();
+                var r = new DbQuickService().Delete<Developer>(ids);
+                if (r)
+                {
+                    ViewBag.Message = "删除成功";
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Message = "删除失败";
+                return View(list);
+            }
+            catch(Exception e)
+            {
+                ViewBag.Message = "删除失败";
+                return View(list);
             }
         }
     }

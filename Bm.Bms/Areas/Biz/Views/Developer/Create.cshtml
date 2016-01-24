@@ -6,7 +6,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li class="active">开发商信息</li>
+        <li class="active">开发商信息新增</li>
     </ol>
 </section>
 
@@ -40,8 +40,12 @@
 
               </div>
               <!-- /.box-body -->
-              <div class="box-footer">
-                <button type="submit" class="btn btn-info pull-right">确认提交</button>
+              <div class="box-footer" style="text-align: right;">
+                <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
+                <a href="@Url.Action("Index")" class="btn bg-blue btn-flat margin">
+                    <i class="fa fa-mail-reply"></i>
+                    返回列表
+                </a>
               </div>
               <!-- /.box-footer -->
             </form>

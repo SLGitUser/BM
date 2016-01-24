@@ -75,11 +75,33 @@ namespace Bm.Areas.Biz.Controllers
         }
 
         // GET: Biz/Developer/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
+
+            if (id!=null)
+            {
+                var predicate = Predicates.Field<Developer>(f => f.Id, Operator.Eq, id);
+                var list = new DbQuickService().SelectList<Developer>(predicate);
+                Developer develop = list[0];
+                return View(develop);
+            } 
+            else
+            {
+                ViewBag.Message = "修改失败";
+                return RedirectToAction("Index");
+            } 
+        }
+        public ActionResult Upadte(int id,string No,string Name)
+        {
+            bool result = new DbQuickService().Update<Developer>(id, No, Name);
+            if (result)
+            { 
+                return RedirectToAction("Index");
+            }
             return View();
         }
-
+     
+       
         // POST: Biz/Developer/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)

@@ -106,6 +106,7 @@
     <Content Include="Areas\Biz\Views\Developer\Create.cshtml" />
     <Content Include="Areas\Biz\Views\Developer\Delete.cshtml" />
     <Content Include="Areas\Biz\Views\Developer\Details.cshtml" />
+    <Content Include="Areas\Biz\Views\Developer\Edit.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

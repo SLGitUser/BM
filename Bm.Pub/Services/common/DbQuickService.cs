@@ -60,19 +60,33 @@ namespace Bm.Services.common
         public bool Delete<TModel>(int[] ids)
             where TModel : class
         {
-            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=1234"))
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=password01!"))
             {
                 cn.Open();
                 var models = cn.Get<TModel>(ids[0]);
-                var isDelete = cn.Delete(models);
+                var isDelete = cn.Update(models);
                 cn.Close();
                 return isDelete;
             }
         }
+        public bool Update<TModel>(int id,string No,string Name)
+            where TModel : class
+        {
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=password01!"))
+            {
+                cn.Open();
+                var models = cn.Get<Developer>(id);
+                models.Name = Name;
+                models.No = No;
+                var isUpdate =cn.Update(models);
+                cn.Close();
+                return isUpdate;             
+            }
+        } 
         public List<TModel> SelectList<TModel>(IFieldPredicate predicate)
             where TModel : class
         {
-            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=1234"))
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=password01!"))
             {
                 cn.Open();
                 IEnumerable<TModel> list = cn.GetList<TModel>(predicate);

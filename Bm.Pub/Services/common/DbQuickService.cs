@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+using Bm.Models.Dp;
 using Dapper;
 using DapperExtensions;
 using DapperExtensions.Sql;
@@ -47,6 +50,35 @@ namespace Bm.Services.common
         {
             int id = _db.Insert(model);
             return id >= 1;
+        }
+        //public bool Delete<TModel>(List<TModel> model)
+        //    where TModel : class
+        //{
+        //    var id = _db.Delete(model);
+        //    return id;
+        //}
+        public bool Delete<TModel>(int[] ids)
+            where TModel : class
+        {
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=1234"))
+            {
+                cn.Open();
+                var models = cn.Get<TModel>(ids[0]);
+                var isDelete = cn.Delete(models);
+                cn.Close();
+                return isDelete;
+            }
+        }
+        public List<TModel> SelectList<TModel>(IFieldPredicate predicate)
+            where TModel : class
+        {
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=1234"))
+            {
+                cn.Open();
+                IEnumerable<TModel> list = cn.GetList<TModel>(predicate);
+                cn.Close();
+                return list.ToList();
+            }
         }
 
 

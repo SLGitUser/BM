@@ -15,14 +15,14 @@ namespace Bm.Areas.Biz.Controllers
         // GET: Biz/Developer
         public ActionResult Index()
         {
-            var models = new DbQuickService().Query<Developer>("select * from dp_developer");
+            var models = new DbQuickService().Query<Developer>("select * from developer");
             return View(models);
         }
 
         // GET: Biz/Developer/Details/5
         public ActionResult Details(int id)
         {
-            var models = new DbQuickService().Query<Developer>("select * from dp_developer");
+            var models = new DbQuickService().Query<Developer>("select * from developer");
             return View(models);
         }
 

@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing.Constraints;
 using System.Web.Services.Description;
 using Bm.Models.Dp;
 using Bm.Modules;
@@ -24,16 +25,15 @@ namespace Bm.Areas.Biz.Controllers
         }
 
         // GET: Biz/Developer/Details/5
-        public ActionResult Details(int[] ids)
+        public ActionResult Details(long[] ids)
         {
             if (ids.IsNullOrEmpty())
             {
-                ViewBag.Message = "删除失败";
-                return RedirectToAction("Index");
+                ViewBag.Message = "请选择一条数据";
+                return View();
             }
-            var predicate = Predicates.Field<Developer>(f => f.Id, Operator.Eq, ids[0]);
-            ViewBag.ids = ids;
-            var list = new DbQuickService().SelectList<Developer>(predicate);
+            var sql = "select * from Developer where id in @Ids";
+            var list = DbQuickService.SelectListFormSql<Developer>(sql, new {Ids=ids});
             return View(list);
         }
 
@@ -75,7 +75,7 @@ namespace Bm.Areas.Biz.Controllers
         }
 
         // GET: Biz/Developer/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(long? id)
         {
 
             if (id!=null)
@@ -112,36 +112,27 @@ namespace Bm.Areas.Biz.Controllers
         }
      
         // GET: Biz/Developer/Delete/5
-        public ActionResult Delete(int[] ids)
+        public ActionResult Delete(long[] ids)
         {
             if (ids.IsNullOrEmpty())
             {
-                ViewBag.Message = "删除失败";
-                return RedirectToAction("Index");
+                ViewBag.Message = "请选择一条数据";
+                return View();
             }
-            //var developerList = new List<Developer>();
-            //var models = new Queue<Developer>();
-            var predicate = Predicates.Field<Developer>(f => f.Id, Operator.Eq, ids[0]);
-            ViewBag.ids = ids;
-            var list = new DbQuickService().SelectList<Developer>(predicate);
-            //foreach (var id in ids)
-            //{
-            //    developerList.Add(models.FirstOrDefault(m=>m.Id.Equals(id)));
-            //}
+            var sql = "select * from Developer where id in @Ids";
+            var list = DbQuickService.SelectListFormSql<Developer>(sql, new { Ids = ids });
             return View(list);
         }
 
         // POST: Biz/Developer/Delete/5
         [HttpPost]
-        public ActionResult Delete(int[] ids, FormCollection collection)
+        public ActionResult Delete(FormCollection collection)
         {
-            if (ids.IsNullOrEmpty())
-            {
-                ViewBag.Message = "删除失败";
-                return RedirectToAction("Index");
-            }
-            var predicate = Predicates.Field<Developer>(f => f.Id, Operator.Eq, ids[0]);
-            var list = new DbQuickService().SelectList<Developer>(predicate);
+            var model = new List<Developer>();
+            TryUpdateModel(model);
+            var ids =model.Select(m => m.Id).ToArray();
+            var sql = "select * from Developer where id in @Ids";
+            var list = DbQuickService.SelectListFormSql<Developer>(sql, new { Ids = ids });
             try
             {
                 var r = new DbQuickService().Delete<Developer>(ids);

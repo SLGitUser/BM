@@ -56,33 +56,41 @@ namespace Bm.Services.common
         //    var id = _db.Delete(model);
         //    return id;
         //}
-        public bool Delete<TModel>(int[] ids)
+        public bool Delete<TModel>(long[] ids)
             where TModel : class
         {
-            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=password01!"))
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=1234"))
             {
                 cn.Open();
-                var models = cn.Get<TModel>(ids[0]);
-                var isDelete = cn.Update(models);
+                foreach (var id in ids)
+                {
+                    var model = cn.Get<TModel>(id);
+                    var isDelete = cn.Delete(model);
+                    if (!isDelete)
+                    {
+                        cn.Close();
+                        return false;
+                    }
+                }
                 cn.Close();
-                return isDelete;
+                return true;
             }
         }
         public bool Update<TModel>(TModel model)
             where TModel : class
         {
-            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=password01!"))
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=1234"))
             {
                 cn.Open();
                 var isUpdate =cn.Update(model);
                 cn.Close();
                 return isUpdate;             
             }
-        } 
+        }
         public List<TModel> SelectList<TModel>(IFieldPredicate predicate)
             where TModel : class
         {
-            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=password01!"))
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=1234"))
             {
                 cn.Open();
                 IEnumerable<TModel> list = cn.GetList<TModel>(predicate);
@@ -90,7 +98,19 @@ namespace Bm.Services.common
                 return list.ToList();
             }
         }
-
+        public static List<TModel> SelectListFormSql<TModel>(string sql,object obj)
+            where TModel : class
+        {
+            using (MySqlConnection cn = new MySqlConnection("Server=127.0.0.1;Database=bm;Uid=root;Pwd=1234"))
+            {
+                cn.Open();
+                //var list = cn.Query<TModel>("select * from @Table where id in @Id",new { Table = table,Id = ids });
+                var list = cn.Query<TModel>
+                    (sql, obj);
+                cn.Close();
+                return list.ToList();
+            }
+        }
 
         ~DbQuickService()
         {

@@ -37,9 +37,13 @@ namespace Bm.Services.Common
 
         public virtual IList<TModel> GetByIds(long[] ids)
         {
+            if(ids.IsNullOrEmpty()) return new List<TModel>();
+
             using (var conn = ConnectionManager.Open())
             {
-                return conn.GetBy<TModel, long>(ids).ToList();
+                var query = new Criteria<TModel>()
+                    .And($"ID IN ({string.Join(",", ids)})");
+                return conn.Query(query).ToList();
             }
         }
 

@@ -16,24 +16,26 @@ namespace Bm.Modules.Orm
 
         private readonly IList<string> _orders = new List<string>();
 
-        private void AndSql(string sql)
+        public Criteria<TModel> And(string sql)
         {
-            if (string.IsNullOrWhiteSpace(sql)) return;
+            if (string.IsNullOrWhiteSpace(sql)) return this;
 
             var lastSql = _whereSqls.Any()
                 ? $"({_whereSqls.Last()}) AND ({sql})"
                 : sql;
             _whereSqls.Add(lastSql);
+            return this;
         }
 
-        private void OrSql(string sql)
+        public Criteria<TModel> Or(string sql)
         {
-            if (string.IsNullOrWhiteSpace(sql)) return;
+            if (string.IsNullOrWhiteSpace(sql)) return this;
 
             var lastSql = _whereSqls.Any()
                 ? $"({_whereSqls.Last()}) OR ({sql})"
                 : sql;
             _whereSqls.Add(lastSql);
+            return this;
         }
 
         private string MakeSql<TProp>(Expression<Func<TModel, TProp>> propExpr, Op op, TProp value)
@@ -129,14 +131,12 @@ namespace Bm.Modules.Orm
 
         public Criteria<TModel> And(Criteria<TModel> q)
         {
-            AndSql(q.WhereSql);
-            return this;
+            return And(q.WhereSql);
         }
 
         public Criteria<TModel> Or(Criteria<TModel> q)
         {
-            OrSql(q.WhereSql);
-            return this;
+            return Or(q.WhereSql);
         }
 
         public Criteria<TModel> Select<TProp>(Expression<Func<TModel, TProp>> propExpr)
@@ -161,7 +161,7 @@ namespace Bm.Modules.Orm
 
             _whereSqls.Clear();
             var sql = MakeSql(propExpr, op, value);
-            AndSql(sql);
+            And(sql);
             return this;
         }
 
@@ -171,8 +171,7 @@ namespace Bm.Modules.Orm
                 throw new ArgumentException("invalid op", nameof(op));
 
             var sql = MakeSql(propExpr, op, value);
-            AndSql(sql);
-            return this;
+            return And(sql);
         }
 
         public Criteria<TModel> Or<TProp>(Expression<Func<TModel, TProp>> propExpr, Op op, TProp value)
@@ -181,8 +180,7 @@ namespace Bm.Modules.Orm
                 throw new ArgumentException("invalid op", nameof(op));
 
             var sql = MakeSql(propExpr, op, value);
-            OrSql(sql);
-            return this;
+            return Or(sql);
         }
 
         public Criteria<TModel> And<TProp>(Expression<Func<TModel, TProp>> propExpr, Op op, IList<TProp> values)
@@ -191,8 +189,7 @@ namespace Bm.Modules.Orm
                 throw new ArgumentException("invalid op", nameof(op));
 
             var sql = MakeInSql(propExpr, op, values);
-            AndSql(sql);
-            return this;
+            return And(sql);
         }
 
         public Criteria<TModel> Or<TProp>(Expression<Func<TModel, TProp>> propExpr, Op op, IList<TProp> values)
@@ -201,8 +198,7 @@ namespace Bm.Modules.Orm
                 throw new ArgumentException("invalid op", nameof(op));
 
             var sql = MakeInSql(propExpr, op, values);
-            OrSql(sql);
-            return this;
+            return Or(sql);
         }
 
         #region 排序

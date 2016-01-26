@@ -1,56 +1,60 @@
 ﻿@using Bm.Models.Common
+@using Bm.Modules.Helper
 @model IEnumerable<MessageInfo>
 
-<div class="box-body">
-    @foreach (var item in Model)
-    {
-        if (item.Type.Equals(MessageType.Error) || item.Type.Equals(MessageType.Fatal))
+@if (!Model.IsNullOrEmpty())
+{
+    <div class="box-body">
+        @foreach (var item in Model)
         {
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-ban"></i> 错误！</h4>
-                @item.Message
-            </div>
+            if (item.Type.Equals(MessageType.Error) || item.Type.Equals(MessageType.Fatal))
+            {
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i> 错误！</h4>
+                    @item.Message
+                </div>
+            }
+            else if (item.Type.Equals(MessageType.Warn))
+            {
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-warning"></i> 警告！</h4>
+                    @item.Message
+                </div>
+            }
+            else if (item.Type.Equals(MessageType.Info))
+            {
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-info"></i> 提示！</h4>
+                    @item.Message
+                </div>
+            }
+            else if (item.Type.Equals(MessageType.Debug) || item.Type.Equals(MessageType.Trace))
+            {
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-info"></i> 调试！</h4>
+                    @item.Message
+                </div>
+            }
+            else if (item.Type.Equals(MessageType.Success))
+            {
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i> 操作成功!</h4>
+                    @item.Message
+                </div>
+            }
+            else if (item.Type.Equals(MessageType.Failure))
+            {
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i> 操作失败！</h4>
+                    @item.Message
+                </div>
+            }
         }
-        else if (item.Type.Equals(MessageType.Warn))
-        {
-            <div class="alert alert-warning alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-warning"></i> 警告！</h4>
-                @item.Message
-            </div>
-        }
-        else if (item.Type.Equals(MessageType.Info))
-        {
-            <div class="alert alert-info alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-info"></i> 提示！</h4>
-                @item.Message
-            </div>
-        }
-        else if (item.Type.Equals(MessageType.Debug) || item.Type.Equals(MessageType.Trace))
-        {
-            <div class="alert alert-info alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-info"></i> 调试！</h4>
-                @item.Message
-            </div>
-        }
-        else if (item.Type.Equals(MessageType.Success))
-        {
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> 操作成功!</h4>
-                @item.Message
-            </div>
-        }
-        else if (item.Type.Equals(MessageType.Failure))
-        {
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-ban"></i> 操作失败！</h4>
-                @item.Message
-            </div>
-        }
-    }
-</div>
+    </div>
+}

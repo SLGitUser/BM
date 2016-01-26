@@ -283,7 +283,7 @@ namespace Bm.Modules.Orm
         public string ToSelectSql()
         {
             var buff = new StringBuilder();
-            buff.Append("SELEC");
+            buff.Append("SELECT");
             buff.Append(_selectFields.Any() ? string.Join(", ", _selectFields) : " *");
             GetFromSql(buff);
             return buff.ToString();
@@ -292,7 +292,7 @@ namespace Bm.Modules.Orm
         public string ToCountSql()
         {
             var buff = new StringBuilder();
-            buff.Append("SELEC COUNT(*) AS count");
+            buff.Append("SELECT COUNT(*) AS count");
             GetFromSql(buff);
             return buff.ToString();
         }

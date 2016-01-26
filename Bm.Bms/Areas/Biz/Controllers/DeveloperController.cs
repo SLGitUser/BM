@@ -29,7 +29,7 @@ namespace Bm.Areas.Biz.Controllers
         {
             if (ids.IsNullOrEmpty())
             {
-                ViewBag.Message = "请选择一条数据";
+                FlashWarn("请选择一条数据");
                 return View();
             }
             var list = _service.GetByIds(ids);
@@ -52,7 +52,7 @@ namespace Bm.Areas.Biz.Controllers
                 TryUpdateModel(model, collection);
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.ErrorInfo = "invalid";
+                    FlashError("数据验证未通过，请检查是否存在为空的必填项");
                     return View(model);
                 }
                 model.CreatedAt = DateTime.Now;
@@ -91,7 +91,7 @@ namespace Bm.Areas.Biz.Controllers
             TryUpdateModel(model, collection);
             if (!ModelState.IsValid)
             {
-                ViewBag.ErrorInfo = "invalid";
+                FlashError("数据验证未通过，请检查是否存在为空的必填项");
                 return View(model);
             }
             model.UpdatedBy = "SYSTEM";

@@ -71,8 +71,9 @@ namespace Bm.Services.Dp
                 var trans = conn.BeginTransaction();
 
                 var query = new Criteria<Developer>()
-                    .And(m => m.No, Op.Eq, model.No)
-                    .And(m => m.Name, Op.Eq, model.Name);
+                    .Where(m => m.No, Op.Eq, model.No)
+                    .Or(m => m.Name, Op.Eq, model.Name)
+                    .And(m => m.Id, Op.NotEq, model.Id);
                 if (conn.Exists(query))
                 {
                     trans.Rollback();

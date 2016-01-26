@@ -99,6 +99,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Biz\Views\Developer\Create.cshtml" />
+    <Content Include="Areas\Biz\Views\Developer\Delete.cshtml" />
+    <Content Include="Areas\Biz\Views\Developer\Edit.cshtml" />
+    <Content Include="Areas\Biz\Views\Developer\Details.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -133,6 +136,7 @@
     <Content Include="Areas\Biz\Views\Developer\Index.cshtml" />
     <None Include="Properties\PublishProfiles\deploy.pubxml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Messages.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,29 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Bm.Models.Dp;
 using Bm.Modules;
-using Bm.Services;
-using Bm.Services.common;
+using Bm.Modules.Helper;
+using Bm.Services.Common;
+using Bm.Services.Dp;
 
 namespace Bm.Areas.Biz.Controllers
 {
     public sealed class DeveloperController : BaseAuthController
     {
+
+        private readonly DeveloperService _developerService;
+
+        public DeveloperController()
+        {
+            _developerService = new DeveloperService(User?.Identity?.Name);
+        }
+
         // GET: Biz/Developer
         public ActionResult Index()
         {
-            var models = new DbQuickService().Query<Developer>("select * from dp_developer");
+            var models = _developerService.GetAll();
             return View(models);
         }
 
         // GET: Biz/Developer/Details/5
         public ActionResult Details(int id)
         {
-            var models = new DbQuickService().Query<Developer>("select * from dp_developer");
-            return View(models);
+            var model = _developerService.GetById(id);
+            return View(model);
         }
 
         // GET: Biz/Developer/Create
@@ -42,22 +48,22 @@ namespace Bm.Areas.Biz.Controllers
                 TryUpdateModel(model, collection);
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.ErrorInfo = "invalid";
+                    FlashError("模型校验失败");
                     return View(model);
                 }
                 model.CreatedAt = DateTime.Now;
                 model.CreatedBy = "SYSTEM";
 
-                var r = new DbQuickService().Create(model);
-                if (!r)
+                var r = _developerService.Create(model);
+                if (r.HasError)
                 {
-                    ViewBag.ErrorInfo = "invalid";
+                    FlashMessage(r);
                     return View(model);
 
                 }
                 return RedirectToAction("Index");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }
@@ -66,7 +72,8 @@ namespace Bm.Areas.Biz.Controllers
         // GET: Biz/Developer/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = _developerService.GetById(id);
+            return View(model);
         }
 
         // POST: Biz/Developer/Edit/5
@@ -75,6 +82,17 @@ namespace Bm.Areas.Biz.Controllers
         {
             try
             {
+                var model = new Developer();
+                TryUpdateModel(model, collection);
+                if (!ModelState.IsValid)
+                {
+                    FlashError("模型校验失败");
+                    return View(model);
+                }
+                model.UpdatedAt = DateTime.Now;
+                model.UpdatedBy = "SYSTEM";
+
+                _developerService.Update(model);
                 // TODO: Add update logic here
 
                 return RedirectToAction("Index");
@@ -86,18 +104,28 @@ namespace Bm.Areas.Biz.Controllers
         }
 
         // GET: Biz/Developer/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long[] ids)
         {
-            return View();
+            if (ids.IsNullOrEmpty()) return RedirectToAction("Index");
+
+            var models = _developerService.GetByIds(ids);
+            return View(models);
         }
 
         // POST: Biz/Developer/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(long[] ids, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                if (ids.IsNullOrEmpty()) return RedirectToAction("Index");
+
+                var r = BaseDbService.Delete<Developer>(ids);
+
+                if (r.HasError)
+                {
+
+                }
 
                 return RedirectToAction("Index");
             }

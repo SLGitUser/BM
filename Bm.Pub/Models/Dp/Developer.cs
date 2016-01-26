@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using com.senlang.Sdip.Data;
+using Bm.Models.Common;
 
 namespace Bm.Models.Dp
 {

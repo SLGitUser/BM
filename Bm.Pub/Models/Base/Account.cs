@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using com.senlang.Sdip.Data;
-using com.senlang.Sdip.Util;
+using Bm.Models.Common;
+using Bm.Modules.Helper;
+
 
 namespace Bm.Models.Base
 {
@@ -248,7 +249,7 @@ namespace Bm.Models.Base
             if (string.IsNullOrEmpty(password)) return false;
             if (string.IsNullOrEmpty(PasswordHash)) return false;
             string passwordHash = Encrypt(PasswordSalt, password);
-            return PasswordHash.EqualsIgnoreCase(passwordHash);
+            return PasswordHash.Equals(passwordHash, StringComparison.CurrentCultureIgnoreCase);
         }
         
         /// <summary>

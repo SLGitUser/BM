@@ -34,10 +34,6 @@
       <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DapperExtensions, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DapperExtensions.1.4.4\lib\net40\DapperExtensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -46,13 +42,11 @@
       <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sdip.Core">
-      <HintPath>..\Assemblies\Sdip.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,15 +70,48 @@
     <Compile Include="Models\Base\NavRoleRef.cs" />
     <Compile Include="Models\Base\No.cs" />
     <Compile Include="Models\Base\Role.cs" />
+    <Compile Include="Models\Common\CommonInterface.cs" />
+    <Compile Include="Models\Common\MessageRecorder.cs" />
     <Compile Include="Models\Dp\Project.cs" />
     <Compile Include="Models\Dp\ProjectInfo.cs" />
     <Compile Include="Models\Dp\ProjectInfoType.cs" />
     <Compile Include="Models\Dp\Developer.cs" />
     <Compile Include="Models\Dp\Promotion.cs" />
     <Compile Include="Modules\Enumerations.cs" />
-    <Compile Include="Modules\StringHelper.cs" />
+    <Compile Include="Modules\Helper\ExpressionHelper.cs" />
+    <Compile Include="Modules\Helper\HashHelper.cs" />
+    <Compile Include="Modules\Helper\ListHelper.cs" />
+    <Compile Include="Modules\Helper\ArrayHelper.cs" />
+    <Compile Include="Modules\Helper\TypeHelper.cs" />
+    <Compile Include="Modules\Orm\Adapter\MySqlAdapter.cs" />
+    <Compile Include="Modules\Orm\Adapter\PostgresAdapter.cs" />
+    <Compile Include="Modules\Orm\Adapter\SqlCeServerAdapter.cs" />
+    <Compile Include="Modules\Orm\Adapter\SQLiteAdapter.cs" />
+    <Compile Include="Modules\Orm\Adapter\SqlServerAdapter.cs" />
+    <Compile Include="Modules\Orm\Annotation\ComputedAttribute.cs" />
+    <Compile Include="Modules\Orm\Annotation\ExplicitKeyAttribute.cs" />
+    <Compile Include="Modules\Orm\Annotation\KeyAttribute.cs" />
+    <Compile Include="Modules\Orm\ConnExtension.cs" />
+    <Compile Include="Modules\Orm\ExpressionHelper.cs" />
+    <Compile Include="Modules\Orm\MapHelper.cs" />
+    <Compile Include="Modules\Orm\SqlMapperExtensions.cs" />
+    <Compile Include="Modules\Orm\ISqlAdapter.cs" />
+    <Compile Include="Modules\Orm\NamingHelper.cs" />
+    <Compile Include="Modules\Orm\Annotation\TableAttribute.cs" />
+    <Compile Include="Modules\Orm\Annotation\WriteAttribute.cs" />
+    <Compile Include="Modules\Helper\StringHelper.cs" />
+    <Compile Include="Modules\Orm\Criteria.cs" />
+    <Compile Include="Modules\Orm\Sql\OpHelper.cs" />
+    <Compile Include="Modules\Orm\Sql\Op.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\common\DbQuickService.cs" />
+    <Compile Include="Services\Common\BaseDbService.cs" />
+    <Compile Include="Services\Common\DbModelService.cs" />
+    <Compile Include="Services\Common\DbQuickService.cs" />
+    <Compile Include="Modules\Orm\ConnectionManager.cs" />
+    <Compile Include="Modules\Orm\Annotation\IgnoreMappingAttribute.cs" />
+    <Compile Include="Modules\Orm\SqlExtension.cs" />
+    <Compile Include="Services\Common\RepoService.cs" />
+    <Compile Include="Services\Dp\DeveloperService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

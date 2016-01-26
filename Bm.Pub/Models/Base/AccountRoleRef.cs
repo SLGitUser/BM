@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using com.senlang.Sdip.Data;
+using Bm.Models.Common;
 
 namespace Bm.Models.Base
 {

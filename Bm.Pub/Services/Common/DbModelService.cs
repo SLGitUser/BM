@@ -6,15 +6,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Bm.Annotations;
 using Bm.Models.Base;
-using Bm.Modules;
-using Bm.Services;
-using Bm.Services.common;
-using com.senlang.Sdip.Util;
-using static System.String;
+using Bm.Modules.Helper;
 
-namespace Bm.Dev.Controllers
+
+namespace Bm.Services.Common
 {
-    public class DbModelService
+    /// <summary>
+    /// 数据模型服务
+    /// </summary>
+    public static class DbModelService
     {
         private static readonly string Nl = Environment.NewLine;
 
@@ -28,9 +28,8 @@ namespace Bm.Dev.Controllers
             var toCreateModels = new List<string>();
             var existModels = new List<string>();
 
-            var service = new DbQuickService();
 
-            var existList = service.Query<string>("show tables");
+            var existList = BaseDbService.Query<string>("show tables");
 
             foreach (var type in assembly.GetExportedTypes())
             {
@@ -58,13 +57,13 @@ namespace Bm.Dev.Controllers
         public static string GetTableName(Type modelType)
         {
             var tableAttribute = modelType.GetAttribute<TableAttribute>();
-            if (!IsNullOrEmpty(tableAttribute?.Name))
+            if (!string.IsNullOrEmpty(tableAttribute?.Name))
             {
                 return tableAttribute.Name;
             }
             var pkgParts = modelType.FullName.Split('.');
             var packegName = pkgParts[Array.IndexOf(pkgParts, "Models") + 1];
-            return Concat(packegName, modelType.Name).Underline();
+            return string.Concat(packegName, modelType.Name).Underline();
         }
 
         /// <summary>
@@ -75,10 +74,9 @@ namespace Bm.Dev.Controllers
         {
             var createSql = GetCreateSql(modelType);
             var dropSql = $"DROP TABLE IF EXISTS `{GetTableName(modelType)}`;";
-            var sql = Concat(dropSql, Environment.NewLine, createSql);
+            var sql = string.Concat(dropSql, Environment.NewLine, createSql);
 
-            var service = new DbQuickService();
-            service.Execute(sql);
+            BaseDbService.Execute(sql);
         }
 
         private static string GetCreateSql(Type modelType)
@@ -89,14 +87,14 @@ namespace Bm.Dev.Controllers
             var head = $"CREATE TABLE IF NOT EXISTS `{tableName}` ({Nl}";
 
             var tableAttribute = modelType.GetAttribute<DisplayNameAttribute>();
-            var tableNameDiscribe = tableAttribute?.DisplayName ?? Empty;
+            var tableNameDiscribe = tableAttribute?.DisplayName ?? string.Empty;
 
             //得到BODY同时加入尾部创建主键语句
             var trail = $"){Environment.NewLine}COMMENT='{tableNameDiscribe}'{Nl}COLLATE='utf8_general_ci'{Nl}ENGINE=InnoDB;";
 
             var body = GetCreateSqlBody(ref trail, modelType);
 
-            return Concat(head, body, trail);
+            return string.Concat(head, body, trail);
         }
 
         private static string GetCreateSqlBody(ref string trail, Type modelType)
@@ -128,7 +126,7 @@ namespace Bm.Dev.Controllers
 
                 var type = propertyInfo.PropertyType;
                 //var primaryKey = propertyInfo.GetAttribute<KeyAttribute>();
-                var autoIncrement = propertyInfo.Name.Equals("Id") ? "AUTO_INCREMENT" : Empty;
+                var autoIncrement = propertyInfo.Name.Equals("Id") ? "AUTO_INCREMENT" : string.Empty;
                 //尾部创建主键语句
                 if (propertyInfo.Name.Equals("Id"))
                 {
@@ -160,11 +158,11 @@ namespace Bm.Dev.Controllers
                 }
                 else if (type == typeof(long))
                 {
-                    dbType = Format(propertyInfo.Name.LastIndexOf("id", StringComparison.InvariantCultureIgnoreCase) != -1 ? "BIGINT({0}) UNSIGNED" : "BIGINT({0})", stringLen);
+                    dbType = string.Format(propertyInfo.Name.LastIndexOf("id", StringComparison.InvariantCultureIgnoreCase) != -1 ? "BIGINT({0}) UNSIGNED" : "BIGINT({0})", stringLen);
                 }
                 else if (type == typeof(long?))
                 {
-                    dbType = Format(propertyInfo.Name.LastIndexOf("id", StringComparison.InvariantCultureIgnoreCase) != -1 ? "BIGINT({0}) UNSIGNED" : "BIGINT({0})", stringLen);
+                    dbType = string.Format(propertyInfo.Name.LastIndexOf("id", StringComparison.InvariantCultureIgnoreCase) != -1 ? "BIGINT({0}) UNSIGNED" : "BIGINT({0})", stringLen);
                     required = "NULL DEFAULT NULL";
                 }
                 else if (type == typeof(DateTime))
@@ -194,7 +192,7 @@ namespace Bm.Dev.Controllers
 
                 list.Add($"`{name}` {dbType} {required} {autoIncrement} COMMENT '{comment}'");
             }
-            return Join("," + Environment.NewLine, list);
+            return string.Join("," + Environment.NewLine, list);
         }
     }
 }

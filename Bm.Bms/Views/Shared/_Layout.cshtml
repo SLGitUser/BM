@@ -1,4 +1,5 @@
-﻿@{ Layout = null;}
+﻿@using Bm.Models.Common
+@{ Layout = null;}
 <!DOCTYPE html>
 <html>
 <head>
@@ -399,9 +400,17 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-               @RenderBody()
-        </div>
+    <div class="content-wrapper">
+
+
+        <section class="content-header">
+            @RenderSection("PageHead", false)
+        </section>
+
+        @{ Html.RenderPartial("_Messages", ViewBag.Messages == null ? new List<MessageInfo>() : (IList<MessageInfo>)ViewBag.Messages); }
+
+        @RenderBody()
+    </div>
         <!-- /.content-wrapper -->
 
         <footer class="main-footer">

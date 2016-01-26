@@ -1,0 +1,53 @@
+﻿@model Bm.Models.Dp.Developer
+
+@section PageHead{
+    <h1>
+        开发商信息
+        <small>（页面编号：0521）</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="active">开发商信息</li>
+    </ol>
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">修改开发商</h3>
+        </div>
+        @ViewBag.ErrorInfo
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
+
+            <div class="box-body">
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="No" class="col-sm-3 control-label">编号</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="No" name="No" value="@Model.No" placeholder="编号">
+                            <label for="No" class="control-label">@Html.ValidationMessageFor(model => model.No)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-3 control-label">名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" placeholder="名称">
+                            <label for="Name" class="control-label">@Html.ValidationMessageFor(model => model.Name)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-info pull-right">确认提交</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+</section>

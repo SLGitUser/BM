@@ -69,7 +69,7 @@
                                             </th>
                                             <td class="sorting_1" style="width:291px;">@item.No</td>
                                             <td style="width:376px">@item.Name</td>
-                                            <td><a class="btn btn-default" href="/Biz/Developer/Edit?id=@item.Id"> <i class="fa fa-pencil-square-o"></i> 修改</a></td>
+                                            <td><a class="btn btn-default" href="@Url.Action("Edit", new {item.Id} )"> <i class="fa fa-pencil-square-o"></i> 修改</a></td>
                                         </tr>
                                     }
                                 </tbody>

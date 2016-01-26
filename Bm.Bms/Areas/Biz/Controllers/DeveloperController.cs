@@ -95,6 +95,7 @@ namespace Bm.Areas.Biz.Controllers
                 return View(model);
             }
             model.UpdatedBy = "SYSTEM";
+            model.UpdatedAt = DateTime.Now;
 
             var r = _service.Update(model);
             if (r.HasError)

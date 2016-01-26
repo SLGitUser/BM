@@ -11,7 +11,7 @@ namespace Bm.Modules.Orm.Sql
             { Op.Nul, "{0} IS NULL" },
             { Op.NotNul, "{0} IS NOT NULL" },
 
-            { Op.Eq, "{0} == {1}" },
+            { Op.Eq, "{0} = {1}" },
             { Op.NotEq, "{0} <> {1}" },
             { Op.Gt, "{0} > {1}" },
             { Op.Ge, "{0} >= {1}" },

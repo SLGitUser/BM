@@ -4,7 +4,7 @@
 
 @if (!Model.IsNullOrEmpty())
 {
-    <div class="box-body">
+    <div class="box-body" style="padding: 10px 10px 0 10px">
         @foreach (var item in Model)
         {
             if (item.Type.Equals(MessageType.Error) || item.Type.Equals(MessageType.Fatal))

@@ -29,8 +29,8 @@ namespace Bm.Areas.Biz.Controllers
         {
             if (ids.IsNullOrEmpty())
             {
-                ViewBag.Message = "请选择一条数据";
-                return View();
+                FlashWarn("请选择一条数据");
+                return RedirectToAction("Index");
             }
             var list = _service.GetByIds(ids);
             return View(list);
@@ -52,7 +52,7 @@ namespace Bm.Areas.Biz.Controllers
                 TryUpdateModel(model, collection);
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.ErrorInfo = "invalid";
+                    FlashWarn("数据模型校验失败");
                     return View(model);
                 }
                 model.CreatedAt = DateTime.Now;
@@ -91,7 +91,7 @@ namespace Bm.Areas.Biz.Controllers
             TryUpdateModel(model, collection);
             if (!ModelState.IsValid)
             {
-                ViewBag.ErrorInfo = "invalid";
+                FlashWarn("数据模型校验失败");
                 return View(model);
             }
             model.UpdatedBy = "SYSTEM";

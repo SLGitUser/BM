@@ -1,5 +1,9 @@
 ﻿@model Bm.Models.Dp.Developer
-<section class="content-header">
+
+@section Header{
+}
+
+@section PageHead {
     <h1>
         开发商信息
         <small>（页面编号：0521）</small>
@@ -8,7 +12,7 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li class="active">开发商信息新增</li>
     </ol>
-</section>
+}
 
 <!-- Main content -->
 <section class="content">
@@ -16,7 +20,6 @@
     <div class="box-header with-border">
         <h3 class="box-title">新增开发商</h3>
     </div>
-    @ViewBag.ErrorInfo
             <!-- /.box-header -->
     <!-- form start -->
             <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
@@ -26,6 +29,7 @@
 
                       <div class="col-sm-10">
                           <input type="text" class="form-control" id="No" name="No" placeholder="编号">
+                          <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.No)</label>
                       </div>
                   </div>
 
@@ -35,6 +39,7 @@
 
                       <div class="col-sm-10">
                           <input type="text" class="form-control" id="Name" name="Name" placeholder="名称">
+                          <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.Name)</label>
                       </div>
                   </div>
 

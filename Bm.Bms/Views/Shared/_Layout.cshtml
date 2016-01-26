@@ -33,6 +33,7 @@
                 background-color: #3c8dbc;
             }
         </style>*@
+    @RenderSection("Header", false)
 </head>
 <body class="hold-transition skin-blue-light sidebar-mini">
     <div class="wrapper">
@@ -400,17 +401,14 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+        <div class="content-wrapper">
+            <section class="content-header">
+                @RenderSection("PageHead", false)
+            </section>
+            @{ Html.RenderPartial("_Messages", ViewBag.Messages == null ? new List<MessageInfo>() : (IList<MessageInfo>)ViewBag.Messages); }
 
-
-        <section class="content-header">
-            @RenderSection("PageHead", false)
-        </section>
-
-        @{ Html.RenderPartial("_Messages", ViewBag.Messages == null ? new List<MessageInfo>() : (IList<MessageInfo>)ViewBag.Messages); }
-
-        @RenderBody()
-    </div>
+            @RenderBody()
+        </div>
         <!-- /.content-wrapper -->
 
         <footer class="main-footer">

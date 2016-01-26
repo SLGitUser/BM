@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bm.Models.Common;
+using Bm.Modules.Helper;
 using Bm.Modules.Orm;
 
 namespace Bm.Services.Common
@@ -52,13 +53,22 @@ namespace Bm.Services.Common
             }
         }
 
-        public virtual MessageRecorder<bool> Delete(TModel model)
+        public virtual MessageRecorder<bool> Delete(params TModel[] models)
         {
             var r = new MessageRecorder<bool>();
+            if (models.IsNullOrEmpty()) return r.SetValue(true);
+            
             using (var conn = ConnectionManager.Open())
             {
-                var isOk = conn.Delete(model);
-                return r.SetValue(isOk);
+                var trans = conn.BeginTransaction();
+                var isOk = models.All(m=>conn.Delete(m, trans));
+                if (isOk)
+                {
+                    trans.Commit();
+                    return r.SetValue(true);
+                }
+                trans.Rollback();
+                return r;
             }
         }
 

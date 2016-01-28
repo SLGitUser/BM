@@ -1,17 +1,16 @@
-﻿@model IList<Bm.Models.Dp.Developer>
+﻿@using Bm.Modules.Html
+@model IList<Bm.Models.Dp.Developer>
 
 @section Header{
     <script src="~/Content/JavaScript/Js_Tools.js"></script>
 }
 
 @section PageHead {
-    <h1>
-        开发商信息
-        <small>（页面编号：0521）</small>
-    </h1>
+    <h1>开发商信息<small></small></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li class="active">开发商信息删除</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
+        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>开发商</a></li>
+        <li class="active">删除开发商信息</li>
     </ol>
 }
 @using (Html.BeginForm())
@@ -24,44 +23,30 @@
                     <h3 class="box-title">确定删除这些数据吗？</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th>编号</th>
-                                <th>名称</th>
-                            </tr>
-                            @for (int i = 0; i < Model.Count; i++)
-                            {
-                                @Html.HiddenFor(m => m[i].Id)
-                                <tr>
-                                    <td>@Model[i].No</td>
-                                    <td>@Model[i].Name</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                <div class="box-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                 @Html.Raw(Model.ToHtmlTable()
+                                .Table(new HtmlElement("table")
+                                    .Attr("class", "table data table-bordered table-striped dataTable")
+                                    .Attr("role", "grid")
+                                    .Attr("aria-describedby", "example1_info"))
+                                .Add(m => m.No)
+                                .Add(m => m.Name)
+                                .ToString())
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" class="btn bg-blue btn-flat margin"><i class="fa fa-check"></i> 确认删除</button>
+                    <a href="@Url.Action("Index")" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
+                </div>
+                <!-- /.box-footer -->
             </div>
             <!-- /.box -->
-        </div>
-        @*@Html.AntiForgeryToken()*@
-        @*var longs = ViewBag.ids as List<long>;
-            foreach (var item in longs)
-            {
-                var id = item;
-                @Html.TextBox("ids",id)
-            }*@
-        <div class="form-actions no-color btn-group">
-            <button type="submit" class="btn bg-blue btn-flat margin">
-                <i class="fa fa-check"></i>
-                确认删除
-            </button>
-            <a href="@Url.Action("Index")" class="btn bg-blue btn-flat margin">
-                <i class="fa fa-mail-reply"></i>
-                返回列表
-            </a>
         </div>
     </section>
 }

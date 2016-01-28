@@ -142,7 +142,7 @@ namespace Bm.Modules.Html
 
             var pi = typeof(TModel).GetProperty(propName);
             _tbl.HeadEles.Add(new HtmlElement("th").Attr("data-prop", pi.Name).Append(
-                new HtmlElement("input").Attr("type", "checkbox").Attr("onclick", "switchCheckAll('" + iName + "')")));
+                new HtmlElement("input").Attr("type", "checkbox").Attr("onclick", "switchCheckAll(this, '" + iName + "')")));
 
             var propFunc = propExpr.Compile();
             var fmtFunc = formatFunc ?? (m => propFunc(m).ToString());

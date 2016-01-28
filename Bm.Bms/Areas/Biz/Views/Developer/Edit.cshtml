@@ -3,19 +3,17 @@
 }
 
 @section PageHead {
-    <h1>
-        开发商信息
-        <small>（页面编号：0521）</small>
-    </h1>
+    <h1>开发商信息<small></small></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li class="active">开发商信息修改</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
+        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>开发商</a></li>
+        <li class="active">修改开发商信息</li>
     </ol>
 }
 <section class="content">
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">修改开发商</h3>
+            <h3 class="box-title">修改开发商信息</h3>
         </div>
         @using (Html.BeginForm("Edit", "Developer", FormMethod.Post, new Dictionary<string, object>{ { "class",  "form-horizontal" }}))
         {
@@ -48,10 +46,7 @@
               <!-- /.box-body -->
             <div class="box-footer" style="text-align: right;">
                 <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
-                <a href="@Url.Action("Index")" class="btn bg-blue btn-flat margin">
-                    <i class="fa fa-mail-reply"></i>
-                    返回列表
-                </a>
+                <a href="@Url.Action("Index")" class="btn bg-blue btn-flat margin"><i class="fa fa-mail-reply"></i>返回列表</a>
             </div>
         } 
        </div>

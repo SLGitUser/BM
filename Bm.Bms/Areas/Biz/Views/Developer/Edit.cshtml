@@ -15,24 +15,23 @@
         <div class="box-header with-border">
             <h3 class="box-title">修改开发商信息</h3>
         </div>
-        @using (Html.BeginForm("Edit", "Developer", FormMethod.Post, new Dictionary<string, object>{ { "class",  "form-horizontal" }}))
+        @using (Html.BeginForm("Edit", "Developer", FormMethod.Post, new Dictionary<string, object> { { "class", "form-horizontal" } }))
         {
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.CreatedAt)
             @Html.HiddenFor(m => m.CreatedBy)
 
             <div class="box-body">
-                <div class="form-group">
-                      <label for="No" class="col-sm-2 control-label">编号</label>
+                <div class="form-group col-sm-12 col-lg-4 col-md-6">
+                    <label for="No" class="col-sm-2 control-label">编号</label>
 
-                      <div class="col-sm-10">
-                          <input type="text" class="form-control" id="No" name="No" value="@Model.No" placeholder="编号">
-                          <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.No)</label>
-                      </div>
-                  </div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="No" name="No" value="@Model.No" placeholder="编号">
+                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.No)</label>
+                    </div>
+                </div>
 
-
-                <div class="form-group">
+                <div class="form-group col-sm-12 col-lg-4 col-md-6">
                     <label for="Name" class="col-sm-2 control-label">名称</label>
 
                     <div class="col-sm-10">
@@ -48,6 +47,6 @@
                 <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
                 <a href="@Url.Action("Index")" class="btn bg-blue btn-flat margin"><i class="fa fa-mail-reply"></i>返回列表</a>
             </div>
-        } 
-       </div>
-    </section>
+        }
+    </div>
+</section>

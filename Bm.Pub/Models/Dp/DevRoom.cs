@@ -1,13 +1,9 @@
-﻿using Bm.Models.Common;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bm.Models.Common;
 
-namespace Bm
+namespace Bm.Models.Dp
 {
     /// <summary>
     /// 楼盘户型

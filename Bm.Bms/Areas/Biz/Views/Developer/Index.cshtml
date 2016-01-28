@@ -1,4 +1,5 @@
-﻿@model IList<Bm.Models.Dp.Developer>
+﻿@using Bm.Modules.Html
+@model IList<Bm.Models.Dp.Developer>
 
 @section Header{
     <script src="~/Content/JavaScript/Js_Tools.js"></script>
@@ -14,6 +15,16 @@
         <li class="active">开发商信息</li>
     </ol>
 }
+
+<style>
+    .c1 {
+        width: 20px;
+    }
+
+    .ca {
+        width: 160px;
+    }
+</style>
 @using (Html.BeginForm("Delete", "Developer", FormMethod.Get))
 {
 
@@ -47,51 +58,27 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                                <thead>
-                                    <tr role="row">
-                                        <th class="sorting" style="width: 10px">
-                                            <input type="checkbox" id="AllSelect" onclick="allSelect()" />
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 179px;">编号</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 228px;">名称</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 228px;">操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{ var i = 0; }
-                                    @foreach (var item in Model)
-                                    {
-                                        i = 1 - i;
-                                        <tr role="row" class="@(i == 1 ? "odd" : "even")">
-                                            <th>
-                                                <input type="checkbox" name="ids" value="@item.Id" />
-                                            </th>
-                                            <td class="sorting_1" style="width:291px;">@item.No</td>
-                                            <td style="width:376px">@item.Name</td>
-                                            <td><a class="btn btn-default" href="@Url.Action("Edit", new {item.Id} )"> <i class="fa fa-pencil-square-o"></i> 修改</a></td>
-                                        </tr>
-                                    }
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">第 1 至 10 条，共 57 条数据</div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-7">
-                                                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                                                        <ul class="pagination"><li class="paginate_button previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">首页</a></li><li class="paginate_button active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">末页</a></li></ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            @Html.Raw(Model.ToHtmlTable()
+                                .Table(new HtmlElement("table")
+                                    .Attr("id", "example1")
+                                    .Attr("class", "table table-bordered table-striped dataTable")
+                                    .Attr("role", "grid")
+                                    .Attr("aria-describedby", "example1_info"))
+                                .AddCheckBox(m => m.Id, styleFunc: m => "c1")
+                                .Add(m => m.No)
+                                .Add(m => m.Name)
+                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
+                                .ToString())
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                                <ul class="pagination"><li class="paginate_button previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a></li></ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,4 +86,25 @@
             <!-- /.box-body -->
         </div>
     </section>
-                                        }
+}
+
+<!-- DataTables -->
+<script src="http://123.56.185.114:8000/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="http://123.56.185.114:8000/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="http://123.56.185.114:8000/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="http://123.56.185.114:8000/plugins/fastclick/fastclick.js"></script>
+<script>
+    $(function () {
+        //$("#example1").DataTable();
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>

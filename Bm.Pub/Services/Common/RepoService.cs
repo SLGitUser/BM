@@ -37,7 +37,7 @@ namespace Bm.Services.Common
 
         public virtual IList<TModel> GetByIds(long[] ids)
         {
-            if(ids.IsNullOrEmpty()) return new List<TModel>();
+            if (ids.IsNullOrEmpty()) return new List<TModel>();
 
             using (var conn = ConnectionManager.Open())
             {
@@ -61,11 +61,11 @@ namespace Bm.Services.Common
         {
             var r = new MessageRecorder<bool>();
             if (models.IsNullOrEmpty()) return r.SetValue(true);
-            
+
             using (var conn = ConnectionManager.Open())
             {
                 var trans = conn.BeginTransaction();
-                var isOk = models.All(m=>conn.Delete(m, trans));
+                var isOk = models.All(m => conn.Delete(m, trans));
                 if (isOk)
                 {
                     trans.Commit();

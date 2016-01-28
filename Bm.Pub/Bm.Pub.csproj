@@ -72,6 +72,12 @@
     <Compile Include="Models\Base\Role.cs" />
     <Compile Include="Models\Common\CommonInterface.cs" />
     <Compile Include="Models\Common\MessageRecorder.cs" />
+    <Compile Include="Models\Dp\ActivityStep.cs" />
+    <Compile Include="Models\Dp\Activity.cs" />
+    <Compile Include="Models\Dp\CustomerProject.cs" />
+    <Compile Include="Models\Dp\Customer.cs" />
+    <Compile Include="Models\Dp\Task.cs" />
+    <Compile Include="Models\Dp\Message.cs" />
     <Compile Include="Models\Dp\Project.cs" />
     <Compile Include="Models\Dp\ProjectInfo.cs" />
     <Compile Include="Models\Dp\ProjectInfoType.cs" />

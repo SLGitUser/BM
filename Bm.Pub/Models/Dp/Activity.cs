@@ -7,10 +7,10 @@ using Bm.Models.Common;
 namespace Bm.Models.Dp
 {
     /// <summary>
-    /// 经纪人
+    /// 活动
     /// </summary>
-    [DisplayName("经纪人")]
-    public sealed class Broker : IId, IStamp
+    [DisplayName("活动")]
+    public sealed class Activity : IId, IStamp
     {
         #region Implementation of IId
 
@@ -84,119 +84,75 @@ namespace Bm.Models.Dp
 
         #endregion
 
-
-
         /// <summary>
-        /// 读取或者设置名称
+        /// 读取或者设置消息编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("名称")]
-        [StringLength(50)]
-        [Required]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 读取或者设置编号
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("编号")]
-        [StringLength(20)]
-        [Required]
-        public string No { get; set; }
-
-        /// <summary>
-        /// 读取或者设置性别
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("性别")]
-        [StringLength(5)]
-        public string Gender { get; set; }
-
-        /// <summary>
-        /// 读取或者设置手机号码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("手机号码")]
-        [StringLength(12)]
-        [Required]
-        public string Mobile { get; set; }
-
-        /// <summary>
-        /// 读取或者设置电子邮箱
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("电子邮箱")]
+        [DisplayName("消息编号")]
         [StringLength(49)]
         [Required]
-        public string Email { get; set; }
+        public string MessageNo { get; set; }
 
         /// <summary>
-        /// 读取或者设置地区
+        /// 读取或者设置项目编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("地区")]
-        [StringLength(20)]
+        [DisplayName("项目编号")]
+        [StringLength(49)]
         [Required]
-        public string City { get; set; }
-
+        public string ProjectNo { get; set; }
         /// <summary>
-        /// 读取或者设置地区代码
+        /// 读取或者设置消息类型
         /// </summary>
         /// <remark></remark>
-        [DisplayName("地区代码")]
-        [StringLength(20)]
+        [DisplayName("消息类型")]
+        [StringLength(49)]
         [Required]
-        public string CityNo { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
-        /// 读取或者设置经纪公司
+        /// 时间
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("经纪公司")]
-        [StringLength(50)]
-        public string Firm { get; set; }
-
-        /// <summary>
-        /// 读取或者设置经纪公司代码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("经纪公司代码")]
-        [StringLength(50)]
-        public string FirmNo { get; set; }
-
-        /// <summary>
-        /// 读取或者设置个人简介
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("个人简介")]
-        [StringLength(200)]
-        public string Intro { get; set; }
-
-        /// <summary>
-        /// 读取或者设置注册时间
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("注册时间")]
-        [StringLength(50)]
+        [DisplayName("时间")]
         [Required]
-        public DateTime RegAt { get; set; }
+        public DateTime At { get; set; }
 
         /// <summary>
-        /// 读取或者设置推荐人
+        /// 读取或者设置标题
         /// </summary>
         /// <remark></remark>
-        [DisplayName("推荐人")]
-        [StringLength(50)]
-        public string Referral { get; set; }
-
-        /// <summary>
-        /// 读取或者设置头像
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("头像")]
-        [StringLength(50)]
+        [DisplayName("标题")]
+        [StringLength(49)]
         [Required]
+        public string Title { get; set; }
+        /// <summary>
+        /// 读取或者设置内容
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("内容")]
+        [StringLength(500)]
+        [Required]
+        public string Content { get; set; }
+        /// <summary>
+        /// 读取或者设置标题图片
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("标题图片")]
+        [StringLength(50)]
         public string Pic { get; set; }
 
+        /// <summary>
+        /// 起始日期
+        /// </summary>
+        [DisplayName("起始日期")]
+        [Required]
+        public DateTime BeginAt { get; set; }
+
+        /// <summary>
+        /// 结束日期
+        /// </summary>
+        [DisplayName("结束日期")]
+        [Required]
+        public DateTime ExpiredAt { get; set; }
     }
 }

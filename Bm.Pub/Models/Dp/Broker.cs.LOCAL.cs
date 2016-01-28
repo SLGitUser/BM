@@ -1,29 +1,33 @@
+ï»¿using Bm.Models.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Bm.Models.Common;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bm.Models.Dp
 {
+
     /// <summary>
-    /// ¾­¼ÍÈË
+    /// ç»çºªäºº
     /// </summary>
-    [DisplayName("¾­¼ÍÈË")]
-    public sealed class Broker : IId, IStamp
+    [DisplayName("ç»çºªäºº")]
+    public sealed  class Broker : IId, IStamp
     {
         #region Implementation of IId
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ¼ÇÂ¼ĞòºÅ
+        /// è¯»å–æˆ–è€…è®¾ç½®è®°å½•åºå·
         /// </summary>
         /// <value>
-        /// ¼ÇÂ¼ĞòºÅ
+        /// è®°å½•åºå·
         /// </value>
         /// <remarks>
-        /// ½¨Òé´æ´¢Ê±Ê¹ÓÃÎŞ·ûºÅÀàĞÍ
+        /// å»ºè®®å­˜å‚¨æ—¶ä½¿ç”¨æ— ç¬¦å·ç±»å‹
         /// </remarks>
-        [DisplayName("¼ÇÂ¼ĞòºÅ")]
+        [DisplayName("è®°å½•åºå·")]
         public long Id { get; set; }
 
         #endregion
@@ -31,27 +35,27 @@ namespace Bm.Models.Dp
         #region Implementation of ICreateStamp
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ¼ÇÂ¼´´½¨ÈË
+        /// è¯»å–æˆ–è€…è®¾ç½®è®°å½•åˆ›å»ºäºº
         /// </summary>
         /// <value>
-        /// ¼ÇÂ¼´´½¨ÈË
+        /// è®°å½•åˆ›å»ºäºº
         /// </value>
         /// <remarks>
-        /// ½¨ÒéÊ¹ÓÃ²Ù×÷ÈËµÄÕË»§Ãû
+        /// å»ºè®®ä½¿ç”¨æ“ä½œäººçš„è´¦æˆ·å
         /// </remarks>
-        [DisplayName("¼ÇÂ¼´´½¨ÈË")]
+        [DisplayName("è®°å½•åˆ›å»ºäºº")]
         public string CreatedBy { get; set; }
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ¼ÇÂ¼´´½¨Ê±¼ä
+        /// è¯»å–æˆ–è€…è®¾ç½®è®°å½•åˆ›å»ºæ—¶é—´
         /// </summary>
         /// <value>
-        /// ¼ÇÂ¼´´½¨Ê±¼ä
+        /// è®°å½•åˆ›å»ºæ—¶é—´
         /// </value>
         /// <remarks>
-        /// ½¨ÒéÊ¹ÓÃ·şÎñÆ÷Ê±¼ä£¬²»ÒªÊ¹ÓÃÄ¬ÈÏ¿ÕÖµ
+        /// å»ºè®®ä½¿ç”¨æœåŠ¡å™¨æ—¶é—´ï¼Œä¸è¦ä½¿ç”¨é»˜è®¤ç©ºå€¼
         /// </remarks>
-        [DisplayName("¼ÇÂ¼´´½¨Ê±¼ä")]
+        [DisplayName("è®°å½•åˆ›å»ºæ—¶é—´")]
         public DateTime CreatedAt { get; set; }
 
         #endregion
@@ -59,144 +63,142 @@ namespace Bm.Models.Dp
         #region Implementation of IUpdateStamp
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ¼ÇÂ¼¸üĞÂÈË
+        /// è¯»å–æˆ–è€…è®¾ç½®è®°å½•æ›´æ–°äºº
         /// </summary>
         /// <value>
-        /// ¼ÇÂ¼¸üĞÂÈË
+        /// è®°å½•æ›´æ–°äºº
         /// </value>
         /// <remarks>
-        /// ½¨ÒéÊ¹ÓÃ²Ù×÷ÈËµÄÕË»§Ãû£¬Îª¿ÕÊ±±íÊ¾¼ÇÂ¼ÎŞ¸üĞÂ
+        /// å»ºè®®ä½¿ç”¨æ“ä½œäººçš„è´¦æˆ·åï¼Œä¸ºç©ºæ—¶è¡¨ç¤ºè®°å½•æ— æ›´æ–°
         /// </remarks>
-        [DisplayName("¼ÇÂ¼×îºóĞŞ¸ÄÈË")]
+        [DisplayName("è®°å½•æœ€åä¿®æ”¹äºº")]
         public string UpdatedBy { get; set; }
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ¼ÇÂ¼¸üĞÂÊ±¼ä
+        /// è¯»å–æˆ–è€…è®¾ç½®è®°å½•æ›´æ–°æ—¶é—´
         /// </summary>
         /// <value>
-        /// ¼ÇÂ¼¸üĞÂÊ±¼ä
+        /// è®°å½•æ›´æ–°æ—¶é—´
         /// </value>
         /// <remarks>
-        /// Îª¿ÕÊ±±íÊ¾¼ÇÂ¼ÎŞ¸üĞÂ
+        /// ä¸ºç©ºæ—¶è¡¨ç¤ºè®°å½•æ— æ›´æ–°
         /// </remarks>
-        [DisplayName("¼ÇÂ¼×îºóĞŞ¸ÄÊ±¼ä")]
+        [DisplayName("è®°å½•æœ€åä¿®æ”¹æ—¶é—´")]
         public DateTime? UpdatedAt { get; set; }
 
         #endregion
 
 
-
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃÃû³Æ
+        /// å§“å
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("Ãû³Æ")]
-        [StringLength(50)]
+
+        [DisplayName("å§“å")]
+        [StringLength(20)]
         [Required]
-        public string Name { get; set; }
+        public string å§“å { get; set; }
+
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ±àºÅ
+        /// ç¼–å·
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("±àºÅ")]
+        [DisplayName("ç¼–å·")]
         [StringLength(20)]
         [Required]
         public string No { get; set; }
 
-        /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃĞÔ±ğ
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("ĞÔ±ğ")]
-        [StringLength(5)]
-        public string Gender { get; set; }
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃÊÖ»úºÅÂë
+        /// æ€§åˆ«
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("ÊÖ»úºÅÂë")]
+        [DisplayName("æ€§åˆ«")]
+        [StringLength(5)] 
+        public string Gender { get; set; }
+
+
+        /// <summary>
+        /// æ‰‹æœºå·
+        /// </summary>
+        [DisplayName("æ‰‹æœºå·")]
         [StringLength(12)]
         [Required]
         public string Mobile { get; set; }
 
+
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃµç×ÓÓÊÏä
+        /// ç”µå­é‚®ç®±
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("µç×ÓÓÊÏä")]
-        [StringLength(49)]
-        [Required]
+        [DisplayName("æ‰‹æœºå·")]
+        [StringLength(50)] 
         public string Email { get; set; }
 
-        /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃµØÇø
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("µØÇø")]
-        [StringLength(20)]
-        [Required]
-        public string City { get; set; }
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃµØÇø´úÂë
+        /// åœ°åŒº
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("µØÇø´úÂë")]
+        [DisplayName("åœ°åŒº")]
+        [StringLength(20)]
+        [Required]
+        public string City { get; set; } 
+
+        /// <summary>
+        /// åœ°åŒºä»£ç 
+        /// </summary>
+        [DisplayName("åœ°åŒºä»£ç ")]
         [StringLength(20)]
         [Required]
         public string CityNo { get; set; }
 
+
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ¾­¼Í¹«Ë¾
+        /// ç»çºªå…¬å¸
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("¾­¼Í¹«Ë¾")]
-        [StringLength(50)]
+        [DisplayName("ç»çºªå…¬å¸")]
+        [StringLength(50)] 
         public string Firm { get; set; }
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ¾­¼Í¹«Ë¾´úÂë
+        /// ç»çºªå…¬å¸ä»£ç 
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("¾­¼Í¹«Ë¾´úÂë")]
-        [StringLength(50)]
+        [DisplayName("ç»çºªå…¬å¸ä»£ç ")]
+        [StringLength(50)] 
         public string FirmNo { get; set; }
 
+
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ¸öÈË¼ò½é
+        /// ä¸ªäººç®€ä»‹
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("¸öÈË¼ò½é")]
-        [StringLength(200)]
+        [DisplayName("ä¸ªäººç®€ä»‹")]
+        [StringLength(200)] 
         public string Intro { get; set; }
 
-        /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃ×¢²áÊ±¼ä
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("×¢²áÊ±¼ä")]
-        [StringLength(50)]
-        [Required]
-        public DateTime RegAt { get; set; }
 
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃÍÆ¼öÈË
+        /// ä¸ªäººç®€ä»‹
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("ÍÆ¼öÈË")]
+        [DisplayName("ä¸ªäººç®€ä»‹")] 
+        [Required]
+        public DateTime? RegAt { get; set; }
+
+
+
+
+        /// <summary>
+        /// æ¨èäºº
+        /// </summary>
+        [DisplayName("ä¸ªäººç®€ä»‹")]
+
         [StringLength(50)]
         public string Referral { get; set; }
 
+
+
+
         /// <summary>
-        /// ¶ÁÈ¡»òÕßÉèÖÃÍ·Ïñ
+       /// å¤´åƒ
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("Í·Ïñ")]
-        [StringLength(50)]
+        [DisplayName("å¤´åƒ")]
         [Required]
         public string Pic { get; set; }
-
     }
 }

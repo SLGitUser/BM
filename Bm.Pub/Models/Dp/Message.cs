@@ -7,10 +7,10 @@ using Bm.Models.Common;
 namespace Bm.Models.Dp
 {
     /// <summary>
-    /// 经纪人
+    /// 信息
     /// </summary>
-    [DisplayName("经纪人")]
-    public sealed class Broker : IId, IStamp
+    [DisplayName("信息")]
+    public sealed class Message : IId, IStamp
     {
         #region Implementation of IId
 
@@ -84,119 +84,71 @@ namespace Bm.Models.Dp
 
         #endregion
 
-
-
         /// <summary>
-        /// 读取或者设置名称
+        /// 读取或者设置用户编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("名称")]
-        [StringLength(50)]
-        [Required]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 读取或者设置编号
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("编号")]
-        [StringLength(20)]
-        [Required]
-        public string No { get; set; }
-
-        /// <summary>
-        /// 读取或者设置性别
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("性别")]
-        [StringLength(5)]
-        public string Gender { get; set; }
-
-        /// <summary>
-        /// 读取或者设置手机号码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("手机号码")]
-        [StringLength(12)]
-        [Required]
-        public string Mobile { get; set; }
-
-        /// <summary>
-        /// 读取或者设置电子邮箱
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("电子邮箱")]
+        [DisplayName("用户编号")]
         [StringLength(49)]
         [Required]
-        public string Email { get; set; }
+        public string UserNo { get; set; }
 
         /// <summary>
-        /// 读取或者设置地区
+        /// 读取或者设置消息类型
         /// </summary>
         /// <remark></remark>
-        [DisplayName("地区")]
-        [StringLength(20)]
+        [DisplayName("消息类型")]
+        [StringLength(49)]
         [Required]
-        public string City { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
-        /// 读取或者设置地区代码
+        /// 读取或者设置时间
         /// </summary>
         /// <remark></remark>
-        [DisplayName("地区代码")]
-        [StringLength(20)]
+        [DisplayName("时间")]
         [Required]
-        public string CityNo { get; set; }
+        public DateTime At { get; set; }
 
         /// <summary>
-        /// 读取或者设置经纪公司
+        /// 读取或者设置标题
         /// </summary>
         /// <remark></remark>
-        [DisplayName("经纪公司")]
-        [StringLength(50)]
-        public string Firm { get; set; }
-
-        /// <summary>
-        /// 读取或者设置经纪公司代码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("经纪公司代码")]
-        [StringLength(50)]
-        public string FirmNo { get; set; }
-
-        /// <summary>
-        /// 读取或者设置个人简介
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("个人简介")]
-        [StringLength(200)]
-        public string Intro { get; set; }
-
-        /// <summary>
-        /// 读取或者设置注册时间
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("注册时间")]
-        [StringLength(50)]
+        [DisplayName("标题")]
+        [StringLength(49)]
         [Required]
-        public DateTime RegAt { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
-        /// 读取或者设置推荐人
+        /// 读取或者设置内容
         /// </summary>
         /// <remark></remark>
-        [DisplayName("推荐人")]
-        [StringLength(50)]
-        public string Referral { get; set; }
-
-        /// <summary>
-        /// 读取或者设置头像
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("头像")]
-        [StringLength(50)]
+        [DisplayName("内容")]
+        [StringLength(500)]
         [Required]
-        public string Pic { get; set; }
+        public string Content { get; set; }
 
+        /// <summary>
+        /// 读取或者设置是否阅读
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("是否阅读")]
+        [Required]
+        public bool IsRead { get; set; }
+
+        /// <summary>
+        /// 读取或者设置阅读时间
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("阅读时间")]
+        public DateTime? ReadAt { get; set; }
+
+        /// <summary>
+        /// 读取或者设置是否删除
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("是否删除")]
+        [Required]
+        public bool IsDel { get; set; }
     }
 }

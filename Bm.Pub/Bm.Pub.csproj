@@ -81,6 +81,12 @@
     <Compile Include="Models\Dp\AreaType.cs" />
     <Compile Include="Models\Dp\Broker.cs" />
     <Compile Include="Models\Dp\DevRoom.cs" />
+    <Compile Include="Models\Dp\ActivityStep.cs" />
+    <Compile Include="Models\Dp\Activity.cs" />
+    <Compile Include="Models\Dp\CustomerProject.cs" />
+    <Compile Include="Models\Dp\Customer.cs" />
+    <Compile Include="Models\Dp\Task.cs" />
+    <Compile Include="Models\Dp\Message.cs" />
     <Compile Include="Models\Dp\Project.cs" />
     <Compile Include="Models\Dp\ProjectInfo.cs" />
     <Compile Include="Models\Dp\ProjectInfoType.cs" />
@@ -92,6 +98,8 @@
     <Compile Include="Modules\Helper\ListHelper.cs" />
     <Compile Include="Modules\Helper\ArrayHelper.cs" />
     <Compile Include="Modules\Helper\TypeHelper.cs" />
+    <Compile Include="Modules\Html\HtmlElement.cs" />
+    <Compile Include="Modules\Html\HtmlTableHelper.cs" />
     <Compile Include="Modules\Orm\Adapter\MySqlAdapter.cs" />
     <Compile Include="Modules\Orm\Adapter\PostgresAdapter.cs" />
     <Compile Include="Modules\Orm\Adapter\SqlCeServerAdapter.cs" />

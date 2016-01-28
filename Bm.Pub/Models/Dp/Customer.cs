@@ -7,10 +7,10 @@ using Bm.Models.Common;
 namespace Bm.Models.Dp
 {
     /// <summary>
-    /// 经纪人
+    /// 客户关系编号
     /// </summary>
-    [DisplayName("经纪人")]
-    public sealed class Broker : IId, IStamp
+    [DisplayName("客户关系编号")]
+    public sealed class Customer : IId, IStamp
     {
         #region Implementation of IId
 
@@ -84,25 +84,41 @@ namespace Bm.Models.Dp
 
         #endregion
 
-
-
         /// <summary>
-        /// 读取或者设置名称
+        /// 读取或者设置客户关系编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("名称")]
+        [DisplayName("客户关系编号")]
+        [StringLength(49)]
+        [Required]
+        public string No { get; set; }
+
+        /// <summary>
+        /// 读取或者设置地区代码
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("地区代码")]
         [StringLength(50)]
+        [Required]
+        public string CityNo { get; set; }
+
+        /// <summary>
+        /// 读取或者设置姓名
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("姓名")]
+        [StringLength(20)]
         [Required]
         public string Name { get; set; }
 
         /// <summary>
-        /// 读取或者设置编号
+        /// 读取或者设置姓名拼音
         /// </summary>
         /// <remark></remark>
-        [DisplayName("编号")]
-        [StringLength(20)]
+        [DisplayName("姓名拼音")]
+        [StringLength(40)]
         [Required]
-        public string No { get; set; }
+        public string Pinyin { get; set; }
 
         /// <summary>
         /// 读取或者设置性别
@@ -110,7 +126,24 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("性别")]
         [StringLength(5)]
+        [Required]
         public string Gender { get; set; }
+
+        /// <summary>
+        /// 读取或者设置证件类型
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("证件类型")]
+        [StringLength(49)]
+        public string CardType { get; set; }
+
+        /// <summary>
+        /// 读取或者设置证件号码
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("证件号码")]
+        [StringLength(30)]
+        public string CardNo { get; set; }
 
         /// <summary>
         /// 读取或者设置手机号码
@@ -118,7 +151,6 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("手机号码")]
         [StringLength(12)]
-        [Required]
         public string Mobile { get; set; }
 
         /// <summary>
@@ -127,67 +159,7 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("电子邮箱")]
         [StringLength(49)]
-        [Required]
         public string Email { get; set; }
-
-        /// <summary>
-        /// 读取或者设置地区
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("地区")]
-        [StringLength(20)]
-        [Required]
-        public string City { get; set; }
-
-        /// <summary>
-        /// 读取或者设置地区代码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("地区代码")]
-        [StringLength(20)]
-        [Required]
-        public string CityNo { get; set; }
-
-        /// <summary>
-        /// 读取或者设置经纪公司
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("经纪公司")]
-        [StringLength(50)]
-        public string Firm { get; set; }
-
-        /// <summary>
-        /// 读取或者设置经纪公司代码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("经纪公司代码")]
-        [StringLength(50)]
-        public string FirmNo { get; set; }
-
-        /// <summary>
-        /// 读取或者设置个人简介
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("个人简介")]
-        [StringLength(200)]
-        public string Intro { get; set; }
-
-        /// <summary>
-        /// 读取或者设置注册时间
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("注册时间")]
-        [StringLength(50)]
-        [Required]
-        public DateTime RegAt { get; set; }
-
-        /// <summary>
-        /// 读取或者设置推荐人
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("推荐人")]
-        [StringLength(50)]
-        public string Referral { get; set; }
 
         /// <summary>
         /// 读取或者设置头像
@@ -195,8 +167,50 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("头像")]
         [StringLength(50)]
-        [Required]
         public string Pic { get; set; }
+
+        /// <summary>
+        /// 读取或者设置经纪人编号
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("经纪人编号")]
+        [StringLength(49)]
+        [Required]
+        public string BrokerNo { get; set; }
+
+        /// <summary>
+        /// 读取或者设置注册日期
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("注册日期")]
+        [Required]
+        public DateTime RegAt { get; set; }
+
+        /// <summary>
+        /// 读取或者设置保护过期日期
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("保护过期日期")]
+        [Required]
+        public DateTime ExpiredAt { get; set; }
+
+        /// <summary>
+        /// 读取或者设置客户等级
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("客户等级")]
+        [StringLength(1)]
+        [Required]
+        public string Level { get; set; }
+
+        /// <summary>
+        /// 读取或者设置客户备注
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("客户备注")]
+        [StringLength(50)]
+        public string Remark
+        { get; set; }
 
     }
 }

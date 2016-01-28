@@ -7,10 +7,10 @@ using Bm.Models.Common;
 namespace Bm.Models.Dp
 {
     /// <summary>
-    /// 经纪人
+    /// 活动参与
     /// </summary>
-    [DisplayName("经纪人")]
-    public sealed class Broker : IId, IStamp
+    [DisplayName("活动参与")]
+    public sealed class ActivityStep : IId, IStamp
     {
         #region Implementation of IId
 
@@ -83,120 +83,62 @@ namespace Bm.Models.Dp
         public DateTime? UpdatedAt { get; set; }
 
         #endregion
-
-
-
+        //MessageNo
+        //UserNo
+        //Type
+        //At
+        //LeaveAt
+        //Remark
         /// <summary>
-        /// 读取或者设置名称
+        /// 读取或者设置消息编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("名称")]
-        [StringLength(50)]
-        [Required]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 读取或者设置编号
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("编号")]
-        [StringLength(20)]
-        [Required]
-        public string No { get; set; }
-
-        /// <summary>
-        /// 读取或者设置性别
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("性别")]
-        [StringLength(5)]
-        public string Gender { get; set; }
-
-        /// <summary>
-        /// 读取或者设置手机号码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("手机号码")]
-        [StringLength(12)]
-        [Required]
-        public string Mobile { get; set; }
-
-        /// <summary>
-        /// 读取或者设置电子邮箱
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("电子邮箱")]
+        [DisplayName("消息编号")]
         [StringLength(49)]
         [Required]
-        public string Email { get; set; }
+        public string MessageNo
+
+        { get; set; }
 
         /// <summary>
-        /// 读取或者设置地区
+        /// 读取或者设置用户编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("地区")]
-        [StringLength(20)]
+        [DisplayName("用户编号")]
+        [StringLength(49)]
         [Required]
-        public string City { get; set; }
+        public string UserNo
+        { get; set; }
 
         /// <summary>
-        /// 读取或者设置地区代码
+        /// 读取或者设置活动类型
         /// </summary>
         /// <remark></remark>
-        [DisplayName("地区代码")]
-        [StringLength(20)]
+        [DisplayName("活动类型")]
+        [StringLength(49)]
         [Required]
-        public string CityNo { get; set; }
+        public string Type
+        { get; set; }
 
         /// <summary>
-        /// 读取或者设置经纪公司
+        /// 开始时间
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("经纪公司")]
-        [StringLength(50)]
-        public string Firm { get; set; }
-
-        /// <summary>
-        /// 读取或者设置经纪公司代码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("经纪公司代码")]
-        [StringLength(50)]
-        public string FirmNo { get; set; }
-
-        /// <summary>
-        /// 读取或者设置个人简介
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("个人简介")]
-        [StringLength(200)]
-        public string Intro { get; set; }
-
-        /// <summary>
-        /// 读取或者设置注册时间
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("注册时间")]
-        [StringLength(50)]
         [Required]
-        public DateTime RegAt { get; set; }
+        public DateTime At { get; set; }
 
         /// <summary>
-        /// 读取或者设置推荐人
+        /// 离开时间
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("推荐人")]
-        [StringLength(50)]
-        public string Referral { get; set; }
+        public DateTime? LeaveAtAt { get; set; }
 
         /// <summary>
-        /// 读取或者设置头像
+        /// 读取或者设置活动备注
         /// </summary>
         /// <remark></remark>
-        [DisplayName("头像")]
-        [StringLength(50)]
-        [Required]
-        public string Pic { get; set; }
+        [DisplayName("活动备注")]
+        [StringLength(49)]
+        public string Remark
 
+        { get; set; }
     }
 }

@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations\IgnoreMappingAttribute.cs" />
+    <Compile Include="DevRoom.cs" />
     <Compile Include="Models\Base\Account.cs" />
     <Compile Include="Models\Base\AccountNavView.cs" />
     <Compile Include="Models\Base\AccountNavigationRef.cs" />
@@ -72,6 +73,20 @@
     <Compile Include="Models\Base\Role.cs" />
     <Compile Include="Models\Common\CommonInterface.cs" />
     <Compile Include="Models\Common\MessageRecorder.cs" />
+    <Compile Include="Models\Dp\Area.cs" />
+    <Compile Include="Models\Dp\AreaResource.cs" />
+    <Compile Include="Models\Dp\AreaResourceType.cs" />
+    <Compile Include="Models\Dp\AreaTag.cs" />
+    <Compile Include="Models\Dp\AreaTagType.cs" />
+    <Compile Include="Models\Dp\AreaType.cs" />
+    <Compile Include="Models\Dp\Broker.cs" />
+    <Compile Include="Models\Dp\DevRoom.cs" />
+    <Compile Include="Models\Dp\ActivityStep.cs" />
+    <Compile Include="Models\Dp\Activity.cs" />
+    <Compile Include="Models\Dp\CustomerProject.cs" />
+    <Compile Include="Models\Dp\Customer.cs" />
+    <Compile Include="Models\Dp\Task.cs" />
+    <Compile Include="Models\Dp\Message.cs" />
     <Compile Include="Models\Dp\Project.cs" />
     <Compile Include="Models\Dp\ProjectInfo.cs" />
     <Compile Include="Models\Dp\ProjectInfoType.cs" />

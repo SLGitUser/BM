@@ -89,6 +89,8 @@
     <Compile Include="Modules\Helper\ListHelper.cs" />
     <Compile Include="Modules\Helper\ArrayHelper.cs" />
     <Compile Include="Modules\Helper\TypeHelper.cs" />
+    <Compile Include="Modules\Html\HtmlElement.cs" />
+    <Compile Include="Modules\Html\HtmlTableHelper.cs" />
     <Compile Include="Modules\Orm\Adapter\MySqlAdapter.cs" />
     <Compile Include="Modules\Orm\Adapter\PostgresAdapter.cs" />
     <Compile Include="Modules\Orm\Adapter\SqlCeServerAdapter.cs" />

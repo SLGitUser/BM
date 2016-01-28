@@ -126,6 +126,27 @@ namespace Bm.Modules.Helper
             return buff.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="dfltValue"></param>
+        /// <returns></returns>
+        public static string SetWhenNullOrEmpty(this string value, string dfltValue)
+        {
+            return string.IsNullOrEmpty(value) ? dfltValue : value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="dfltValue"></param>
+        /// <returns></returns>
+        public static string SetWhenNullOrWhiteSpace(this string value, string dfltValue)
+        {
+            return string.IsNullOrWhiteSpace(value) ? dfltValue : value;
+        }
 
         #region enum
 

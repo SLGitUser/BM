@@ -107,6 +107,8 @@
     <Content Include="Areas\Biz\Views\Developer\Details.cshtml" />
     <Content Include="Areas\Biz\Views\Developer\Edit.cshtml" />
     <Content Include="Areas\Biz\Views\Developer\Delete.cshtml" />
+    <Content Include="Areas\Biz\Views\Project\Index.cshtml" />
+    <Content Include="Areas\Biz\Views\Project\Create.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\datatable.init.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -122,6 +124,7 @@
     <Compile Include="Areas\Base\Controllers\SessionController.cs" />
     <Compile Include="Areas\Biz\BizAreaRegistration.cs" />
     <Compile Include="Areas\Biz\Controllers\DeveloperController.cs" />
+    <Compile Include="Areas\Biz\Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

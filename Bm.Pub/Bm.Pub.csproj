@@ -129,6 +129,7 @@
     <Compile Include="Modules\Orm\SqlExtension.cs" />
     <Compile Include="Services\Common\RepoService.cs" />
     <Compile Include="Services\Dp\DeveloperService.cs" />
+    <Compile Include="Services\Dp\ProjectService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

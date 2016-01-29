@@ -10,6 +10,116 @@
     
     
     <div>
+        <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
+               <div class="row">
+                   <div class="col-lg-4">
+                       <label for="No" class="col-sm-4 control-label">编号</label>
+                       <div class="col-sm-8">
+                           <input type="text" class="form-control" id="No" name="No" placeholder="编号必须唯一">
+                           <p class="help-block">@Html.ValidationMessageFor(m => m.No)</p>
+                       </div>
+                   </div>
+                   <div class="col-lg-4">
+                       <label for="Name" class="col-sm-4 control-label">名称</label>
+                       <div class="col-sm-8">
+                           <input type="text" class="form-control" id="Name" name="Name" placeholder="名称">
+                           <p class="help-block">@Html.ValidationMessageFor(m => m.Name)</p>
+                       </div>
+                   </div>
+               </div>            
+               <div class="row">
+                   <div class="col-lg-8">
+                       <label for="No" class="col-sm-2 control-label">开发商信息</label>
+                       <div class="col-sm-10" style="padding-left: 10px;">
+                           <select class="form-control">
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                                <option>option 5</option>
+                            </select>
+                       </div>                     
+                   </div>
+               </div> 
+            <div class="row" style="padding-top:12px;">
+                <div class="col-lg-4">
+                    <label for="No" class="col-sm-4 control-label">模块</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="No" name="No" placeholder="编号必须唯一">
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.No)</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label for="Name" class="col-sm-4 control-label">类型</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="名称">
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Name)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top:12px">
+                <div class="col-lg-8">
+                    <label for="No" class="col-sm-2 control-label">图片上传</label>
+                    <input type="file" id="exampleInputFile" style="padding-left: 10px;">
+                </div>
+            </div>
+            <div class="row" style="padding-top:12px;">
+                <div class="col-lg-4">
+                    <label for="No" class="col-sm-4 control-label">均价</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="No" name="No" placeholder="编号必须唯一">
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.No)</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label for="Name" class="col-sm-4 control-label">咨询电话</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="名称">
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Name)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top:12px;">
+                <div class="col-lg-4">
+                    <label for="No" class="col-sm-4 control-label">地址</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="No" name="No" placeholder="编号必须唯一">
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.No)</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label for="Name" class="col-sm-4 control-label">经度</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="名称">
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Name)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top:12px;">
+                <div class="col-lg-4">
+                    <label for="No" class="col-sm-4 control-label">纬度</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="No" name="No" placeholder="编号必须唯一">
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.No)</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label for="Name" class="col-sm-4 control-label">推客认证类型</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="名称">
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Name)</p>
+                    </div>
+                </div>
+            </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
+                    <a href="@Url.Action("Index")" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
+                </div>
+                <!-- /.box-footer -->
+       
+</form>
+     
     </div>
 </body>
 </html>

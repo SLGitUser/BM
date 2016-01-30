@@ -10,7 +10,6 @@ namespace Bm.Models.Dp
     /// 开发商
     /// </summary>
     [DisplayName("开发商")]
-    [Table("dp_developer")]
     public sealed class Developer : IId, IStamp
     {
         #region Implementation of IId
@@ -90,6 +89,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("编号")]
+        [Description("唯一编号")]
         [StringLength(20)]
         [Required]
         public string No { get; set; }
@@ -99,6 +99,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("名称")]
+        [Description("开发商名称")]
         [StringLength(50)]
         [Required]
         public string Name { get; set; }

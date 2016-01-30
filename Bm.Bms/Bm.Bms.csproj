@@ -100,7 +100,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\JavaScript\Js_Tools.js" />
+    <Content Include="Content\css\app.css">
+      <DependentUpon>app.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\css\app.min.css">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
+    <Content Include="Content\images\firefox.jpg" />
+    <Content Include="Content\images\ie.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Biz\Views\Developer\Create.cshtml" />
@@ -109,17 +116,30 @@
     <Content Include="Areas\Biz\Views\Developer\Delete.cshtml" />
     <Content Include="Areas\Biz\Views\Project\Index.cshtml" />
     <Content Include="Areas\Biz\Views\Project\Create.cshtml" />
+    <Content Include="Areas\Base\Views\Account\Create.cshtml" />
+    <Content Include="Areas\Base\Views\Account\Delete.cshtml" />
+    <Content Include="Areas\Base\Views\Account\Details.cshtml" />
+    <Content Include="Areas\Base\Views\Account\Edit.cshtml" />
+    <Content Include="Areas\Base\Views\Account\Index.cshtml" />
+    <Content Include="Content\css\app.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\datatable.init.js" />
+    <Content Include="Scripts\init.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Base\BaseAreaRegistration.cs" />
+    <Compile Include="Areas\Base\Controllers\AccountController.cs" />
     <Compile Include="Areas\Base\Controllers\HomeController.cs" />
     <Compile Include="Areas\Base\Controllers\SessionController.cs" />
     <Compile Include="Areas\Biz\BizAreaRegistration.cs" />

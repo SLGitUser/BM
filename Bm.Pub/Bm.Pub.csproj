@@ -38,6 +38,10 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -47,6 +51,31 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,13 +122,19 @@
     <Compile Include="Models\Dp\Developer.cs" />
     <Compile Include="Models\Dp\Promotion.cs" />
     <Compile Include="Modules\Enumerations.cs" />
+    <Compile Include="Modules\GeneralComparer.cs" />
     <Compile Include="Modules\Helper\ExpressionHelper.cs" />
     <Compile Include="Modules\Helper\HashHelper.cs" />
     <Compile Include="Modules\Helper\ListHelper.cs" />
     <Compile Include="Modules\Helper\ArrayHelper.cs" />
+    <Compile Include="Modules\Helper\ObjectHelper.cs" />
     <Compile Include="Modules\Helper\TypeHelper.cs" />
     <Compile Include="Modules\Html\HtmlElement.cs" />
+    <Compile Include="Modules\Html\HtmlInputHelper.cs" />
+    <Compile Include="Modules\Html\HtmlTable.cs" />
     <Compile Include="Modules\Html\HtmlTableHelper.cs" />
+    <Compile Include="Modules\Html\SelectListFactory.cs" />
+    <Compile Include="Modules\Html\SelectMode.cs" />
     <Compile Include="Modules\Orm\Adapter\MySqlAdapter.cs" />
     <Compile Include="Modules\Orm\Adapter\PostgresAdapter.cs" />
     <Compile Include="Modules\Orm\Adapter\SqlCeServerAdapter.cs" />
@@ -121,6 +156,7 @@
     <Compile Include="Modules\Orm\Sql\OpHelper.cs" />
     <Compile Include="Modules\Orm\Sql\Op.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Base\AccountService.cs" />
     <Compile Include="Services\Common\BaseDbService.cs" />
     <Compile Include="Services\Common\DbModelService.cs" />
     <Compile Include="Services\Common\DbQuickService.cs" />

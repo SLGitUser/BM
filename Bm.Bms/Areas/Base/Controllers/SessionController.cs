@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using Bm.Modules;
+using Bm.Services.Base;
 
 namespace Bm.Areas.Base.Controllers
 {
@@ -15,21 +16,26 @@ namespace Bm.Areas.Base.Controllers
         public ActionResult Login(FormCollection collection)
         {
             Reset();
+            FormsAuthentication.SetAuthCookie("SYSTEM", false);
 
-            var name = GetDbParas("username");
-            var pwd = GetDbParas("password");
+            return JsonMessage(200, "验证成功，请稍候...", new { url = "/base/home/index" });
 
-            //var result = LoginService.Auth(name, pwd);
-            //if (result.HasError)
-            //{
-            //    return JsonError(string.Join(",", result.Errors.Select(m => m.Content)));
-            //}
-            //if (result.Value == null)
-            //{
-            //    return JsonError(string.Join(",", result.Messages.Select(m => m.Content)));
-            //}
+            var username = GetDbParas("username");
+            var password = GetDbParas("password");
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return JsonError("请输入用户名密码");
+            }
 
-            FormsAuthentication.SetAuthCookie(name, false);
+            var service = new AccountService();
+            var r = service.Auth(username, password);
+            if (r.HasError)
+            {
+                FlashMessage(r);
+                return JsonError("用户名或密码错误");
+            }
+
+            FormsAuthentication.SetAuthCookie(r.Value.No, false);
 
             //// 未初始化的用户，使用验证码登录
             //if (AccountStatus.Type.Inactive.Equals(result.Value.Status))
@@ -46,10 +52,9 @@ namespace Bm.Areas.Base.Controllers
             {
                 url = FormsAuthentication.DefaultUrl;
             }
-            //return JsonMessage(200, "验证成功，请稍候...", new { url });
-            return Redirect("/base/home/index");
+            return JsonMessage(200, "验证成功，请稍候...", new { url });
         }
-        
+
         public ActionResult Logout()
         {
             Reset();

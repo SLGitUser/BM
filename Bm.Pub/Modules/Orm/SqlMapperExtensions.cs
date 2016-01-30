@@ -213,7 +213,7 @@ namespace Bm.Modules.Orm
             dynParms.Add("@ids", ids);
 
             var obj = connection.Query<T>(sql, dynParms, transaction, commandTimeout: commandTimeout).ToList();
-            
+
             return obj;
         }
 
@@ -308,9 +308,10 @@ namespace Bm.Modules.Orm
                     name = tableAttr.Name;
                 else
                 {
-                    name = type.Name + "s";
-                    if (type.IsInterface && name.StartsWith("I"))
-                        name = name.Substring(1);
+                    name = NamingHelper.MapClassToTable(type.FullName);
+                    //name = type.Name + "s";
+                    //if (type.IsInterface && name.StartsWith("I"))
+                    //    name = name.Substring(1);
                 }
             }
 

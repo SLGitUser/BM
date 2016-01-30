@@ -1,4 +1,34 @@
 ﻿$(function () {
+
+    $("span.field-validation-valid, span.field-validation-error").each(function () {
+        $(this).addClass("help-inline");
+    });
+
+    $("form").each(function () {
+        $(this).find("div.form-group").each(function () {
+            if ($(this).find("span.field-validation-error").length > 0) {
+                $(this).addClass("has-error");
+            }
+        });
+    });
+
+    $("form").submit(function () {
+        if ($(this).valid()) {
+            $(this).find("div.form-group").each(function () {
+                if ($(this).find("span.field-validation-error").length === 0) {
+                    $(this).removeClass("has-error");
+                }                
+            });
+        }
+        else {
+            $(this).find("div.form-group").each(function () {
+                if ($(this).find("span.field-validation-error").length > 0) {
+                    $(this).addClass("has-error");
+                }                
+            });
+        }
+    });
+
     $('table.data').DataTable({
         "pagingType": "full_numbers",
         "paging": true,
@@ -35,3 +65,15 @@
         }
     });
 });
+
+/**
+ * 全选按钮
+ * @returns {} 
+ */
+function switchCheckAll(el, inputName) {
+    var thisCheck = el.checked;
+    var ids = document.getElementsByName(inputName);
+    for (var i = 0; i < ids.length; i++) {
+        ids[i].checked = thisCheck;
+    }
+}

@@ -131,6 +131,7 @@
     <Compile Include="Modules\Helper\ListHelper.cs" />
     <Compile Include="Modules\Helper\ArrayHelper.cs" />
     <Compile Include="Modules\Helper\ObjectHelper.cs" />
+    <Compile Include="Modules\Helper\StringHelper.Convert.cs" />
     <Compile Include="Modules\Helper\TypeHelper.cs" />
     <Compile Include="Modules\Html\HtmlHelper.Breadcrumb.cs" />
     <Compile Include="Modules\Html\HtmlElement.cs" />

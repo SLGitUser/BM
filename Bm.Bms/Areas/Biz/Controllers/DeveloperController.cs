@@ -39,7 +39,11 @@ namespace Bm.Areas.Biz.Controllers
         // GET: Biz/Developer/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new Developer
+            {
+                BranchNo = "420100"
+            };
+            return View(model);
         }
 
         // POST: Biz/Developer/Create

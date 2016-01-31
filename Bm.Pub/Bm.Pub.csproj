@@ -108,6 +108,7 @@
     <Compile Include="Models\Dp\AreaTag.cs" />
     <Compile Include="Models\Dp\AreaTagType.cs" />
     <Compile Include="Models\Dp\AreaType.cs" />
+    <Compile Include="Models\Plat\Branch.cs" />
     <Compile Include="Models\Dp\Broker.cs" />
     <Compile Include="Models\Dp\DevRoom.cs" />
     <Compile Include="Models\Dp\ActivityStep.cs" />
@@ -131,8 +132,9 @@
     <Compile Include="Modules\Helper\ArrayHelper.cs" />
     <Compile Include="Modules\Helper\ObjectHelper.cs" />
     <Compile Include="Modules\Helper\TypeHelper.cs" />
+    <Compile Include="Modules\Html\HtmlHelper.Breadcrumb.cs" />
     <Compile Include="Modules\Html\HtmlElement.cs" />
-    <Compile Include="Modules\Html\HtmlInputHelper.cs" />
+    <Compile Include="Modules\Html\HtmlHelper.Input.cs" />
     <Compile Include="Modules\Html\HtmlTable.cs" />
     <Compile Include="Modules\Html\HtmlTableHelper.cs" />
     <Compile Include="Modules\Html\SelectListFactory.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="Modules\Orm\Annotation\IgnoreMappingAttribute.cs" />
     <Compile Include="Modules\Orm\SqlExtension.cs" />
     <Compile Include="Services\Common\RepoService.cs" />
+    <Compile Include="Services\Dp\BranchService.cs" />
     <Compile Include="Services\Dp\DeveloperService.cs" />
     <Compile Include="Services\Dp\ProjectService.cs" />
   </ItemGroup>

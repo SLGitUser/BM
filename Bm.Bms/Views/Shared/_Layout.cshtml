@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>经纪大师 | 城市管理系统</title>
+    <title>经纪大师 | 运营管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -445,7 +445,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <section class="content-header">
+            <section class="content-header" id="page-header">
                 @RenderSection("PageHead", false)
             </section>
             @{ Html.RenderPartial("_Messages", ViewBag.Messages == null ? new List<MessageInfo>() : (IList<MessageInfo>)ViewBag.Messages); }

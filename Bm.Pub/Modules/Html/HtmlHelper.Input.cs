@@ -9,7 +9,7 @@ using Bm.Modules.Helper;
 
 namespace Bm.Modules.Html
 {
-    public static class HtmlInputHelper
+    public static partial class HtmlHelper
     {
         public static MvcHtmlString InputFor<TModel, TValue>(this HtmlHelper<TModel> html,
             Expression<Func<TModel, TValue>> expression,

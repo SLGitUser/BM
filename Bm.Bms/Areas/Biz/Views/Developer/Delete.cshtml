@@ -29,7 +29,7 @@
                             <div class="col-sm-12">
                                  @Html.Raw(Model.ToHtmlTable()
                                 .Table(new HtmlElement("table")
-                                    .Attr("class", "table data table-bordered table-striped dataTable")
+                                    .Attr("class", "table table-bordered table-striped dataTable")
                                     .Attr("role", "grid")
                                     .Attr("aria-describedby", "example1_info"))
                                 .Add(m => m.No)

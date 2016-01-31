@@ -1,17 +1,22 @@
 ﻿@using Bm.Modules.Html
 @model Bm.Models.Dp.Developer
 @section Header{
+    <script>
+        var breadcrumb = {
+            title: "开发商信息",
+            subtitle: "",
+            moduleUrl: "@Url.Action("Index")",
+            moduleName: "开发商信息",
+            moduleIcon: "fa-book",
+            actionName: "修改开发商信息"
+        };
+    </script>
     <script src="~/Scripts/init.js"></script>
     <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
 
 @section PageHead {
-    <h1>开发商信息<small></small></h1>
-    <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
-        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>开发商</a></li>
-        <li class="active">修改开发商信息</li>
-    </ol>
+
 }
 <section class="content">
     <div class="box box-info">
@@ -22,12 +27,13 @@
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.CreatedAt)
             @Html.HiddenFor(m => m.CreatedBy)
+            @Html.HiddenFor(m => m.BranchNo)
 
             <div class="box-body">
                 @Html.InputFor(m => m.No)
                 @Html.InputFor(m => m.Name)
             </div>
-              <!-- /.box-body -->
+            <!-- /.box-body -->
             <div class="box-footer" style="text-align: right;">
                 <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
                 <a href="@Url.Action("Index")" class="btn bg-blue btn-flat margin"><i class="fa fa-mail-reply"></i>返回列表</a>

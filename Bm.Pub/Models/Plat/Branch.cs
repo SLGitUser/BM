@@ -3,13 +3,10 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Bm.Models.Common;
 
-namespace Bm.Models.Base
+namespace Bm.Models.Plat
 {
-    /// <summary>
-    /// 角色
-    /// </summary>
-    [DisplayName("角色")]
-    public sealed class Role : IStamp
+    [DisplayName("运营公司")]
+    public sealed class Branch : IId, IStamp
     {
         #region Implementation of IId
 
@@ -39,6 +36,7 @@ namespace Bm.Models.Base
         /// 建议使用操作人的账户名
         /// </remarks>
         [DisplayName("记录创建人")]
+        [Required]
         public string CreatedBy { get; set; }
 
         /// <summary>
@@ -51,6 +49,7 @@ namespace Bm.Models.Base
         /// 建议使用服务器时间，不要使用默认空值
         /// </remarks>
         [DisplayName("记录创建时间")]
+        [Required]
         public DateTime CreatedAt { get; set; }
 
         #endregion
@@ -84,51 +83,30 @@ namespace Bm.Models.Base
         #endregion
         
         /// <summary>
-        /// 读取或者设置编码
+        /// 读取或者设置名称
         /// </summary>
-        /// <remark>
-        /// </remark>
-        [DisplayName("编码")]
-        [StringLength(20)]
-        public string No { get; set; }
-
-        /// <summary>
-        /// 读取或者设置角色名称
-        /// </summary>
-        [DisplayName("角色名称")]
+        /// <remark></remark>
+        [DisplayName("名称")]
+        [StringLength(40)]
         [Required]
-        [StringLength(30)]
         public string Name { get; set; }
 
         /// <summary>
-        /// 读取或者设置角色简称
+        /// 读取或者设置编号
         /// </summary>
-        [DisplayName("角色简称")]
-        [StringLength(30)]
-        public string ShortName { get; set; }
-        
+        /// <remark></remark>
+        [DisplayName("编号")]
+        [StringLength(40)]
+        [Required]
+        public string No { get; set; }
+
         /// <summary>
-        /// 读取或者设置角色描述
+        /// 读取或者设置备注
         /// </summary>
-        /// <remark>
-        /// </remark>
-        [DisplayName("角色描述")]
+        /// <remark></remark>
+        [DisplayName("备注")]
         [StringLength(100)]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// 读取或者设置上级角色
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("上级角色")]
-        public string ParentNo { get; set; }
-
-        /// <summary>
-        /// 读取或者设置排序序号
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("排序序号")]
-        public long OrderId { get; set; }
+        public string Remark { get; set; }
 
     }
 }

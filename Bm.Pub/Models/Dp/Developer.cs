@@ -85,6 +85,15 @@ namespace Bm.Models.Dp
         #endregion
 
         /// <summary>
+        /// 读取或者设置运营商编号
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("运营商编号")]
+        [StringLength(20)]
+        [Required]
+        public string BranchNo { get; set; }
+        
+        /// <summary>
         /// 读取或者设置编号
         /// </summary>
         /// <remark></remark>

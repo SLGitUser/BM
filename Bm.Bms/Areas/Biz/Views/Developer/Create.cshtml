@@ -24,6 +24,7 @@
         <!-- form start -->
         <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
             <div class="box-body">
+                @Html.HiddenFor(m => m.BranchNo)
                 @Html.InputFor(m => m.No)
                 @Html.InputFor(m => m.Name)
             </div>

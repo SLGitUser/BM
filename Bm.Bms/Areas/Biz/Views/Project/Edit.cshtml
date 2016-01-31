@@ -1,9 +1,11 @@
 ﻿@model Bm.Models.Dp.Project
 @using Bm.Modules.Html
 @using Bm.Services.Dp
-    @section Header{
-    }
 
+@section Header{
+    <script src="~/Scripts/init.js"></script>
+    <link rel="stylesheet" href="~/Content/css/app.min.css">
+}
     @section PageHead {
         <h1>楼盘信息<small></small></h1>
         <ol class="breadcrumb">
@@ -22,7 +24,7 @@
             <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
                 <div class="box-body">
                     @Html.HiddenFor(m =>m.Id)
-                    @Html.InputFor(m =>m.No)
+                    @Html.InputFor(m =>m.No,new {@readOnly="readOnly"})
                     @Html.InputFor(m=>m.Name)
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label class="control-label col-sm-3 required">开发商编号</label>

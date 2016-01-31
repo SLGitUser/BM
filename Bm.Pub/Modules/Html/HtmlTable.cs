@@ -46,7 +46,7 @@ namespace Bm.Modules.Html
             _tbl.HeadEles.Add(new HtmlElement("th").Attr("data-prop", pi.Name).Text(displayName));
 
             var propFunc = propExpr.Compile();
-            var fmtFunc = formatFunc ?? (m => m.ToString());
+            var fmtFunc = formatFunc ?? (m => m?.ToString());
             for (var i = 0; i < _models.Count; i++)
             {
                 var propValue = propFunc(_models[i]);

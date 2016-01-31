@@ -1,5 +1,6 @@
 ﻿@model Bm.Models.Dp.Project
-
+@using Bm.Modules.Html
+@using Bm.Services.Dp
     @section Header{
     }
 
@@ -12,7 +13,6 @@
         </ol>
     }
 
-    <script src="~/Content/JavaScript/Js_Tools.js"></script>
     <!-- Main content -->
     <section class="content">
         <div class="box box-info">
@@ -21,90 +21,35 @@
             </div>
             <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
                 <div class="box-body">
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="No" class="col-sm-4 control-label">编号</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="No" name="No" placeholder="编号必须唯一">
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.No)</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="Name" class="col-sm-4 control-label">名称</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="Name" name="Name" placeholder="名称">
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.Name)</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="BldType" class="col-sm-4 control-label">类型</label>
-                            <div class="col-sm-8">
-                                @Html.DropDownListFor(m => m.BldType, new SelectList(new[] { new { Text = "类型1", Value = "类型1" }, new { Text = "类型2", Value = "类型2" } }, "Text", "Value"), new { @class = "form-control" })
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.BldType)</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="BizGrp" class="col-sm-4 control-label">版块</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="No" name="BizGrp" placeholder="版块">
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.BizGrp)</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="SaleStatus" class="col-sm-4 control-label">销售状态</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="Name" name="SaleStatus" placeholder="销售状态">
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.SaleStatus)</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="AddrPic" class="col-sm-4 control-label">位置图片</label>
-                            <div class="col-sm-8">
-                                <input type="file" class="form-control" id="AddrPic">
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.AddrPic)</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="AvgPrice" class="col-sm-4 control-label">均价</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="AvgPrice" name="AvgPrice" placeholder="均价">
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.AvgPrice)</p>
-                            </div>
-                        </div>
-                    <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                        <label for="SalesTel" class="col-sm-4 control-label">咨询电话</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="SalesTel" name="SalesTel" placeholder="咨询电话">
-                            <p class="help-block">@Html.ValidationMessageFor(m => m.SalesTel)</p>
+                    @Html.HiddenFor(m =>m.Id)
+                    @Html.InputFor(m =>m.No)
+                    @Html.InputFor(m=>m.Name)
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                        <label class="control-label col-sm-3 required">开发商编号</label>
+                        <div class="col-sm-9">
+                            @Html.DropDownListFor(m => m.OwnerNo,DeveloperService.GetSelectAllNo(), new {@class = "form-control ",@value=Model.OwnerNo})
                         </div>
                     </div>
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="Address" class="col-sm-4 control-label">地址</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="No" name="Address" placeholder="地址">
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.Address)</p>
-                            </div>
-                        </div>
-                    <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                        <label for="Longitude" class="col-sm-4 control-label">经度</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="Longitude" name="Longitude" placeholder="经度">
-                            <p class="help-block">@Html.ValidationMessageFor(m => m.Longitude)</p>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                        <label class="control-label col-sm-3 required">类型</label>
+                        <div class="col-sm-9">
+                            @Html.DropDownListFor(m => m.BldType, ProjectService.GetBldType(), new {@class = "form-control ",@value=Model.OwnerNo})
                         </div>
                     </div>
-                        <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                            <label for="Latitude" class="col-sm-4 control-label">纬度</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="Latitude" name="Latitude" placeholder="纬度">
-                                <p class="help-block">@Html.ValidationMessageFor(m => m.Latitude)</p>
-                            </div>
-                        </div>
-                    <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                        <label for="AuthType" class="col-sm-4 control-label">推客认证类型</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="AuthType" name="AuthType" placeholder="推客认证类型">
-                            <p class="help-block">@Html.ValidationMessageFor(m => m.AuthType)</p>
+                    @Html.InputFor(m => m.BizGrp)
+                    @Html.InputFor(m => m.SaleStatus)
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                        <label for="AddrPic" class="control-label col-sm-3">位置图片</label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control" id="AddrPic">
                         </div>
                     </div>
+                    @Html.InputFor(m => m.AvgPrice)
+                    @Html.InputFor(m => m.SalesTel)
+                    @Html.InputFor(m => m.Address)
+                    @Html.InputFor(m => m.Longitude)
+                    @Html.InputFor(m => m.Latitude)
+                    @Html.InputFor(m => m.AuthType)
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Bm.Services.Dp
 {
@@ -17,6 +18,8 @@ namespace Bm.Services.Dp
         {
 
         }
+        #region 模型操作
+
         /// <summary>
         /// 页面列表查看
         /// </summary>
@@ -99,6 +102,21 @@ namespace Bm.Services.Dp
                 return r.SetValue(true);
             }
         }
+        #endregion
+        #region SelectHelper
+
+        public static SelectList GetBldType()
+        {
+            //using (var conn = ConnectionManager.Open())
+            //{
+                //var query = new Criteria<BldType>()
+                //    .Desc(m => m.No);
+                //return conn.Query(query);
+            //}
+            var list = new[] { new { Text = "类型1", Value = "类型1" }, new { Text = "类型2", Value = "类型2" } };
+            return new SelectList(list, "Text", "Value");
+        }
+        #endregion
     }
 }
 

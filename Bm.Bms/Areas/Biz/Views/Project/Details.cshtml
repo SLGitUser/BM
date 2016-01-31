@@ -1,8 +1,9 @@
 ﻿@using Bm.Modules.Html
 @model IList<Bm.Models.Dp.Project>
 
-@{
 
+@section Header{
+    <script src="~/Scripts/init.js"></script>
 }
 @section PageHead {
     <h1>楼盘信息<small></small></h1>
@@ -12,6 +13,7 @@
         <li class="active">查看楼盘信息</li>
     </ol>
 }
+
 @using (Html.BeginForm())
 {
         <!-- Main content -->
@@ -26,14 +28,24 @@
                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">
-                                 @Html.Raw(Model.ToHtmlTable()
+                                @Html.Raw(Model.ToHtmlTable()
                                 .Table(new HtmlElement("table")
                                     .Attr("class", "table data table-bordered table-striped dataTable")
                                     .Attr("role", "grid")
                                     .Attr("aria-describedby", "example1_info"))
-                                .Add(m => m.No)
-                                .Add(m => m.Name)
-                                .ToString())
+                                    .Add(m => m.No)
+                                    .Add(m => m.Name)
+                                    .Add(m => m.OwnerNo)
+                                    .Add(m => m.BldType)
+                                    .Add(m => m.BizGrp)
+                                    .Add(m => m.SaleStatus)
+                                    .Add(m => m.AddrPic)
+                                    .Add(m => m.AvgPrice)
+                                    .Add(m => m.SalesTel)
+                                    .Add(m => m.Longitude)
+                                    .Add(m => m.Latitude)
+                                    .Add(m => m.AuthType)
+                                    .ToString())
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using Bm.Models.Common;
 using Bm.Models.Dp;
 using Bm.Modules.Orm;
@@ -89,6 +91,23 @@ namespace Bm.Services.Dp
 
                 trans.Commit();
                 return r.SetValue(true);
+            }
+        }
+
+        public static SelectList GetSelectAllNo()
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Developer>()
+                    .And(m => m.Id, Op.Gt, 0)
+                    .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
+                    .Desc(m => m.No);
+                var selectList = conn.Query(query).Select(m => new
+                {
+                    m.No,
+                    Text = $"[{m.No}]{m.Name}"
+                }).ToList();
+                return new SelectList(selectList,"No","Text");
             }
         }
     }

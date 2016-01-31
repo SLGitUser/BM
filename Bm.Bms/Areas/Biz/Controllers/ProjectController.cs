@@ -3,6 +3,8 @@ using Bm.Services.Dp;
 using System.Web.Mvc;
 using Bm.Models.Dp;
 using Bm.Modules.Helper;
+using System;
+using System.Linq;
 
 namespace Bm.Areas.Biz.Controllers
 {
@@ -48,6 +50,8 @@ namespace Bm.Areas.Biz.Controllers
             {
                 var model = new Project();
                 TryUpdateModel(model, collection);
+                model.CreatedAt = DateTime.Now;
+                model.CreatedBy = "SYSTEM";
                 if (!ModelState.IsValid)
                 {
                     FlashError("数据验证未通过，请检查是否存在为空的必填项");

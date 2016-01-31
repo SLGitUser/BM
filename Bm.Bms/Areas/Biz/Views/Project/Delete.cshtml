@@ -26,15 +26,24 @@
                 <div class="box-body">
                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
-                            <div class="col-sm-12">
-                                 @Html.Raw(Model.ToHtmlTable()
-                                .Table(new HtmlElement("table")
-                                    .Attr("class", "table data table-bordered table-striped dataTable")
-                                    .Attr("role", "grid")
-                                    .Attr("aria-describedby", "example1_info"))
-                                .Add(m => m.No)
-                                .Add(m => m.Name)
-                                .ToString())
+                                @Html.Raw(Model.ToHtmlTable()
+                                    .Table(new HtmlElement("table")
+                                        .Attr("class", "table data table-bordered table-striped dataTable")
+                                        .Attr("role", "grid")
+                                        .Attr("aria-describedby", "example1_info"))
+                                    .Add(m => m.No)
+                                    .Add(m => m.Name)
+                                    .Add(m => m.OwnerNo)
+                                    .Add(m => m.BldType)
+                                    .Add(m => m.BizGrp)
+                                    .Add(m => m.SaleStatus)
+                                    .Add(m => m.AddrPic)
+                                    .Add(m => m.AvgPrice)
+                                    .Add(m => m.SalesTel)
+                                    .Add(m => m.Longitude)
+                                    .Add(m => m.Latitude)
+                                    .Add(m => m.AuthType)
+                                    .ToString())
                             </div>
                         </div>
                     </div>
@@ -46,7 +55,5 @@
                 </div>
                 <!-- /.box-footer -->
             </div>
-            <!-- /.box -->
-        </div>
     </section>
 }

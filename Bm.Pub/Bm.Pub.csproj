@@ -121,6 +121,8 @@
     <Compile Include="Models\Dp\ProjectInfoType.cs" />
     <Compile Include="Models\Dp\Developer.cs" />
     <Compile Include="Models\Dp\Promotion.cs" />
+    <Compile Include="Modules\BaseAuthController.cs" />
+    <Compile Include="Modules\BaseController.cs" />
     <Compile Include="Modules\Enumerations.cs" />
     <Compile Include="Modules\GeneralComparer.cs" />
     <Compile Include="Modules\Helper\ExpressionHelper.cs" />

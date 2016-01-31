@@ -1,4 +1,5 @@
-﻿@model Bm.Models.Base.Account
+﻿@using Bm.Modules.Html
+@model Bm.Models.Base.Account
 @section Header{
 }
 
@@ -17,64 +18,17 @@
         </div>
         @using (Html.BeginForm("Edit", "Account", FormMethod.Post, new Dictionary<string, object> { { "class", "form-horizontal" } }))
         {
+
+            <div class="box-body">
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.CreatedAt)
             @Html.HiddenFor(m => m.CreatedBy)
-
-            <div class="box-body">
-                <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                    <label for="No" class="col-sm-2 control-label">账户名</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="No" name="No" value="@Model.No" placeholder="账户名">
-                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.No)</label>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                    <label for="Name" class="col-sm-2 control-label">姓名</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" placeholder="姓名">
-                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.Name)</label>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                    <label for="Name" class="col-sm-2 control-label">密码</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" placeholder="姓名">
-                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.Name)</label>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                    <label for="Name" class="col-sm-2 control-label">电子邮件</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" placeholder="姓名">
-                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.Name)</label>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                    <label for="Name" class="col-sm-2 control-label">手机</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" placeholder="姓名">
-                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.Name)</label>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                    <label for="Name" class="col-sm-2 control-label">备注</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Remark" name="Remark" value="@Model.Remark" placeholder="姓名">
-                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.Remark)</label>
-                    </div>
-                </div>
+                @Html.InputFor(m => m.No)
+                @Html.InputFor(m => m.Name)
+                @Html.InputFor(m => m.Password)
+                @Html.InputFor(m => m.Email)
+                @Html.InputFor(m => m.Phone)
+                @Html.InputFor(m => m.Remark)
 
 
             </div>

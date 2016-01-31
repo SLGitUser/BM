@@ -10,7 +10,7 @@ namespace Bm.Areas.Biz.Controllers
 {
     public sealed class DeveloperController : BaseAuthController
     {
-        private DeveloperService _service;
+        private readonly DeveloperService _service;
 
         public DeveloperController()
         {

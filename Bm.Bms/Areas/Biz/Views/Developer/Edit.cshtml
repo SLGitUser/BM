@@ -18,7 +18,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">修改开发商信息</h3>
         </div>
-        <form class="form-horizontal" action="@Url.Action("Edit", new {  })" method="POST">
+        <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.CreatedAt)
             @Html.HiddenFor(m => m.CreatedBy)

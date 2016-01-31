@@ -109,6 +109,10 @@
     <Content Include="Areas\Biz\Views\Developer\Delete.cshtml" />
     <Content Include="Areas\Biz\Views\Project\Index.cshtml" />
     <Content Include="Areas\Biz\Views\Project\Create.cshtml" />
+    <Content Include="Areas\Biz\Views\Project\Delete.cshtml" />
+    <Content Include="Areas\Biz\Views\Project\Details.cshtml" />
+    <Content Include="Areas\Biz\Views\Project\Edit.cshtml" />
+    <None Include="Properties\PublishProfiles\web.config.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\datatable.init.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -137,7 +141,9 @@
     <Content Include="packages.config" />
     <Content Include="User.Vars.config" />
     <Content Include="Areas\Base\Views\web.config" />
-    <Content Include="Areas\Biz\Views\web.config" />
+    <Content Include="Areas\Biz\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\Base\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Base\Views\Home\Index.cshtml" />
     <Content Include="Areas\Base\Views\Session\Login.cshtml" />

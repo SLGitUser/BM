@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
             <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>楼盘</a></li>
-            <li class="active">新增楼盘信息</li>
+            <li class="active">修改楼盘信息</li>
         </ol>
     }
 
@@ -17,9 +17,9 @@
     <section class="content">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">新增楼盘信息</h3>
+                <h3 class="box-title">修改楼盘信息</h3>
             </div>
-            <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
+            <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
                 <div class="box-body">
                         <div class="form-group col-sm-12 col-lg-4 col-md-6">
                             <label for="No" class="col-sm-4 control-label">编号</label>

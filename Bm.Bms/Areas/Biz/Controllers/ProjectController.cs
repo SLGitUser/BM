@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Bm.Models.Dp;
+using Bm.Modules.Helper;
 
 namespace Bm.Areas.Biz.Controllers
 {
@@ -20,14 +22,20 @@ namespace Bm.Areas.Biz.Controllers
         // GET: Biz/Project
         public ActionResult Index()
         {
-            var modes = _service.GetAll();
-            return View(modes);
+            var models = _service.GetAll();
+            return View(models);
         }
 
         // GET: Biz/Project/Details/5
-        public ActionResult Details()
+        public ActionResult Details(long[] ids)
         {
-            return View();
+            if (ids.IsNullOrEmpty())
+            {
+                FlashWarn("请选择一条数据");
+                return RedirectToAction("Index");
+            }
+            var list = _service.GetByIds(ids);
+            return View(list);
         }
 
         // GET: Biz/Project/Create
@@ -42,57 +50,102 @@ namespace Bm.Areas.Biz.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                var model = new Project();
+                TryUpdateModel(model, collection);
+                if (!ModelState.IsValid)
+                {
+                    FlashError("数据验证未通过，请检查是否存在为空的必填项");
+                    return View(model);
+                }
+                model.CreatedAt = DateTime.Now;
+                model.CreatedBy = "SYSTEM";
 
+                var r = _service.Create(model);
+                if (r.HasError)
+                {
+                    FlashMessage(r);
+                    return View(model);
+                }
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
         }
 
         // GET: Biz/Project/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id.HasValue)
+            {
+                var model = _service.GetById(id.Value);
+                return View(model);
+            }
+            FlashWarn("没有指定ID");
+            return RedirectToAction("Index");
         }
 
         // POST: Biz/Project/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
+            var model = new Project();
+            TryUpdateModel(model, collection);
+            if (!ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                FlashError("数据验证未通过，请检查是否存在为空的必填项");
+                return View(model);
+            }
+            model.UpdatedBy = "SYSTEM";
+            model.UpdatedAt = DateTime.Now;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            var r = _service.Update(model);
+            if (r.HasError)
             {
-                return View();
+                FlashMessage(r);
+                return View(model);
             }
+            return RedirectToAction("Index");
         }
 
         // GET: Biz/Project/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long[] ids)
         {
-            return View();
+            if (ids.IsNullOrEmpty())
+            {
+                FlashWarn("请选择一条数据");
+                return RedirectToAction("Index");
+            }
+            var list = _service.GetByIds(ids);
+            return View(list);
         }
 
         // POST: Biz/Project/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(FormCollection collection, long[] ids)
         {
+            if (ids.IsNullOrEmpty())
+            {
+                FlashWarn("请选择一条数据");
+                return View();
+            }
+            var list = _service.GetByIds(ids);
             try
             {
-                // TODO: Add delete logic here
-
+                var r = _service.Delete(list.ToArray());
+                if (r.HasError)
+                {
+                    FlashMessage(r);
+                    return View(list);
+                }
+                FlashSuccess("删除成功");
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                FlashError("删除失败");
+                return View(list);
             }
         }
     }

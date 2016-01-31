@@ -38,6 +38,22 @@ namespace Bm.Modules.Helper
 
         #endregion
 
+        #region PropertyInfo
+
+        public static T GetAttribute<T>(this FieldInfo type)
+        {
+            var types = type.GetCustomAttributes(typeof(T), true);
+            return types.Length == 0 ? default(T) : (T)types[0];
+        }
+
+        public static T[] GetAttributes<T>(this FieldInfo type)
+        {
+            var types = type.GetCustomAttributes(typeof(T), true);
+            return types.Length == 0 ? new T[0] : types.Select(m => (T)m).ToArray();
+        }
+
+        #endregion
+
         #region 类型判断
 
         private static readonly Type[] NumericTypes = 
@@ -107,5 +123,15 @@ namespace Bm.Modules.Helper
         }
 
         #endregion
+
+        #region Value
+
+        public static object GetPropValue<TModel>(this TModel model, string propName)
+        {
+            return typeof(TModel).GetProperty(propName)?.GetValue(model, null);
+        }
+
+        #endregion
+
     }
 }

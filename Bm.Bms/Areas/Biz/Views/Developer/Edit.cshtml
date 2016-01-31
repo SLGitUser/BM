@@ -1,52 +1,43 @@
-﻿@model Bm.Models.Dp.Developer
+﻿@using Bm.Modules.Html
+@model Bm.Models.Dp.Developer
 @section Header{
+    <script>
+        var breadcrumb = {
+            title: "开发商信息",
+            subtitle: "",
+            moduleUrl: "@Url.Action("Index")",
+            moduleName: "开发商信息",
+            moduleIcon: "fa-book",
+            actionName: "修改开发商信息"
+        };
+    </script>
+    <script src="~/Scripts/init.js"></script>
+    <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
 
 @section PageHead {
-    <h1>开发商信息<small></small></h1>
-    <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
-        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>开发商</a></li>
-        <li class="active">修改开发商信息</li>
-    </ol>
+
 }
 <section class="content">
     <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">修改开发商信息</h3>
         </div>
-        @using (Html.BeginForm("Edit", "Developer", FormMethod.Post, new Dictionary<string, object> { { "class", "form-horizontal" } }))
-        {
+        <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.CreatedAt)
             @Html.HiddenFor(m => m.CreatedBy)
+            @Html.HiddenFor(m => m.BranchNo)
 
             <div class="box-body">
-                <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                    <label for="No" class="col-sm-2 control-label">编号</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="No" name="No" value="@Model.No" placeholder="编号">
-                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.No)</label>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                    <label for="Name" class="col-sm-2 control-label">名称</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" placeholder="名称">
-                        <label for="No" class="control-label">@Html.ValidationMessageFor(m => m.Name)</label>
-                    </div>
-                </div>
-
-
+                @Html.InputFor(m => m.No)
+                @Html.InputFor(m => m.Name)
             </div>
-              <!-- /.box-body -->
+            <!-- /.box-body -->
             <div class="box-footer" style="text-align: right;">
                 <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
                 <a href="@Url.Action("Index")" class="btn bg-blue btn-flat margin"><i class="fa fa-mail-reply"></i>返回列表</a>
             </div>
-        }
+        </form>
     </div>
 </section>

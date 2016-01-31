@@ -84,13 +84,6 @@ namespace Bm.Models.Base
         #endregion
         
         /// <summary>
-        /// 读取或者设置角色类型
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("角色类型")]
-        public string Type { get; set; }
-        
-        /// <summary>
         /// 读取或者设置编码
         /// </summary>
         /// <remark>

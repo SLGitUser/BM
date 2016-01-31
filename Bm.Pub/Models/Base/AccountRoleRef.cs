@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Bm.Models.Common;
 
 namespace Bm.Models.Base
@@ -59,13 +60,23 @@ namespace Bm.Models.Base
         /// </summary>
         /// <remark></remark>
         [DisplayName("账号")]
+        [StringLength(36)]
         public string AccountNo { get; set; }
 
+        /// <summary>
+        /// 读取或者设置运营商编号
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("运营商编号")]
+        [StringLength(6)]
+        public string BranchNo { get; set; }
+        
         /// <summary>
         /// 读取或者设置角色编号
         /// </summary>
         /// <remark></remark>
         [DisplayName("角色编号")]
+        [StringLength(20)]
         public string RoleNo { get; set; }
     }
 }

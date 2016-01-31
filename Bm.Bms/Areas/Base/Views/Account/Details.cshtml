@@ -1,0 +1,53 @@
+﻿@using Bm.Modules.Html
+@model IList<Bm.Models.Base.Account>
+
+@{
+
+}
+@section PageHead {
+    <h1>账户信息<small></small></h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
+        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>账户</a></li>
+        <li class="active">查看账户信息</li>
+    </ol>
+}
+@using (Html.BeginForm())
+{
+        <!-- Main content -->
+    <section class="content">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">查看数据</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                 @Html.Raw(Model.ToHtmlTable()
+                                .Table(new HtmlElement("table")
+                                    .Attr("class", "table data table-bordered table-striped dataTable")
+                                    .Attr("role", "grid")
+                                    .Attr("aria-describedby", "example1_info"))
+                                .Add(m => m.No)
+                                .Add(m => m.Name)
+                                .Add(m => m.Email)
+                                .Add(m => m.Phone)
+                                .Add(m => m.Remark)
+                                .ToString())
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </section>
+}

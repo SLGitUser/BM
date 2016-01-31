@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Bm.Bms
+namespace Bm
 {
     public class RouteConfig
     {

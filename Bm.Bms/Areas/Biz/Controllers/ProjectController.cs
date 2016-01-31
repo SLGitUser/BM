@@ -1,9 +1,5 @@
 ﻿using Bm.Modules;
 using Bm.Services.Dp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Bm.Models.Dp;
 using Bm.Modules.Helper;
@@ -12,13 +8,13 @@ namespace Bm.Areas.Biz.Controllers
 {
     public sealed class ProjectController : BaseAuthController
     {
-
-        private ProjectService _service;
+        private readonly ProjectService _service;
 
         public ProjectController()
         {
             _service = new ProjectService(User?.Identity?.Name);
         }
+
         // GET: Biz/Project
         public ActionResult Index()
         {

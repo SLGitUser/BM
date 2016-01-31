@@ -1,0 +1,42 @@
+﻿@using Bm.Modules.Html
+@model Bm.Models.Base.Account
+@section Header{
+}
+
+@section PageHead {
+    <h1>账户信息<small></small></h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
+        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>账户</a></li>
+        <li class="active">修改账户信息</li>
+    </ol>
+}
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">修改账户信息</h3>
+        </div>
+        @using (Html.BeginForm("Edit", "Account", FormMethod.Post, new Dictionary<string, object> { { "class", "form-horizontal" } }))
+        {
+
+            <div class="box-body">
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.CreatedAt)
+            @Html.HiddenFor(m => m.CreatedBy)
+                @Html.InputFor(m => m.No)
+                @Html.InputFor(m => m.Name)
+                @Html.InputFor(m => m.Password)
+                @Html.InputFor(m => m.Email)
+                @Html.InputFor(m => m.Phone)
+                @Html.InputFor(m => m.Remark)
+
+
+            </div>
+              <!-- /.box-body -->
+            <div class="box-footer" style="text-align: right;">
+                <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
+                <a href="@Url.Action("Index")" class="btn bg-blue btn-flat margin"><i class="fa fa-mail-reply"></i>返回列表</a>
+            </div>
+        }
+    </div>
+</section>

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>经纪大师 | 城市管理系统</title>
+    <title>经纪大师 | 运营管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -50,6 +50,17 @@
     @*<script src="http://123.56.185.114:8000/al/js/pages/dashboard2.js"></script>*@
     <!-- AdminLTE for demo purposes -->
     <script src="http://123.56.185.114:8000/al/js/demo.js"></script>
+
+    
+<!-- DataTables -->
+<link rel="stylesheet" href="http://123.56.185.114:8000/plugins/datatables/dataTables.bootstrap.css">
+<!-- DataTables -->
+<script src="http://123.56.185.114:8000/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="http://123.56.185.114:8000/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="http://123.56.185.114:8000/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="http://123.56.185.114:8000/plugins/fastclick/fastclick.js"></script>
     @*<style type="text/css">
             .skin-blue-light .main-header .navbar {
                 background-color: #3c8dbc;
@@ -406,6 +417,16 @@
                             <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 提现</a></li>
                         </ul>
                     </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-pie-chart"></i>
+                            <span>系统管理</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/base/account/index"><i class="fa fa-circle-o"></i> 账户管理</a></li>
+                        </ul>
+                    </li>
                     @*<li>
                             <a href="pages/widgets.html">
                                 <i class="fa fa-th"></i> <span>Widgets</span>
@@ -424,7 +445,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <section class="content-header">
+            <section class="content-header" id="page-header">
                 @RenderSection("PageHead", false)
             </section>
             @{ Html.RenderPartial("_Messages", ViewBag.Messages == null ? new List<MessageInfo>() : (IList<MessageInfo>)ViewBag.Messages); }

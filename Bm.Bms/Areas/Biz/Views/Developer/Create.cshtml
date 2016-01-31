@@ -1,6 +1,9 @@
-﻿@model Bm.Models.Dp.Developer
+﻿@using Bm.Modules.Html
+@model Bm.Models.Dp.Developer
 
 @section Header{
+    <script src="~/Scripts/init.js"></script>
+    <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
 
 @section PageHead {
@@ -11,8 +14,6 @@
         <li class="active">新增开发商信息</li>
     </ol>
 }
-
-<script src="~/Content/JavaScript/Js_Tools.js"></script>
 <!-- Main content -->
 <section class="content">
     <div class="box box-info">
@@ -23,22 +24,9 @@
         <!-- form start -->
         <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
             <div class="box-body">
-                <div class="row">
-                    <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                        <label for="No" class="col-sm-3 control-label">编号</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="No" name="No" placeholder="编号必须唯一">
-                            <p class="help-block">@Html.ValidationMessageFor(m => m.No)</p>
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-12 col-lg-4 col-md-6">
-                        <label for="Name" class="col-sm-3 control-label">名称</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Name" name="Name" placeholder="名称">
-                            <p class="help-block">@Html.ValidationMessageFor(m => m.Name)</p>
-                        </div>
-                    </div>
-                </div>
+                @Html.HiddenFor(m => m.BranchNo)
+                @Html.InputFor(m => m.No)
+                @Html.InputFor(m => m.Name)
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Bm.Modules.Helper
 {
-    public static class StringHelper
+    public static partial class StringHelper
     {
         #region Type
 

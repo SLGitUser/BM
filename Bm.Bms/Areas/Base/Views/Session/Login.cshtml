@@ -10,6 +10,14 @@
     <title>经纪大师 | 登录</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!--[if lte IE 7]>
+    <div style="background:#f16b80;  width:100%; height:50px; line-height:50px; text-align:center; font-size:14px; color:#fff; font-family:"微软雅黑";>
+        温馨提示：您目前的浏览器版本过低，网站部分功能无法正常使用，建议尽快升级：
+            <a href="http://www.microsoft.com/china/windows/IE/upgrade/index.aspx" name="升级ie浏览器" id="upgrade_ie" target="_blank" style=" display:inline-block;width:154px; height:40px;  vertical-align:middle;  margin:0 18px 0 12px;_margin-top:4px;"><img src="/content/images/ie.png" width="154" height="40"/></a>
+                 或安装
+            <a href="http://www.firefox.com.cn" target="_blank" name="升级火狐浏览器" id="upgrade_firefox" style="display:inline-block;width:154px; height:40px;  vertical-align:middle;  margin:0 18px 0 12px;_margin-top:4px;"><img src="/content/images/firefox.png" width="154" height="40"/></a>
+    </div>
+    <![endif]-->
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="http://123.56.185.114:8000/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -39,40 +47,44 @@
 
             <form action="@Url.Action("Login")" method="post">
                 <div class="form-group has-feedback">
-                    <input type="text" name="username" class="form-control" placeholder="手机号或者用户名">
+                    <input type="text" id="u" name="username" class="form-control" placeholder="手机号或者用户名" required="required">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" name="password" class="form-control" placeholder="密码">
+                    <input type="password" id="p" name="password" class="form-control" placeholder="密码" required="required">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
                         @*<div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox"> Remember Me
-                            </label>
-                        </div>*@
+                                <label>
+                                    <input type="checkbox"> Remember Me
+                                </label>
+                            </div>*@
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">验证登录</button>
+                        <button id="s" type="submit" class="btn btn-primary btn-block btn-flat">验证登录</button>
                     </div>
                     <!-- /.col -->
+                </div>
+                <div class="row">
+                    <div id="m">
+                    </div>
                 </div>
             </form>
 
             @*<div class="social-auth-links text-center">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
-                    <i class="fa fa-facebook"></i> Sign in using
-                    Facebook
-                </a>
-                <a href="#" class="btn btn-block btn-social btn-google btn-flat">
-                    <i class="fa fa-google-plus"></i> Sign in using
-                    Google+
-                </a>
-            </div>*@
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
+                        <i class="fa fa-facebook"></i> Sign in using
+                        Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-social btn-google btn-flat">
+                        <i class="fa fa-google-plus"></i> Sign in using
+                        Google+
+                    </a>
+                </div>*@
             <!-- /.social-auth-links -->
 
             <a href="#">忘记密码</a><br>
@@ -89,13 +101,48 @@
     <!-- iCheck -->
     <script src="http://123.56.185.114:8000/plugins/iCheck/icheck.min.js"></script>
     <script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-  });
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#u').focus();
+            $("#s").click(function () {
+                var u = $('#u'), p = $('#p'), m = $('#m');
+                @Html.Raw(new[] { "localhost", "::1", "127.0.0.1" }.Contains(Request.UserHostAddress) ? "if(u.val() == '') { u.val('root');p.val('123456'); }" : "")
+                if (u.val() === '') {
+                    m.html('请输入用户名!');
+                    u.focus();
+                } else if (p.val() === '') {
+                    m.html('请输入密码!');
+                    p.focus();
+                } else {
+                    $.ajax({
+                        url: "/base/session/login",
+                        data: { username: u.val(), password: p.val() },
+                        type: 'post',
+                        dataType: 'json',
+                        beforeSend: function () { $('#m').html('正在登录...'); }
+                    })
+                        .success(function (data) {
+                            if (data.status == 200) {
+                                $('#m').html(data.message);
+                                top.location.href = data.data.url;
+                            } else {
+                                $('#m').html(data.message);
+                            }
+                        })
+                        .fail(function () { $('#m').html('请求服务器验证失败!'); })
+                        .error(function () { $('#m').html('服务器返回结果格式错误!'); });
+                }
+                return false;
+            });
+        });
     </script>
 </body>
 </html>

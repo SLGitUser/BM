@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 using Bm.Modules.Helper;
 
 namespace Bm.Modules.Html
@@ -14,7 +15,7 @@ namespace Bm.Modules.Html
 
         private readonly List<HtmlElement> _children = new List<HtmlElement>();
 
-        private string _innerHTML;
+        private string _innerHtml;
 
         /// <summary>
         /// 构造函数
@@ -161,13 +162,34 @@ namespace Bm.Modules.Html
             }
             if (children.IsNullOrEmpty()) return this;
             _children.AddRange(children);
-            _innerHTML = null;
+            _innerHtml = null;
             return this;
         }
 
         public HtmlElement Html(string html)
         {
-            _innerHTML = html;
+            _innerHtml = html;
+            _children.Clear();
+            return this;
+        }
+
+        public HtmlElement Html(MvcHtmlString html)
+        {
+            _innerHtml = html.ToHtmlString();
+            _children.Clear();
+            return this;
+        }
+
+        public HtmlElement AppendHtml(string html)
+        {
+            _innerHtml += html;
+            _children.Clear();
+            return this;
+        }
+
+        public HtmlElement AppendHtml(MvcHtmlString html)
+        {
+            _innerHtml += html.ToHtmlString();
             _children.Clear();
             return this;
         }
@@ -198,7 +220,7 @@ namespace Bm.Modules.Html
             {
                 builder.Append(" >");
 
-                if (string.IsNullOrEmpty(_innerHTML))
+                if (string.IsNullOrEmpty(_innerHtml))
                 {
                     foreach (var child in _children)
                     {
@@ -206,7 +228,7 @@ namespace Bm.Modules.Html
                     }
                 }
                 else {
-                    builder.Append(_innerHTML);
+                    builder.Append(_innerHtml);
                 }
                 builder.Append("</");
                 builder.Append(_tag);

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Bm.Models.Dp;
 using Bm.Modules;
+using Bm.Services.Base;
 using Bm.Services.Dp;
 using com.senlang.Sdip.Util;
 
@@ -12,14 +13,22 @@ namespace Bm.Areas.Biz.Controllers
     {
         private readonly DeveloperService _service;
 
+        private string _branchNo;
+
         public DeveloperController()
         {
-            _service = new DeveloperService(User?.Identity?.Name);
+            _service = new DeveloperService(CurrAccountNo);
+
+            var accountService = new AccountService(CurrAccountNo);
+            _branchNo = accountService.GetBranchNo();
         }
 
         // GET: Biz/Developer
         public ActionResult Index()
         {
+
+            
+
             var models = _service.GetAll();
             return View(models);
         }
@@ -41,7 +50,7 @@ namespace Bm.Areas.Biz.Controllers
         {
             var model = new Developer
             {
-                BranchNo = "420100"
+                BranchNo = _branchNo
             };
             return View(model);
         }

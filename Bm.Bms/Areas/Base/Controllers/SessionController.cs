@@ -18,7 +18,7 @@ namespace Bm.Areas.Base.Controllers
             Reset();
             FormsAuthentication.SetAuthCookie("SYSTEM", false);
 
-            return JsonMessage(200, "验证成功，请稍候...", new { url = "/base/home/index" });
+            //return JsonMessage(200, "验证成功，请稍候...", new { url = "/base/home/index" });
 
             var username = GetDbParas("username");
             var password = GetDbParas("password");
@@ -35,7 +35,7 @@ namespace Bm.Areas.Base.Controllers
                 return JsonError("用户名或密码错误");
             }
 
-            FormsAuthentication.SetAuthCookie(r.Value.No, false);
+            FormsAuthentication.SetAuthCookie(r.Value.No, true);
 
             //// 未初始化的用户，使用验证码登录
             //if (AccountStatus.Type.Inactive.Equals(result.Value.Status))

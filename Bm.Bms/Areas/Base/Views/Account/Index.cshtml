@@ -34,9 +34,9 @@
             <div class="box-header">
                 <div class="btn-group">
                     <a class="btn btn-default" href="@Url.Action("Create")"><i class="fa fa-plus"></i> 新增</a>
-                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Biz/Account/Delete");'><i class="fa fa-minus"></i> 删除</button>
+                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Base/Account/Delete");'><i class="fa fa-minus"></i> 删除</button>
 
-                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Biz/Account/Details");'><i class="fa fa-eye"></i> 查看</button>
+                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Base/Account/Details");'><i class="fa fa-eye"></i> 查看</button>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -51,8 +51,9 @@
                                     .Attr("role", "grid")
                                     .Attr("aria-describedby", "example1_info"))
                                 .AddCheckBox(m => m.Id, styleFunc: m => "c1")
-                                .Add(m => m.No)
                                 .Add(m => m.Name)
+                                .Add(m => m.Email)
+                                .Add(m => m.Phone)
                                 .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
                                 .ToString())
                         </div>

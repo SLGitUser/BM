@@ -201,6 +201,50 @@ namespace Bm.Modules.Orm
             return Or(sql);
         }
 
+        #region If or Unless
+
+        public Criteria<TModel> AndIf<TProp>(bool condition, Expression<Func<TModel, TProp>> propExpr, Op op, TProp value)
+        {
+            return condition ? And(propExpr, op, value) : this;
+        }
+
+        public Criteria<TModel> OrIf<TProp>(bool condition, Expression<Func<TModel, TProp>> propExpr, Op op, TProp value)
+        {
+            return condition ? Or(propExpr, op, value) : this;
+        }
+
+        public Criteria<TModel> AndIf<TProp>(bool condition, Expression<Func<TModel, TProp>> propExpr, Op op, IList<TProp> values)
+        {
+            return condition ? And(propExpr, op, values) : this;
+        }
+
+        public Criteria<TModel> OrIf<TProp>(bool condition, Expression<Func<TModel, TProp>> propExpr, Op op, IList<TProp> values)
+        {
+            return condition ? Or(propExpr, op, values) : this;
+        }
+
+        public Criteria<TModel> AndUnless<TProp>(bool condition, Expression<Func<TModel, TProp>> propExpr, Op op, TProp value)
+        {
+            return condition ? this : And(propExpr, op, value);
+        }
+
+        public Criteria<TModel> OrUnless<TProp>(bool condition, Expression<Func<TModel, TProp>> propExpr, Op op, TProp value)
+        {
+            return condition ? this : Or(propExpr, op, value);
+        }
+
+        public Criteria<TModel> AndUnless<TProp>(bool condition, Expression<Func<TModel, TProp>> propExpr, Op op, IList<TProp> values)
+        {
+            return condition ? this : And(propExpr, op, values);
+        }
+
+        public Criteria<TModel> OrUnless<TProp>(bool condition, Expression<Func<TModel, TProp>> propExpr, Op op, IList<TProp> values)
+        {
+            return condition ? this : Or(propExpr, op, values);
+        }
+
+        #endregion
+
         #region 排序
 
         public Criteria<TModel> Asc<TProp>(Expression<Func<TModel, TProp>> propExpr)

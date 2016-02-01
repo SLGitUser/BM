@@ -135,6 +135,7 @@
     <Compile Include="Modules\Helper\TypeHelper.cs" />
     <Compile Include="Modules\Html\HtmlHelper.Breadcrumb.cs" />
     <Compile Include="Modules\Html\HtmlElement.cs" />
+    <Compile Include="Modules\Html\HtmlHelper.Select.cs" />
     <Compile Include="Modules\Html\HtmlHelper.Input.cs" />
     <Compile Include="Modules\Html\HtmlTable.cs" />
     <Compile Include="Modules\Html\HtmlTableHelper.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Modules\Orm\ConnectionManager.cs" />
     <Compile Include="Modules\Orm\Annotation\IgnoreMappingAttribute.cs" />
     <Compile Include="Modules\Orm\SqlExtension.cs" />
+    <Compile Include="Services\Common\NoService.cs" />
     <Compile Include="Services\Common\RepoService.cs" />
     <Compile Include="Services\Dp\BranchService.cs" />
     <Compile Include="Services\Dp\DeveloperService.cs" />

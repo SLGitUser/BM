@@ -14,7 +14,7 @@ namespace Bm.Areas.Base.Controllers
 
         public AccountController()
         {
-            _service = new AccountService(User?.Identity?.Name);
+            _service = new AccountService(CurrAccountNo);
         }
 
         // GET: Biz/Account
@@ -39,7 +39,11 @@ namespace Bm.Areas.Base.Controllers
         // GET: Biz/Account/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new Account
+            {
+                No = Guid.NewGuid().ToString("N").ToUpper()
+            };
+            return View(model);
         }
 
         // POST: Biz/Account/Create

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bm.Models.Base;
 using Bm.Models.Common;
@@ -20,6 +19,40 @@ namespace Bm.Services.Base
         {
 
         }
+
+        public string GetBranchNo()
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<AccountRoleRef>()
+                    .Where(m => m.AccountNo, Op.Eq, AccountNo)
+                    .Limit(1);
+                var model = conn.Query(query).FirstOrDefault();
+                return model?.BranchNo;
+            }
+        }
+
+
+        public Account GetAccount(string accountNo)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Account>()
+                    .Where(m => m.No, Op.Eq, accountNo)
+                    .Limit(1);
+                var model = conn.Query(query).FirstOrDefault();
+                if (model != null)
+                {
+                    var roleQuery = new Criteria<AccountRoleRef>()
+                        .Where(m => m.AccountNo, Op.Eq, accountNo);
+                    model.RoleRefs = conn.Query(roleQuery);
+                }
+                return model;
+            }
+
+        }
+
+
         /// <summary>
         /// 页面列表查看
         /// </summary>
@@ -72,7 +105,11 @@ namespace Bm.Services.Base
             {
                 var trans = conn.BeginTransaction();
                 var query = new Criteria<Account>()
-                    .Desc(m => m.No);
+                    .Where(m => m.No, Op.Eq, model.No)
+                    .OrUnless(string.IsNullOrWhiteSpace(model.Email),
+                        m => m.Email, Op.Eq, model.Email)
+                    .OrUnless(string.IsNullOrWhiteSpace(model.Phone),
+                        m => m.Phone, Op.Eq, model.Phone);
                 if (conn.Exists(query))
                 {
                     trans.Rollback();
@@ -105,7 +142,10 @@ namespace Bm.Services.Base
                 var trans = conn.BeginTransaction();
                 var query = new Criteria<Account>()
                     .Where(m => m.No, Op.Eq, model.No)
-                    .Or(m => m.Name, Op.Eq, model.Name)
+                    .OrUnless(string.IsNullOrWhiteSpace(model.Email),
+                        m => m.Email, Op.Eq, model.Email)
+                    .OrUnless(string.IsNullOrWhiteSpace(model.Phone),
+                        m => m.Phone, Op.Eq, model.Phone)
                     .And(m => m.Id, Op.NotEq, model.Id);
                 if (conn.Exists(query))
                 {

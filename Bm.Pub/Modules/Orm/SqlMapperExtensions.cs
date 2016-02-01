@@ -64,7 +64,12 @@ namespace Bm.Modules.Orm
                 return pi.ToList();
             }
 
-            var computedProperties = TypePropertiesCache(type).Where(p => p.GetCustomAttributes(true).Any(a => a is ComputedAttribute)).ToList();
+            var computedProperties = TypePropertiesCache(type)
+                .Where(p => p.PropertyType.IsInterface || p.PropertyType.IsArray 
+                || (p.PropertyType.IsGenericType && p.PropertyType.GenericTypeArguments[0].IsClass)
+                || (p.PropertyType.IsClass && p.PropertyType != typeof(string))
+                || p.GetCustomAttributes(true).Any(a => a is ComputedAttribute))
+                .ToList();
 
             ComputedProperties[type.TypeHandle] = computedProperties;
             return computedProperties;

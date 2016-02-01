@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Bm.Models.Common;
@@ -267,5 +268,28 @@ namespace Bm.Models.Base
         }
         
         private string _passwordSalt;
+
+
+        #region
+
+        /// <summary>
+        /// 读取或者设置角色关联
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("角色关联")]
+        public IList<AccountRoleRef> RoleRefs
+        {
+            get { return _roleRefs ?? (_roleRefs = new List<AccountRoleRef>()); }
+            set { _roleRefs = value; }
+        }
+
+        /// <summary>
+        /// 角色关联
+        /// </summary>
+        private IList<AccountRoleRef> _roleRefs;
+
+        
+
+        #endregion
     }
 }

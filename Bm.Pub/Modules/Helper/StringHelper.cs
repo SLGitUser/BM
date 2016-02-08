@@ -20,6 +20,18 @@ namespace Bm.Modules.Helper
             return TryToInt(value) ?? dfltValue;
         }
 
+        public static decimal? TryToDecimal(this string value)
+        {
+            decimal result;
+            if (decimal.TryParse(value, out result)) return result;
+            return default(decimal?);
+        }
+
+        public static decimal TryToDecimal(this string value, decimal dfltValue)
+        {
+            return TryToDecimal(value) ?? dfltValue;
+        }
+
         public static long? TryToLong(this string value)
         {
             long result;

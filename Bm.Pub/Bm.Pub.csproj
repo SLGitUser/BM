@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aliyun.OSS, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0ad4175f0dac0b9b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aliyun.OSS.SDK.2.2.0\lib\Aliyun.OSS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -122,6 +126,7 @@
     <Compile Include="Models\Dp\ProjectInfoType.cs" />
     <Compile Include="Models\Dp\Developer.cs" />
     <Compile Include="Models\Dp\Promotion.cs" />
+    <Compile Include="Models\Setting\CommonSet.cs" />
     <Compile Include="Modules\BaseAuthController.cs" />
     <Compile Include="Modules\BaseController.cs" />
     <Compile Include="Modules\Enumerations.cs" />
@@ -163,7 +168,9 @@
     <Compile Include="Modules\Orm\Sql\Op.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Base\AccountService.cs" />
+    <Compile Include="Services\Common\AliyunOssService.cs" />
     <Compile Include="Services\Common\BaseDbService.cs" />
+    <Compile Include="Services\Common\CommonSetService.cs" />
     <Compile Include="Services\Common\DbModelService.cs" />
     <Compile Include="Services\Common\DbQuickService.cs" />
     <Compile Include="Modules\Orm\ConnectionManager.cs" />

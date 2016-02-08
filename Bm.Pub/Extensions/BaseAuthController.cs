@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Bm.Modules
+namespace Bm.Extensions
 {
     [Authorize]
     public class BaseAuthController : BaseController

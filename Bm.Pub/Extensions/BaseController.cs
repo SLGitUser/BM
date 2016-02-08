@@ -3,7 +3,7 @@ using System.Text;
 using System.Web.Mvc;
 using Bm.Models.Common;
 
-namespace Bm.Modules
+namespace Bm.Extensions
 {
     public class BaseController : Controller
     {

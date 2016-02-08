@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
+using Bm.Extensions;
 using Bm.Modules;
 using Bm.Services.Base;
 

@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using Bm.Annotations;
 using Bm.Models.Base;
 using Bm.Modules.Helper;
+using Bm.Modules.Orm.Annotation;
+using TableAttribute = System.ComponentModel.DataAnnotations.Schema.TableAttribute;
 
 
 namespace Bm.Services.Common

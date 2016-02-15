@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Bm.Models.Setting;
 using Bm.Modules.Helper;
 using Bm.Modules.Orm;
 using Bm.Modules.Orm.Sql;
+using log4net;
 
 namespace Bm.Services.Common
 {
     public class CommonSetService
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private static IList<CommonSet> GetSettingItems(string key)
         {
             if (string.IsNullOrEmpty(key))
@@ -37,6 +41,10 @@ namespace Bm.Services.Common
             var list = GetSettingItems(key);
             var item = list.FirstOrDefault(m => m.App.ToStringArray().Contains(app))
                      ?? list.FirstOrDefault(m => m.App.Equals("*"));
+            if (item == null)
+            {
+                Logger.Error($"应用{app}的键{key}不存在");
+            }
             return item?.Value;
         }
 
@@ -47,7 +55,12 @@ namespace Bm.Services.Common
         /// <returns></returns>
         public static string GetString(string key)
         {
-            return GetSettingItems(key).FirstOrDefault()?.Value;
+            var item = GetSettingItems(key).FirstOrDefault();
+            if (item == null)
+            {
+                Logger.Error($"键{key}不存在");
+            }
+            return item?.Value;
         }
 
         //public static int GetInt(string key)

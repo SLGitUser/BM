@@ -23,7 +23,7 @@ namespace Bm.Modules.Orm
         public static bool Exists<TModel>(this IDbConnection conn, Criteria<TModel> query)
         {
             var sql = query.Limit(1).ToSelectSql();
-            Log.Debug(string.Concat("SQL: ", sql));
+            Log.Debug(string.Concat("sql: ", sql));
             return conn.Query(sql).Any();
         }
 
@@ -37,7 +37,7 @@ namespace Bm.Modules.Orm
         public static IList<TModel> Query<TModel>(this IDbConnection conn, Criteria<TModel> query)
         {
             var sql = query.ToSelectSql();
-            Log.Debug(string.Concat("SQL: ", sql));
+            Log.Debug(string.Concat("sql: ", sql));
             return conn.Query<TModel>(sql).ToList();
         }
     }

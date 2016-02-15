@@ -5,6 +5,7 @@ using Bm.Models.Common;
 using Bm.Modules.Orm;
 using Bm.Modules.Orm.Sql;
 using Bm.Services.Common;
+using Dapper;
 
 namespace Bm.Services.Base
 {
@@ -86,7 +87,7 @@ namespace Bm.Services.Base
 
             account.LastLoginAt = Now;
             account.ErrLoginCount = 0;
-            r.Append(Update(account));
+            r.Append(UpdateLoginInfo(account));
 
             return r.SetValue(account);
         }
@@ -124,8 +125,31 @@ namespace Bm.Services.Base
                 trans.Commit();
                 return r.SetValue(true);
             }
-
         }
+
+        public MessageRecorder<bool> UpdateLoginInfo(Account model)
+        {
+            var r = new MessageRecorder<bool>();
+            model.UpdatedAt = Now;
+            model.UpdatedBy = AccountNo;
+
+            using (var conn = ConnectionManager.Open())
+            {
+                var trans = conn.BeginTransaction();
+                var sql = @"UPDATE `base_account` SET "
+                + " `LastLoginAt` = @LastLoginAt, `ErrLoginCount` = @ErrLoginCount, `UpdatedAt` = @UpdatedAt, `UpdatedBy` = @UpdatedBy"
+                + " WHERE `no`= @No";
+                var effectedCount = conn.Execute(sql, model, trans);
+                if (effectedCount <= 0 )
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                }
+                trans.Commit();
+                return r.SetValue(true);
+            }
+        }
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -134,8 +158,8 @@ namespace Bm.Services.Base
         public override MessageRecorder<bool> Update(Account model)
         {
             var r = new MessageRecorder<bool>();
-            model.CreatedAt = Now;
-            model.CreatedBy = AccountNo;
+            model.UpdatedAt = Now;
+            model.UpdatedBy = AccountNo;
 
             using (var conn = ConnectionManager.Open())
             {

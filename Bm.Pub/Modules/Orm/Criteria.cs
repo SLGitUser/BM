@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Bm.Models.Base;
 using Bm.Modules.Helper;
 using Bm.Modules.Orm.Sql;
 
@@ -51,8 +52,7 @@ namespace Bm.Modules.Orm
             var v = tpl.Contains("'") ? value.ToString() : WrapValue(typeof(TProp), value);
             return string.Format(tpl, prop, v);
         }
-
-
+        
         private string MakeInSql<TProp>(Expression<Func<TModel, TProp>> propExpr, Op op, IList<TProp> values)
         {
             if (propExpr == null) throw new ArgumentNullException(nameof(propExpr));

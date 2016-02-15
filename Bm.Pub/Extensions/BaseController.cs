@@ -1,12 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web.Mvc;
 using Bm.Models.Common;
+using log4net;
 
 namespace Bm.Extensions
 {
     public class BaseController : Controller
     {
+        /// <summary>
+        /// 日志记录器
+        /// </summary>
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// 获得参数值
         /// </summary>
@@ -14,7 +22,14 @@ namespace Bm.Extensions
         /// <returns></returns>
         public string GetParas(string para)
         {
-            return string.IsNullOrWhiteSpace(para) ? null : Request.Params[para];
+            if(string.IsNullOrWhiteSpace(para)) return null;
+            var item = Request.Form[para];
+            if (string.IsNullOrEmpty(item))
+                item = Request.QueryString[string.Concat("amp;", para)];
+            if (string.IsNullOrEmpty(item))
+                item = Request.QueryString[para];
+            return string.IsNullOrEmpty(item) ? item : item.Trim();
+
         }
 
         /// <summary>
@@ -25,7 +40,18 @@ namespace Bm.Extensions
         public string GetDbParas(string para)
         {
             var value = GetParas(para);
-            return string.IsNullOrWhiteSpace(value) ? null : value.Replace("'", "''");
+            return string.IsNullOrWhiteSpace(value) ? null : value.Replace("'", "''").Replace("*", "%");
+        }
+
+        /// <summary>
+        /// 获得模型中的错误信息
+        /// </summary>
+        /// <returns></returns>
+        public string GetModelErrorMsg()
+        {
+            var errors = ModelState.Values.Where(m => m.Errors.Any()).Select(m => m.Errors);
+            var list = (from error in errors from item in error select item.ErrorMessage).ToList();
+            return string.Join("; ", list);
         }
 
         #region Message

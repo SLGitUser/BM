@@ -175,7 +175,7 @@ namespace Bm.Modules.Orm
                 var key = GetSingleKey<T>(nameof(Get));
                 var name = GetTableName(type);
 
-                sql = $"select * from {name} where {key.Name} = @id";
+                sql = $"SELECT * FROM {name} WHERE {key.Name} = @id";
                 GetQueries[type.TypeHandle] = sql;
             }
 
@@ -244,7 +244,7 @@ namespace Bm.Modules.Orm
                 GetSingleKey<T>(nameof(GetAll));
                 var name = GetTableName(type);
 
-                sql = "select * from " + name;
+                sql = "SELECT * FROM " + name;
                 GetQueries[cacheType.TypeHandle] = sql;
             }
 
@@ -273,7 +273,7 @@ namespace Bm.Modules.Orm
             var className = typeof(T).Name;
             var condition = pairs.ToSqlString("@"); // とりま@に決めうってるけどDBによっては違いますなー
 
-            var query = string.Format("select * from {0} where {1}", className, condition);
+            var query = string.Format("SELECT * FROM {0} WHERE {1}", className, condition);
 
             // 匿名型でなく動的にパラメータ作る時はDynamicParameterを使う
             var parameter = new DynamicParameters();

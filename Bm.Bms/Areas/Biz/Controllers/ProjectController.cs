@@ -5,17 +5,19 @@ using Bm.Models.Dp;
 using Bm.Modules.Helper;
 using System;
 using System.Linq;
+using System.Web.Routing;
 using Bm.Extensions;
 
 namespace Bm.Areas.Biz.Controllers
 {
     public sealed class ProjectController : BaseAuthController
     {
-        private readonly ProjectService _service;
-
-        public ProjectController()
+        private ProjectService _service;
+        
+        protected override void Initialize(RequestContext requestContext)
         {
-            _service = new ProjectService(User?.Identity?.Name);
+            base.Initialize(requestContext);
+            _service = new ProjectService(CurrAccountNo);
         }
 
         // GET: Biz/Project

@@ -22,7 +22,7 @@ namespace Bm.Modules.Html
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var user = filterContext.HttpContext.User?.Identity?.Name;
-            Logger.Debug($"user {user} enter {filterContext.HttpContext.Request.Path}");
+            Logger.Debug($"user {user}  enter {filterContext.HttpContext.Request.Path}");
             _stopwatch.Start();
             base.OnActionExecuting(filterContext);
         }
@@ -33,7 +33,11 @@ namespace Bm.Modules.Html
             _stopwatch.Stop();
             var user = filterContext.HttpContext.User?.Identity?.Name;
             _t1 = _stopwatch.ElapsedMilliseconds;
-            Logger.Debug($"user {user} process {filterContext.HttpContext.Request.Path}, cost {_stopwatch.ElapsedMilliseconds} ms");
+            Logger.Debug($"user {user} handle {filterContext.HttpContext.Request.Path}, cost {_t1} ms");
+            if (_t1 >= 2000)
+            {
+                Logger.Warn($"!SLOW user {user} handle {filterContext.HttpContext.Request.Path}, cost {_t1} ms");
+            }
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
@@ -54,7 +58,8 @@ namespace Bm.Modules.Html
             {
                 Logger.Warn($"!SLOW user {user} render {filterContext.HttpContext.Request.Path}, cost {t2} ms");
             }
-            Logger.Debug($"user {user} visit {filterContext.HttpContext.Request.Path}, total cost {_stopwatch.ElapsedMilliseconds} ms");
+            //Logger.Debug($"user {user}  visit {filterContext.HttpContext.Request.Path}, total cost {_stopwatch.ElapsedMilliseconds} ms");
+            _stopwatch.Reset();
         }
     }
 }

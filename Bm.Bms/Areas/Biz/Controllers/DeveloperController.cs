@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Bm.Extensions;
 using Bm.Models.Dp;
 using Bm.Modules;
@@ -12,12 +13,13 @@ namespace Bm.Areas.Biz.Controllers
 {
     public sealed class DeveloperController : BaseAuthController
     {
-        private readonly DeveloperService _service;
+        private DeveloperService _service;
 
         private string _branchNo;
-
-        public DeveloperController()
+        
+        protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
             _service = new DeveloperService(CurrAccountNo);
 
             var accountService = new AccountService(CurrAccountNo);
@@ -27,9 +29,6 @@ namespace Bm.Areas.Biz.Controllers
         // GET: Biz/Developer
         public ActionResult Index()
         {
-
-            
-
             var models = _service.GetAll();
             return View(models);
         }

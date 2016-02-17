@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Routing;
 using Bm.Modules.Html;
 
 namespace Bm.Extensions
@@ -10,15 +11,23 @@ namespace Bm.Extensions
         /// <summary>
         /// 账户名
         /// </summary>
-        public string CurrAccountNo { get; private set; }
-        
-        public BaseAuthController() : base()
+        protected string CurrAccountNo;
+
+        protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
+
             CurrAccountNo = User?.Identity?.Name;
             if (string.IsNullOrEmpty(CurrAccountNo))
             {
-                CurrAccountNo = "__MISSING__";
+                requestContext.HttpContext.Response.Redirect("/base/session/login");
             }
+            else
+            {
+                //Logger.Debug(string.Concat("user ", CurrAccountNo, " visit ", Request.Path));
+            }
+
+
         }
 
 

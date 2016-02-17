@@ -17,8 +17,6 @@ namespace Bm.Areas.Base.Controllers
         public ActionResult Login(FormCollection collection)
         {
             Reset();
-            FormsAuthentication.SetAuthCookie("SYSTEM", false);
-
             //return JsonMessage(200, "验证成功，请稍候...", new { url = "/base/home/index" });
 
             var username = GetDbParas("username");

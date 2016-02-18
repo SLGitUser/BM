@@ -8,26 +8,36 @@ using Bm.Models.Common;
 
 namespace Bm.Services.Common
 {
-    public class AliyunOssService
+    internal class AliyunOssService
     {
-        private static string _accessKeyId;
-        private static string _accessKeySecret;
-        private static string _endpoint;
-        private static string _bucketName;
+        private static readonly string AccessKeyId;
+        private static readonly string AccessKeySecret;
+        private static readonly string Endpoint;
+        private static readonly string BucketName;
 
-        private OssClient _client;
+        private readonly OssClient _client;
 
         static AliyunOssService()
         {
-            _accessKeyId = CommonSetService.GetString("Aliyun.Oss.AccessKeyId");
-            _accessKeySecret = CommonSetService.GetString("Aliyun.Oss.AccessKeySecret");
-            _endpoint = CommonSetService.GetString("Aliyun.Oss.EndPoint");
-            _bucketName = CommonSetService.GetString("Aliyun.Oss.BucketName");
+            AccessKeyId = CommonSetService.GetString("Aliyun.Oss.AccessKeyId");
+            AccessKeySecret = CommonSetService.GetString("Aliyun.Oss.AccessKeySecret");
+            Endpoint = CommonSetService.GetString("Aliyun.Oss.EndPoint");
+            BucketName = CommonSetService.GetString("Aliyun.Oss.BucketName");
+        }
+
+        /// <summary>
+        /// 获得资源访问地址
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GetUrl(string key)
+        {
+            return string.Concat(Endpoint, "/", BucketName, "/", key);
         }
 
         public AliyunOssService()
         {
-            _client = new OssClient(_endpoint, _accessKeyId, _accessKeySecret);
+            _client = new OssClient(Endpoint, AccessKeyId, AccessKeySecret);
         }
 
         /// <summary>
@@ -38,7 +48,7 @@ namespace Bm.Services.Common
             var r = new MessageRecorder<bool>();
             try
             {
-                _client.SetBucketAcl(_bucketName, cac);
+                _client.SetBucketAcl(BucketName, cac);
                 return r.Info("设置存储空间权限成功").SetValue(true);
             }
             catch (Exception ex)
@@ -56,7 +66,7 @@ namespace Bm.Services.Common
             var r = new MessageRecorder<IList<Permission>>();
             try
             {
-                var result = _client.GetBucketAcl(_bucketName);
+                var result = _client.GetBucketAcl(BucketName);
                 r.Value = result.Grants.Select(m => m.Permission).ToList();
                 return r;
             }
@@ -75,7 +85,7 @@ namespace Bm.Services.Common
             var r = new MessageRecorder<bool>();
             try
             {
-                _client.PutObject(_bucketName, key, file, om);
+                _client.PutObject(BucketName, key, file, om);
                 return r.Info("上传文件成功").SetValue(true);
             }
             catch (Exception ex)
@@ -92,7 +102,7 @@ namespace Bm.Services.Common
             var r = new MessageRecorder<bool>();
             try
             {
-                _client.PutObject(_bucketName, key, ms, om);
+                _client.PutObject(BucketName, key, ms, om);
                 return r.Info("上传文件成功").SetValue(true);
             }
             catch (Exception ex)
@@ -110,7 +120,7 @@ namespace Bm.Services.Common
             var r = new MessageRecorder<bool>();
             try
             {
-                _client.DeleteObject(_bucketName, key);
+                _client.DeleteObject(BucketName, key);
                 return r.Info("删除文件成功").SetValue(true);
             }
             catch (Exception ex)

@@ -143,6 +143,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Base\BaseAreaRegistration.cs" />
+    <Compile Include="Areas\Base\Controllers\AccessoryController.cs" />
     <Compile Include="Areas\Base\Controllers\AccountController.cs" />
     <Compile Include="Areas\Base\Controllers\HomeController.cs" />
     <Compile Include="Areas\Base\Controllers\SessionController.cs" />
@@ -180,6 +181,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Base\Models\" />
+    <Folder Include="Areas\Base\Views\Accessory\" />
     <Folder Include="Areas\Base\Views\Shared\" />
     <Folder Include="Areas\Biz\Models\" />
     <Folder Include="Areas\Biz\Views\Shared\" />

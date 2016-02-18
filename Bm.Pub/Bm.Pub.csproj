@@ -167,6 +167,7 @@
     <Compile Include="Modules\Orm\Criteria.cs" />
     <Compile Include="Modules\Orm\Sql\OpHelper.cs" />
     <Compile Include="Modules\Orm\Sql\Op.cs" />
+    <Compile Include="Services\Common\AccessoryService.cs" />
     <Compile Include="Services\Common\UploadService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Base\AccountService.cs" />

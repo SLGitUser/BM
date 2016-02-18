@@ -31,6 +31,26 @@
         }
     });
 
+    $("form.upload-file").submit(function() {
+        var formdata = new FormData(); //FormData object 
+        var fileInput = $(this).find("input[type=file]"); // document.getElementById('fileInput'); 
+        //Iterating through each files selected in fileInput 
+        for (var i = 0; i < fileInput.files.length; i++) {
+            //Appending each file to FormData object 
+            formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        }
+        //Creating an XMLHttpRequest and sending 
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/base/Accessory/Upload");
+        xhr.send(formdata);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                alert(xhr.responseText);
+            }
+        }
+    });
+
+
     if ($('table.data'))
         $('table.data').DataTable({
             "pagingType": "full_numbers",

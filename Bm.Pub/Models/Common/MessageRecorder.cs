@@ -132,7 +132,7 @@ namespace Bm.Models.Common
         }
 
         #region private
-        
+
         /// <summary>
         /// 消息列表
         /// </summary>
@@ -192,12 +192,12 @@ namespace Bm.Models.Common
         /// <summary>
         /// 消息发生时间
         /// </summary>
-        public DateTime At { get;  }
+        public DateTime At { get; }
 
         /// <summary>
         /// 消息内容
         /// </summary>
-        public string Message { get;  }
+        public string Message { get; }
     }
 
     /// <summary>

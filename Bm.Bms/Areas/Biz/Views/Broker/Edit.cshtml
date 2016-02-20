@@ -30,6 +30,7 @@
                     @Html.InputFor(m => m.Email)
                     @Html.InputFor(m => m.City)
                     @Html.InputFor(m => m.CityNo)
+                    @Html.InputFor(m => m.Gender, SelectListFactory.SexSelectList(), new { @class = "form-control " })
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label class="control-label col-sm-3 required">经济公司</label>
                         <div class="col-sm-9">

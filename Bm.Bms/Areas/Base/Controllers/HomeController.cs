@@ -10,7 +10,7 @@ namespace Bm.Areas.Base.Controllers
         // GET: Base/Home
         public ActionResult Index()
         {
-            return View();
+            return View("~/Areas/Base/Views/Home/Index.cshtml");
         }
     }
 }

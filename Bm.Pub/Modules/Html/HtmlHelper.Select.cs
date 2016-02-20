@@ -45,7 +45,7 @@ namespace Bm.Modules.Html
             builder.Append(@"<div class=""form-group col-sm-12 col-md-6 col-lg-4"">");
             builder.Append(html.LabelFor(expression, labelDict));
             builder.Append(@"<div class=""col-sm-9"">");
-            builder.Append(html.DropDownListFor(expression, selectList, new { htmlAttributes = inputDict }));
+            builder.Append(html.DropDownListFor(expression, selectList, inputDict));
             builder.Append(html.ValidationMessageFor(expression, "", new { @class = "text-danger" }));
             builder.Append(@"</div>");
             builder.Append(@"</div>");

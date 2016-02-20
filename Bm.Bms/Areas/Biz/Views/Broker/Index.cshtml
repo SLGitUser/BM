@@ -53,7 +53,6 @@
                                 .AddCheckBox(m => m.Id, styleFunc: m => "c1")
                                 .Add(m => m.No)
                                 .Add(m => m.Name)
-                                .Add(m=>m.Referral)
                                 .Add(m=>m.RegAt)
                                 .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
                                 .ToString())

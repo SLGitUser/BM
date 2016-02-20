@@ -12,8 +12,14 @@ namespace Bm.Areas.Base.Controllers
         public JsonResult Upload()
         {
             var mr = AccessoryService.Upload(Request);
-            var urls = mr.Value.Select(m => AccessoryService.GetUrl(m));
-            return Json(string.Join(",", urls));
+            var urls = mr.Value.Select(AccessoryService.GetUrl);
+            var obj = new
+            {
+                input = Request.Params["input"],
+                ids = string.Join(",", mr.Value),
+                urls = string.Join(",", urls)
+            };
+            return Json(obj);
         }
     }
 }

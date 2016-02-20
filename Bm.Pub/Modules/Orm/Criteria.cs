@@ -45,7 +45,7 @@ namespace Bm.Modules.Orm
 
             if (value == null) throw new ArgumentNullException(nameof(value));
 
-            var prop = propExpr.GetMemberName();
+            var prop = "`" + propExpr.GetMemberName() + "`";
             if (string.IsNullOrEmpty(prop)) throw new ArgumentNullException(nameof(propExpr));
 
             var tpl = op.AsString();

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
+using Aliyun.OSS;
 using Bm.Models.Common;
 using Bm.Modules.Helper;
 
 namespace Bm.Services.Common
 {
+    /// <summary>
+    /// 附件上传服务
+    /// </summary>
     public sealed class AccessoryService
     {
         /// <summary>
@@ -37,9 +41,15 @@ namespace Bm.Services.Common
                 //string fileName = file.FileName;
                 //string mimeType = file.ContentType;
 
+                var metadata = new ObjectMetadata
+                {
+                    ExpirationTime = DateTime.Now.AddDays(1),
+                    ContentLength = file.InputStream.Length,
+                    ContentType = file.ContentType,
+                    ContentDisposition = file.FileName
+                };
                 var key = Guid.NewGuid().ToString("N");
-                var ms = ReadFully(file.InputStream);
-                var mr2 = service.PutObject(key, ms);
+                var mr2 = service.PutObject(key, file.InputStream, metadata);
                 mr.Append(mr2);
                 mr.Value.Add(key);
             }
@@ -73,20 +83,33 @@ namespace Bm.Services.Common
         {
             return AliyunOssService.GetUrl(key);
         }
-
-        private static MemoryStream ReadFully(Stream input)
+        
+        /// <summary>
+        /// 清理过期时间
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static MessageRecorder<bool> ClearExpiration(string key)
         {
-            var buffer = new byte[input.Length];
-            //byte[] buffer = new byte[16 * 1024];
-            using (var ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms;
-            }
+            var service = new AliyunOssService();
+            return service.ModifyObjectMeta(key,
+                meta => { meta.ExpirationTime = new DateTime(2050, 1, 1); });
         }
+
+        //private static MemoryStream ReadFully(Stream input)
+        //{
+        //    var buffer = new byte[input.Length];
+        //    //byte[] buffer = new byte[16 * 1024];
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        int read;
+        //        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+        //        {
+        //            ms.Write(buffer, 0, read);
+        //        }
+        //        ms.Seek(0, SeekOrigin.Begin);
+        //        return ms;
+        //    }
+        //}
     }
 }

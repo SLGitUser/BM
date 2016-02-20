@@ -1,5 +1,5 @@
 ﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Dp.Project>
+@model IList<Bm.Models.Dp.Broker>
 
 
 @section Header{
@@ -35,16 +35,8 @@
                                     .Attr("aria-describedby", "example1_info"))
                                     .Add(m => m.No)
                                     .Add(m => m.Name)
-                                    .Add(m => m.OwnerNo)
-                                    .Add(m => m.BldType)
-                                    .Add(m => m.BizGrp)
-                                    .Add(m => m.SaleStatus)
-                                    .Add(m => m.AddrPic)
-                                    .Add(m => m.AvgPrice)
-                                    .Add(m => m.SalesTel)
-                                    .Add(m => m.Longitude)
-                                    .Add(m => m.Latitude)
-                                    .Add(m => m.AuthType)
+                                    .Add(m => m.Referral)
+                                    .Add(m => m.RegAt)
                                     .ToString())
                             </div>
                         </div>

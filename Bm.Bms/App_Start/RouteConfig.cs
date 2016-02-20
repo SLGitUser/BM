@@ -14,6 +14,12 @@ namespace Bm
             routes.MapRoute("Logout", "logout", new { area = "Base", controller = "Session", action = "Logout", token = UrlParameter.Optional });
 
             routes.MapRoute(
+                name: "DefaultRoot",
+                url: "",
+                defaults: new { area = "Base", controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { area = "Base", controller = "Home", action = "Index", id = UrlParameter.Optional }

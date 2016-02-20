@@ -193,8 +193,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("Í·Ïñ")]
-        [StringLength(50)]
-        [Required]
+        [StringLength(50)] 
         public string Pic { get; set; }
 
     }

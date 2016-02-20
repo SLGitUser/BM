@@ -26,10 +26,6 @@
                     @Html.HiddenFor(m =>m.Id)
                     @Html.InputFor(m =>m.No,new {@readOnly="readOnly"})
                     @Html.InputFor(m=>m.Name)
-<<<<<<< HEAD
-                    @Html.InputFor(m => m.OwnerNo,SelectListFactory.GetDeveloperAllNo())
-                    @Html.InputFor(m => m.BldType, SelectListFactory.GetProjectType())
-=======
                     @Html.InputFor(m=>m.OwnerNo, DeveloperService.GetSelectAllNo())
                     @Html.InputFor(m=>m.BldType, ProjectService.GetBldType())
                     @*<div class="form-group col-sm-12 col-md-6 col-lg-4">
@@ -44,7 +40,6 @@
                             @Html.DropDownListFor(m => m.BldType, ProjectService.GetBldType(), new {@class = "form-control ",@value=Model.OwnerNo})
                         </div>
                     </div>*@
->>>>>>> f517919a379a72137321652dc9d97d7286245d04
                     @Html.InputFor(m => m.BizGrp)
                     @Html.InputFor(m => m.SaleStatus)
                     @Html.InputFor(m => m.AddrPic, new { @class="upload-file" })

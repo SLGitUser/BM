@@ -126,19 +126,16 @@
     <Content Include="Areas\Biz\Views\BrokerageFirm\Details.cshtml" />
     <Content Include="Areas\Biz\Views\BrokerageFirm\Edit.cshtml" />
     <Content Include="Areas\Biz\Views\BrokerageFirm\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Areas\Biz\Views\PropertyAdvisor\Create.cshtml" />
     <Content Include="Areas\Biz\Views\PropertyAdvisor\Delete.cshtml" />
     <Content Include="Areas\Biz\Views\PropertyAdvisor\Details.cshtml" />
     <Content Include="Areas\Biz\Views\PropertyAdvisor\Edit.cshtml" />
     <Content Include="Areas\Biz\Views\PropertyAdvisor\Index.cshtml" />
-=======
     <Content Include="Areas\Biz\Views\Broker\Create.cshtml" />
     <Content Include="Areas\Biz\Views\Broker\Delete.cshtml" />
     <Content Include="Areas\Biz\Views\Broker\Details.cshtml" />
     <Content Include="Areas\Biz\Views\Broker\Edit.cshtml" />
     <Content Include="Areas\Biz\Views\Broker\Index.cshtml" />
->>>>>>> f517919a379a72137321652dc9d97d7286245d04
     <None Include="Properties\PublishProfiles\web.config.pubxml" />
     <Content Include="Areas\Base\Views\Account\Details.cshtml" />
     <Content Include="Areas\Base\Views\Account\Edit.cshtml" />
@@ -168,11 +165,8 @@
     <Compile Include="Areas\Biz\BizAreaRegistration.cs" />
     <Compile Include="Areas\Biz\Controllers\DeveloperController.cs" />
     <Compile Include="Areas\Biz\Controllers\BrokerageFirmController.cs" />
-<<<<<<< HEAD
     <Compile Include="Areas\Biz\Controllers\PropertyAdvisorController.cs" />
-=======
     <Compile Include="Areas\Biz\Controllers\BrokerController.cs" />
->>>>>>> f517919a379a72137321652dc9d97d7286245d04
     <Compile Include="Areas\Biz\Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -194,7 +194,7 @@ namespace Bm.Modules.Html
             }
         }
         /// <summary>
-        /// 查询所有开
+        /// 获取所有经纪人编号
         /// </summary>
         /// <returns></returns>
         public static SelectList BrokerageAllNo()

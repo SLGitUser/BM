@@ -23,7 +23,8 @@
             </div>
             <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
                 <div class="box-body">
-                    @Html.InputFor(m =>m.FirmNo)
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.InputFor(m => m.FirmNo)
                     @Html.InputFor(m=>m.Name)
                     <br/>
                     @Html.InputFor(m => m.City)

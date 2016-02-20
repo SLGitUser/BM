@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Bm.Models.Dp;
 using Bm.Modules.Helper;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Web.Routing;
 using Bm.Extensions;
@@ -11,6 +12,7 @@ using Bm.Services.Common;
 
 namespace Bm.Areas.Biz.Controllers
 {
+    [DisplayName("楼盘信息")]
     public sealed class ProjectController : BaseAuthController
     {
         private ProjectService _service;

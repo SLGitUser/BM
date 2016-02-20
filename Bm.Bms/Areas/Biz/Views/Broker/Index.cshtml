@@ -1,0 +1,77 @@
+﻿@using Bm.Modules.Html
+@model IList<Bm.Models.Dp.Broker>
+
+@section Header{
+    <script src="~/Scripts/init.js"></script>
+}
+
+@section PageHead {
+    <h1>
+        经纪人信息
+        <small>（页面编号：0522）</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="active">经纪人信息</li>
+    </ol>
+}
+
+<style>
+    .c1 {
+        width: 20px;
+    }
+
+    .ca {
+        width: 160px;
+    }
+</style>
+@using (Html.BeginForm("Delete", "Broker", FormMethod.Get))
+{
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <div class="box-header">
+                <div class="btn-group">
+                    <a class="btn btn-default" href="@Url.Action("Create")"><i class="fa fa-plus"></i> 新增</a>
+                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Biz/Broker/Delete");'><i class="fa fa-minus"></i> 删除</button>
+
+                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Biz/Broker/Details");'><i class="fa fa-eye"></i> 查看</button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @Html.Raw(Model.ToHtmlTable()
+                                .Table(new HtmlElement("table")
+                                    .Attr("class", "table data table-bordered table-striped dataTable")
+                                    .Attr("role", "grid")
+                                    .Attr("aria-describedby", "example1_info"))
+                                .AddCheckBox(m => m.Id, styleFunc: m => "c1")
+                                .Add(m => m.No)
+                                .Add(m => m.Name)
+                                .Add(m=>m.RegAt)
+                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
+                                .ToString())
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </section>
+}
+
+<!-- DataTables -->
+<link rel="stylesheet" href="http://123.56.185.114:8000/plugins/datatables/dataTables.bootstrap.css">
+<!-- DataTables -->
+<script src="http://123.56.185.114:8000/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="http://123.56.185.114:8000/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="http://123.56.185.114:8000/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="http://123.56.185.114:8000/plugins/fastclick/fastclick.js"></script>
+

@@ -1,5 +1,5 @@
 ﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Dp.Project>
+@model IList<Bm.Models.Dp.Broker>
 
 @section Header{
     <script src="~/Content/JavaScript/Js_Tools.js"></script>
@@ -9,7 +9,7 @@
     <h1>楼盘信息<small></small></h1>
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
-        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>楼盘</a></li>
+        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>开发商</a></li>
         <li class="active">删除楼盘信息</li>
     </ol>
 }
@@ -33,16 +33,8 @@
                                         .Attr("aria-describedby", "example1_info"))
                                     .Add(m => m.No)
                                     .Add(m => m.Name)
-                                    .Add(m => m.OwnerNo)
-                                    .Add(m => m.BldType)
-                                    .Add(m => m.BizGrp)
-                                    .Add(m => m.SaleStatus)
-                                    .Add(m => m.AddrPic)
-                                    .Add(m => m.AvgPrice)
-                                    .Add(m => m.SalesTel)
-                                    .Add(m => m.Longitude)
-                                    .Add(m => m.Latitude)
-                                    .Add(m => m.AuthType)
+                                    .Add(m => m.Referral)
+                                    .Add(m => m.RegAt)
                                     .ToString())
                             </div>
                         </div>

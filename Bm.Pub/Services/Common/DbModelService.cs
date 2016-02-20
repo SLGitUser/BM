@@ -13,7 +13,7 @@ namespace Bm.Services.Common
 {
     /// <summary>
     /// 数据模型服务
-    /// </summary>
+    /// </summary> 
     public static class DbModelService
     {
         private static readonly string Nl = Environment.NewLine;
@@ -122,7 +122,8 @@ namespace Bm.Services.Common
                 var stringLengthAttribute = propertyInfo.GetAttribute<StringLengthAttribute>();
                 var stringLen = stringLengthAttribute?.MaximumLength ?? 50;
 
-                var required = propertyInfo.GetAttribute<RequiredAttribute>() != null ? "NOT NULL" : "NULL";
+                var required = propertyInfo.GetAttribute<RequiredAttribute>() != null
+                    || propertyInfo.Name.Equals("Id") ? "NOT NULL" : "NULL";
 
                 var type = propertyInfo.PropertyType;
                 //var primaryKey = propertyInfo.GetAttribute<KeyAttribute>();

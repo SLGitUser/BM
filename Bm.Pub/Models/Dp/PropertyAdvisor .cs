@@ -113,13 +113,29 @@ namespace Bm.Models.Dp
         public string Gender { get; set; }
 
         /// <summary>
-        /// 读取或者设置手机号码
+        /// 读取或者设置手机号码1
         /// </summary>
         /// <remark></remark>
-        [DisplayName("手机号码")]
-        [StringLength(12)]
+        [DisplayName("手机号码1")]
+        [StringLength(11)]
         [Required]
-        public string Mobile { get; set; }
+        public string Mobile1 { get; set; }
+
+        /// <summary>
+        /// 读取或者设置手机号码2
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("手机号码2")]
+        [StringLength(11)]
+        public string Mobile2 { get; set; }
+
+        /// <summary>
+        /// 读取或者设置手机号码3
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("手机号码3")]
+        [StringLength(11)]
+        public string Mobile3 { get; set; }
 
         /// <summary>
         /// 读取或者设置电子邮箱
@@ -127,42 +143,25 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("电子邮箱")]
         [StringLength(49)]
-        [Required]
         public string Email { get; set; }
 
         /// <summary>
-        /// 读取或者设置地区
+        /// 读取或者设置开发商
         /// </summary>
         /// <remark></remark>
-        [DisplayName("地区")]
-        [StringLength(20)]
-        [Required]
-        public string City { get; set; }
-
-        /// <summary>
-        /// 读取或者设置地区代码
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("地区代码")]
-        [StringLength(20)]
-        [Required]
-        public string CityNo { get; set; }
-
-        /// <summary>
-        /// 读取或者设置经纪公司
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("经纪公司")]
+        [DisplayName("开发商")]
         [StringLength(50)]
-        public string Firm { get; set; }
+        [Required]
+        public string Owner { get; set; }
 
         /// <summary>
-        /// 读取或者设置经纪公司代码
+        /// 读取或者设置开发商编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("经纪公司代码")]
+        [DisplayName("开发商编号")]
         [StringLength(50)]
-        public string FirmNo { get; set; }
+        [Required]
+        public string OwnerNo { get; set; }
 
         /// <summary>
         /// 读取或者设置个人简介
@@ -177,7 +176,6 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("注册时间")]
-        [StringLength(50)]
         [Required]
         public DateTime RegAt { get; set; }
 
@@ -195,7 +193,6 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("头像")]
         [StringLength(50)]
-        [Required]
         public string Pic { get; set; }
 
     }

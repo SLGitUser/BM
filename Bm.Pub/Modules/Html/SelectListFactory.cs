@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Bm.Models.Dp;
 using Bm.Modules.Helper;
+using Bm.Modules.Orm;
+using Bm.Modules.Orm.Sql;
 
 namespace Bm.Modules.Html
 {
@@ -139,6 +142,74 @@ namespace Bm.Modules.Html
         }
 
         #endregion
+        #region 页面需求
+        /// <summary>
+        /// [是否]下拉框
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static SelectList YesOrNo(SelectMode model = SelectMode.Default)
+        {
+            var select = new[] { new { Value = "是", Text = "是" }, new { Value = "否", Text = "否" } };
+            return new SelectList(select, "Value", "Text");
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static SelectList NoOrYes(SelectMode model = SelectMode.Default)
+        {
+            var select = new[] { new { Value = "否", Text = "否" }, new { Value = "是", Text = "是" } };
+            return new SelectList(select, "Value", "Text");
+        }
+        /// <summary>
+        /// 性别下拉框
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static SelectList SexSelectList(SelectMode model = SelectMode.Default)
+        {
+            var select = new[] { new { Value = "男", Text = "男" }, new { Value = "女", Text = "女" } };
+            return new SelectList(select, "Value", "Text");
+        }
+        /// <summary>
+        /// 查询所有开发商编号
+        /// </summary>
+        /// <returns></returns>
+        public static SelectList GetDeveloperAllNo()
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Developer>()
+                    .And(m => m.Id, Op.Gt, 0)
+                    .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
+                    .Desc(m => m.No);
+                var selectList = conn.Query(query).Select(m => new
+                {
+                    m.No,
+                    Text = $"[{m.No}]{m.Name}"
+                }).ToList();
+                return new SelectList(selectList, "No", "Text");
+            }
+        }
+        /// <summary>
+        /// 楼盘类型
+        /// </summary>
+        /// <returns></returns>
+        public static SelectList GetProjectType()
+        {
+            //using (var conn = ConnectionManager.Open())
+            //{
+            //var query = new Criteria<BldType>()
+            //    .Desc(m => m.No);
+            //return conn.Query(query);
+            //}
+            var list = new[] { new { Text = "类型1", Value = "类型1" }, new { Text = "类型2", Value = "类型2" } };
+            return new SelectList(list, "Text", "Value");
+        }
+        #endregion
+
     }
 }
 

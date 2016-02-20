@@ -26,18 +26,8 @@
                 <div class="box-body">
                     @Html.InputFor(m =>m.No)
                     @Html.InputFor(m=>m.Name)
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                        <label class="control-label col-sm-3 required">开发商编号</label>
-                        <div class="col-sm-9">
-                            @Html.DropDownListFor(m => m.OwnerNo,DeveloperService.GetSelectAllNo(), new {@class = "form-control "})
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                        <label class="control-label col-sm-3 required">类型</label>
-                        <div class="col-sm-9">
-                            @Html.DropDownListFor(m => m.BldType, ProjectService.GetBldType(), new {@class = "form-control "})
-                        </div>
-                    </div>
+                    @Html.InputFor(m => m.OwnerNo,SelectListFactory.GetDeveloperAllNo())
+                @Html.InputFor(m => m.BldType, SelectListFactory.GetProjectType())
                     @Html.InputFor(m => m.BizGrp)
                     @Html.InputFor(m => m.SaleStatus)
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">

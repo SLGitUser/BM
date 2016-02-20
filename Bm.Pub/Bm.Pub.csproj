@@ -187,6 +187,7 @@
     <Compile Include="Services\Dp\BranchService.cs" />
     <Compile Include="Services\Dp\DeveloperService.cs" />
     <Compile Include="Services\Dp\BrokerageFirmService.cs" />
+    <Compile Include="Services\Dp\PropertyAdvisorService.cs" />
     <Compile Include="Services\Dp\ProjectService.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,4 @@
-﻿@model Bm.Models.Dp.Project
+﻿@model Bm.Models.Dp.PropertyAdvisor
 @using Bm.Modules.Html
 @using Bm.Services.Dp
 
@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
     @section PageHead {
-        <h1>楼盘信息<small></small></h1>
+        <h1>置业顾问信息<small></small></h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
-            <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>楼盘</a></li>
-            <li class="active">修改楼盘信息</li>
+            <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>置业顾问</a></li>
+            <li class="active">修改置业顾问信息</li>
         </ol>
     }
 
@@ -19,29 +19,29 @@
     <section class="content">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">修改楼盘信息</h3>
+                <h3 class="box-title">修改置业顾问信息</h3>
             </div>
             <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
                 <div class="box-body">
-                    @Html.HiddenFor(m =>m.Id)
-                    @Html.InputFor(m =>m.No,new {@readOnly="readOnly"})
-                    @Html.InputFor(m=>m.Name)
-                    @Html.InputFor(m => m.OwnerNo,SelectListFactory.GetDeveloperAllNo())
-                    @Html.InputFor(m => m.BldType, SelectListFactory.GetProjectType())
-                    @Html.InputFor(m => m.BizGrp)
-                    @Html.InputFor(m => m.SaleStatus)
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.InputFor(m => m.No)
+                    @Html.InputFor(m => m.Name)
+                    @Html.InputFor(m => m.Gender, SelectListFactory.SexSelectList())
+                    @Html.InputFor(m => m.Mobile1)
+                    @Html.InputFor(m => m.Mobile2)
+                    @Html.InputFor(m => m.Mobile3)
+                    @Html.InputFor(m => m.Email)
+                    @Html.InputFor(m => m.OwnerNo, SelectListFactory.GetDeveloperAllNo())
+                    @Html.InputFor(m => m.Owner)
+                    @Html.InputFor(m => m.Intro)
+                    @Html.InputFor(m => m.RegAt)
+                    @Html.InputFor(m => m.Referral)
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                        <label for="AddrPic" class="control-label col-sm-3">位置图片</label>
+                        <label for="AddrPic" class="control-label col-sm-3">头像</label>
                         <div class="col-sm-9">
                             <input type="file" class="form-control" id="AddrPic">
                         </div>
                     </div>
-                    @Html.InputFor(m => m.AvgPrice)
-                    @Html.InputFor(m => m.SalesTel)
-                    @Html.InputFor(m => m.Address)
-                    @Html.InputFor(m => m.Longitude)
-                    @Html.InputFor(m => m.Latitude)
-                    @Html.InputFor(m => m.AuthType)
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

@@ -1,41 +1,35 @@
-﻿using System;
+﻿using Bm.Modules;
+using Bm.Services.Dp;
+using System.Web.Mvc;
+using Bm.Models.Dp;
+using Bm.Modules.Helper;
+using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Web.Mvc;
 using System.Web.Routing;
 using Bm.Extensions;
-using Bm.Models.Dp;
-using Bm.Modules;
-using Bm.Services.Base;
-using Bm.Services.Dp;
-using com.senlang.Sdip.Util;
 
 namespace Bm.Areas.Biz.Controllers
 {
-    [DisplayName("开发商信息")]
-    public sealed class DeveloperController : BaseAuthController
+    [DisplayName("置业顾问")]
+    public sealed class PropertyAdvisorController : BaseAuthController
     {
-        private DeveloperService _service;
-
-        private string _branchNo;
+        private PropertyAdvisorService _service;
         
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            _service = new DeveloperService(CurrAccountNo);
-
-            var accountService = new AccountService(CurrAccountNo);
-            _branchNo = accountService.GetBranchNo();
+            _service = new PropertyAdvisorService(CurrAccountNo);
         }
 
-        // GET: Biz/Developer
+        // GET: Biz/Project
         public ActionResult Index()
         {
             var models = _service.GetAll();
             return View(models);
         }
 
-        // GET: Biz/Developer/Details/5
+        // GET: Biz/Project/Details/5
         public ActionResult Details(long[] ids)
         {
             if (ids.IsNullOrEmpty())
@@ -47,24 +41,22 @@ namespace Bm.Areas.Biz.Controllers
             return View(list);
         }
 
-        // GET: Biz/Developer/Create
+        // GET: Biz/Project/Create
         public ActionResult Create()
         {
-            var model = new Developer
-            {
-                BranchNo = _branchNo
-            };
-            return View(model);
+            return View();
         }
 
-        // POST: Biz/Developer/Create
+        // POST: Biz/Project/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
-                var model = new Developer();
+                var model = new PropertyAdvisor();
                 TryUpdateModel(model, collection);
+                model.CreatedAt = DateTime.Now;
+                model.CreatedBy = "SYSTEM";
                 if (!ModelState.IsValid)
                 {
                     FlashError("数据验证未通过，请检查是否存在为空的必填项");
@@ -87,8 +79,8 @@ namespace Bm.Areas.Biz.Controllers
             }
         }
 
-        // GET: Biz/Developer/Edit/5
-        public ActionResult Edit(long? id)
+        // GET: Biz/Project/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id.HasValue)
             {
@@ -97,12 +89,13 @@ namespace Bm.Areas.Biz.Controllers
             }
             FlashWarn("没有指定ID");
             return RedirectToAction("Index");
-
         }
+
+        // POST: Biz/Project/Edit/5
         [HttpPost]
-        public ActionResult Edit(FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection)
         {
-            var model = new Developer();
+            var model = new PropertyAdvisor();
             TryUpdateModel(model, collection);
             if (!ModelState.IsValid)
             {
@@ -121,7 +114,7 @@ namespace Bm.Areas.Biz.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Biz/Developer/Delete/5
+        // GET: Biz/Project/Delete/5
         public ActionResult Delete(long[] ids)
         {
             if (ids.IsNullOrEmpty())
@@ -133,7 +126,7 @@ namespace Bm.Areas.Biz.Controllers
             return View(list);
         }
 
-        // POST: Biz/Developer/Delete/5
+        // POST: Biz/Project/Delete/5
         [HttpPost]
         public ActionResult Delete(FormCollection collection, long[] ids)
         {

@@ -12,9 +12,9 @@ using System.Web.Mvc;
 
 namespace Bm.Services.Dp
 {
-    public sealed class ProjectService : RepoService<Project>
+    public sealed class PropertyAdvisorService : RepoService<PropertyAdvisor>
     {
-        public ProjectService(string accountNo) : base(accountNo)
+        public PropertyAdvisorService(string accountNo) : base(accountNo)
         {
 
         }
@@ -24,11 +24,11 @@ namespace Bm.Services.Dp
         /// 页面列表查看
         /// </summary>
         /// <returns></returns>
-        public override IList<Project> GetAll()
+        public override IList<PropertyAdvisor> GetAll()
         {
             using (var conn = ConnectionManager.Open())
             {
-                var query = new Criteria<Project>()
+                var query = new Criteria<PropertyAdvisor>()
                     .And(m => m.Id, Op.Gt, 0)
                     .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
                     .Desc(m => m.No);
@@ -41,7 +41,7 @@ namespace Bm.Services.Dp
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public override MessageRecorder<bool> Create(Project model)
+        public override MessageRecorder<bool> Create(PropertyAdvisor model)
         {
             var r = new MessageRecorder<bool>();
             model.CreatedAt = Now;
@@ -49,7 +49,7 @@ namespace Bm.Services.Dp
             using (var conn = ConnectionManager.Open())
             {
                 var trans = conn.BeginTransaction();
-                var query = new Criteria<Project>()
+                var query = new Criteria<PropertyAdvisor>()
                     .And(m => m.No, Op.Gt, model.No)
                     .And(m => m.Name, Op.Gt, model.Name)
                     .Desc(m => m.No);
@@ -74,7 +74,7 @@ namespace Bm.Services.Dp
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public override MessageRecorder<bool> Update(Project model)
+        public override MessageRecorder<bool> Update(PropertyAdvisor model)
         {
             var r = new MessageRecorder<bool>();
             model.CreatedAt = Now;
@@ -83,7 +83,7 @@ namespace Bm.Services.Dp
             using (var conn=ConnectionManager.Open())
             {
                 var trans = conn.BeginTransaction(); 
-                var query = new Criteria<Project>()
+                var query = new Criteria<PropertyAdvisor>()
                     .Where(m => m.No, Op.Eq, model.No)
                     .Or(m => m.Name, Op.Eq, model.Name)
                     .And(m => m.Id, Op.NotEq, model.Id);

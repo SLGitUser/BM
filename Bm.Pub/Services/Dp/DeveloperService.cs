@@ -94,21 +94,5 @@ namespace Bm.Services.Dp
             }
         }
 
-        public static SelectList GetSelectAllNo()
-        {
-            using (var conn = ConnectionManager.Open())
-            {
-                var query = new Criteria<Developer>()
-                    .And(m => m.Id, Op.Gt, 0)
-                    .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
-                    .Desc(m => m.No);
-                var selectList = conn.Query(query).Select(m => new
-                {
-                    m.No,
-                    Text = $"[{m.No}]{m.Name}"
-                }).ToList();
-                return new SelectList(selectList,"No","Text");
-            }
-        }
     }
 }

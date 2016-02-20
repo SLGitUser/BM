@@ -103,20 +103,7 @@ namespace Bm.Services.Dp
             }
         }
         #endregion
-        #region SelectHelper
-
-        public static SelectList GetBldType()
-        {
-            //using (var conn = ConnectionManager.Open())
-            //{
-                //var query = new Criteria<BldType>()
-                //    .Desc(m => m.No);
-                //return conn.Query(query);
-            //}
-            var list = new[] { new { Text = "类型1", Value = "类型1" }, new { Text = "类型2", Value = "类型2" } };
-            return new SelectList(list, "Text", "Value");
-        }
-        #endregion
+       
     }
 }
 

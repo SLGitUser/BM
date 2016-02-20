@@ -7,10 +7,10 @@ using Bm.Models.Common;
 namespace Bm.Models.Dp
 {
     /// <summary>
-    /// 经纪人
+    /// 置业顾问
     /// </summary>
-    [DisplayName("经纪人")]
-    public sealed class Broker : IId, IStamp
+    [DisplayName("置业顾问")]
+    public sealed class PropertyAdvisor : IId, IStamp
     {
         #region Implementation of IId
 
@@ -177,6 +177,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("注册时间")]
+        [StringLength(50)]
         [Required]
         public DateTime RegAt { get; set; }
 

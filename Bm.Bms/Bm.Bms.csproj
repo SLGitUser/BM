@@ -121,6 +121,11 @@
     <Content Include="Areas\Base\Views\Account\Create.cshtml" />
     <Content Include="Areas\Base\Views\Account\Delete.cshtml" />
     <Content Include="Areas\Biz\Views\Project\Edit.cshtml" />
+    <Content Include="Areas\Biz\Views\BrokerageFirm\Create.cshtml" />
+    <Content Include="Areas\Biz\Views\BrokerageFirm\Delete.cshtml" />
+    <Content Include="Areas\Biz\Views\BrokerageFirm\Details.cshtml" />
+    <Content Include="Areas\Biz\Views\BrokerageFirm\Edit.cshtml" />
+    <Content Include="Areas\Biz\Views\BrokerageFirm\Index.cshtml" />
     <None Include="Properties\PublishProfiles\web.config.pubxml" />
     <Content Include="Areas\Base\Views\Account\Details.cshtml" />
     <Content Include="Areas\Base\Views\Account\Edit.cshtml" />
@@ -149,6 +154,7 @@
     <Compile Include="Areas\Base\Controllers\SessionController.cs" />
     <Compile Include="Areas\Biz\BizAreaRegistration.cs" />
     <Compile Include="Areas\Biz\Controllers\DeveloperController.cs" />
+    <Compile Include="Areas\Biz\Controllers\BrokerageFirmController.cs" />
     <Compile Include="Areas\Biz\Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

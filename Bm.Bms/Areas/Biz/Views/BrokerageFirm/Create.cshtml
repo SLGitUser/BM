@@ -1,0 +1,72 @@
+﻿@model Bm.Models.Dp.BrokerageFirm
+@using Bm.Modules.Html
+@using Bm.Services.Dp
+
+@section Header{
+    <script src="~/Scripts/init.js"></script>
+    <link rel="stylesheet" href="~/Content/css/app.min.css">
+}
+
+    @section PageHead {
+        <h1>经纪公司信息<small></small></h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
+            <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>经纪公司</a></li>
+            <li class="active">新增楼盘信息</li>
+        </ol>
+    }
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">新增楼盘信息</h3>
+            </div>
+            <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
+                <div class="box-body">
+                    @Html.InputFor(m =>m.FirmNo)
+                    @Html.InputFor(m=>m.Name)
+                    <br/>
+                    @Html.InputFor(m => m.City)
+                    @Html.InputFor(m => m.CityNo)
+                    <br/>
+                    @Html.InputFor(m => m.FirmOrgCode)
+                    @Html.InputFor(m => m.Address)
+                    <br/>
+                    @Html.InputFor(m => m.Pic)
+                    @Html.InputFor(m => m.LegalName)
+                    <br/>
+                    @Html.InputFor(m => m.LegalCardType)
+                    @Html.InputFor(m => m.LegalCardNo)
+                    <br/>
+                    @Html.InputFor(m => m.LegalMobile)
+                    @Html.InputFor(m => m.LegalEmail)
+                    <br/>
+                    @Html.InputFor(m => m.ContactsName)
+                    @Html.InputFor(m => m.ContactsCardType)
+                    <br/>
+                    @Html.InputFor(m => m.ContactsCardNo)
+                    @Html.InputFor(m => m.ContactsMobile)
+                    <br/>
+                    @Html.InputFor(m => m.ContactsEmail)
+                    @Html.InputFor(m => m.RegAt)
+                    <br/>
+                    @Html.InputFor(m => m.CheckAt,new {@class="date"})
+                    @Html.InputFor(m => m.InvoiceTodoAmount)
+                    <br/>
+                    @Html.InputFor(m => m.InvoiceDoneAmount)
+                    @Html.InputFor(m => m.CashTodoAmount)
+                    <br/>
+                    @Html.InputFor(m => m.CashDoingAmount)
+                    @Html.InputFor(m => m.CashDoneAmount)
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
+                    <a href="@Url.Action("Index")" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
+                </div>
+                <!-- /.box-footer -->
+
+            </form>
+        </div>
+    </section>

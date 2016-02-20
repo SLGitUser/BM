@@ -194,6 +194,26 @@ namespace Bm.Modules.Html
             }
         }
         /// <summary>
+        /// 查询所有开
+        /// </summary>
+        /// <returns></returns>
+        public static SelectList BrokerageAllNo()
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<BrokerageFirm>()
+                    .And(m => m.Id, Op.Gt, 0)
+                    .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
+                    .Desc(m => m.FirmNo);
+                var selectList = conn.Query(query).Select(m => new
+                {
+                    m.FirmNo,
+                    Text = $"[{m.FirmNo}]{m.Name}"
+                }).ToList();
+                return new SelectList(selectList, "FirmNo", "Text");
+            }
+
+        }        /// <summary>
         /// 楼盘类型
         /// </summary>
         /// <returns></returns>

@@ -34,7 +34,7 @@
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label class="control-label col-sm-3 required">经济公司</label>
                         <div class="col-sm-9">
-                            @Html.DropDownListFor(m => m.Firm, BrokerageFirmService.GetBldType(), new { @class = "form-control " })
+                            @Html.DropDownListFor(m => m.Firm, SelectListFactory.BrokerageAllNo(), new { @class = "form-control " })
                         </div>
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">

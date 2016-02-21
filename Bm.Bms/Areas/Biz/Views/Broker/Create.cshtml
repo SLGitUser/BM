@@ -7,6 +7,28 @@
     <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
 
+<script type="text/javascript">
+    function bindNameByNo(no, name) {
+        var getno = document.getElementsByName(no);
+        var getname = document.getElementsByName(name);
+        $(getno).change(function() {
+            var vala = $(this).val();
+            $.ajax({
+                url: "/Base/TableDataApi/GetDataByTable",
+                data: { tableName: "dp_brokerage_firm", no: "FirmNo", noVal: vala, name: "Name" },
+                type:"get",
+                dataType: "json"
+            }).done(function (data) {
+                $(getname).val(data);
+            });
+            
+            //console.info(val+"   "+val2);
+        });
+    }
+    $(function() {
+        bindNameByNo("FirmNo", "Firm");
+    });
+</script>
     @section PageHead {
         <h1>新增经纪人信息<small></small></h1>
         <ol class="breadcrumb">

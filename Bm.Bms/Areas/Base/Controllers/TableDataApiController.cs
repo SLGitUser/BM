@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Bm.Modules.Orm;
-using com.senlang.Sdip.Util;
 using Dapper;
 
 namespace Bm.Areas.Base.Controllers
@@ -16,15 +11,19 @@ namespace Bm.Areas.Base.Controllers
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="no">要显示的编号</param>
+        /// <param name="noVal">编号的值</param>
         /// <param name="name">要显示的名称</param>
         /// <returns></returns>
-        public SelectList GetDataByTable(string tableName,string no="",string name="")
+        public object GetDataByTable(string tableName, string no = "", string noVal = "", string name = "")
         {
             using (var conn = ConnectionManager.Open())
             {
-                string sql = $"select {no},{name} from {tableName}";
-                var data = conn.Query(sql).ToList();
-                return new SelectList(data,no,$"[{no}]+{name}");
+                string sql = $"select {name} from {tableName} where {no} = '{noVal}'";
+                var datax = conn.ExecuteScalar<string>(name)(sql);
+                //var data = conn.Query<string>(name);
+                //TODO 获取查询出的值
+
+                return data;
             }
         }
     }

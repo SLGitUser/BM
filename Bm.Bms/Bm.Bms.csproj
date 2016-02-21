@@ -162,6 +162,7 @@
     <Compile Include="Areas\Base\Controllers\AccountController.cs" />
     <Compile Include="Areas\Base\Controllers\HomeController.cs" />
     <Compile Include="Areas\Base\Controllers\SessionController.cs" />
+    <Compile Include="Areas\Base\Controllers\TableDataApiController.cs" />
     <Compile Include="Areas\Biz\BizAreaRegistration.cs" />
     <Compile Include="Areas\Biz\Controllers\DeveloperController.cs" />
     <Compile Include="Areas\Biz\Controllers\BrokerageFirmController.cs" />
@@ -201,6 +202,7 @@
     <Folder Include="Areas\Base\Models\" />
     <Folder Include="Areas\Base\Views\Accessory\" />
     <Folder Include="Areas\Base\Views\Shared\" />
+    <Folder Include="Areas\Base\Views\TableDataApi\" />
     <Folder Include="Areas\Biz\Models\" />
     <Folder Include="Areas\Biz\Views\Shared\" />
     <Folder Include="Controllers\" />

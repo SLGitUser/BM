@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
+using Dapper;
 using MySql.Data.MySqlClient;
 
 namespace Bm.Modules.Orm
@@ -51,6 +52,18 @@ namespace Bm.Modules.Orm
         }
 
 
+        /// <summary>
+        /// コネクションプールからOpenした状態のコネクションを取得します
+        /// </summary>
+        public static TResult ExecuteResult<TResult>(string sql)
+        {
+            if (string.IsNullOrEmpty(sql)) return default(TResult);
+            using (var connection = new MySqlConnection(ConnString))
+            {
+                connection.Open();
+                return connection.ExecuteScalar<TResult>(sql);
+            }
+        }
 
     }
 }

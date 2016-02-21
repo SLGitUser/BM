@@ -31,24 +31,62 @@
         }
     });
 
-    $("form.upload-file").submit(function() {
-        var formdata = new FormData(); //FormData object 
-        var fileInput = $(this).find("input[type=file]"); // document.getElementById('fileInput'); 
-        //Iterating through each files selected in fileInput 
-        for (var i = 0; i < fileInput.files.length; i++) {
-            //Appending each file to FormData object 
-            formdata.append(fileInput.files[i].name, fileInput.files[i]);
-        }
-        //Creating an XMLHttpRequest and sending 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/base/Accessory/Upload");
-        xhr.send(formdata);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
+    //$("form.upload-file").submit(function () {
+    //    var formdata = new FormData(); //FormData object 
+    //    var fileInput = $(this).find("input[type=file]"); // document.getElementById('fileInput'); 
+    //    //Iterating through each files selected in fileInput 
+    //    for (var i = 0; i < fileInput.files.length; i++) {
+    //        //Appending each file to FormData object 
+    //        formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    //    }
+    //    //Creating an XMLHttpRequest and sending 
+    //    var xhr = new XMLHttpRequest();
+    //    xhr.open("POST", "/base/Accessory/Upload");
+    //    xhr.send(formdata);
+    //    xhr.onreadystatechange = function () {
+    //        if (xhr.readyState == 4 && xhr.status == 200) {
+    //            alert(xhr.responseText);
+    //        }
+    //    }
+    //});
+
+
+    $("input.upload-file").each(function () {
+        var $this = $(this);
+        var div = $this.attr("type", "hidden").parent("div");
+        var img = $("<image style=\"width:200px; height: 200px;\" />")
+            .attr("id", $this.attr("id") + "_img")
+            .attr("src", $this.attr("data_url")+ $this.attr("value"))
+            //.click(function () { fil.click(); })
+            .appendTo(div);
+        var fil = $("<input type=\"file\" style=\"margin-top: 10px\" />").appendTo(div);
+        var btn = $("<input type=\"button\" value=\"上传\" style=\"margin-top: 10px\" />").appendTo(div);
+        img.click(function () { fil.click() });
+
+        btn.click(function () {
+            var formdata = new FormData(); //FormData object 
+            formdata.append("input", $this.attr("id"));
+            var files = $(this).parent("div").find("input[type=file]")[0].files; // document.getElementById('fileInput'); 
+            //Iterating through each files selected in fileInput 
+            for (var i = 0; i < files.length; i++) {
+                //Appending each file to FormData object 
+                formdata.append(files[i].name, files[i]);
             }
-        }
+            //Creating an XMLHttpRequest and sending 
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/base/Accessory/Upload?r=" + Math.random());
+            xhr.send(formdata);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var obj = $.parseJSON(xhr.responseText);
+                    $("#" + obj.input).val(obj.ids);
+                    $("#" + obj.input+"_img").attr("src", obj.urls);
+                    //alert(xhr.responseText);
+                }
+            }
+        });
     });
+
 
 
     if ($('table.data'))
@@ -89,16 +127,16 @@
         });
 });
 
-    /*
-        var breadcrumb = {
-            title: "开发商信息",
-            subtitle: null,
-            moduleUrl: "@Url.Action("Index")",
-            moduleName: "开发商信息",
-            moduleIcon: "fa-book",
-            actionName: "修改开发商信息"
-        };
-        */
+/*
+    var breadcrumb = {
+        title: "开发商信息",
+        subtitle: null,
+        moduleUrl: "@Url.Action("Index")",
+        moduleName: "开发商信息",
+        moduleIcon: "fa-book",
+        actionName: "修改开发商信息"
+    };
+    */
 
 //function RenderBreadcrumb(model) {
 //    var pageHeader = $("#page-header");

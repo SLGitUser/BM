@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Routing;
 using Bm.Extensions;
+using Bm.Services.Common;
 
 namespace Bm.Areas.Biz.Controllers
 {
@@ -111,6 +112,13 @@ namespace Bm.Areas.Biz.Controllers
                 FlashMessage(r);
                 return View(model);
             }
+
+            //var r2 = AccessoryService.ClearExpiration(model.AddrPic);
+            //if (r2.HasError)
+            //{
+            //    FlashMessage(r2);
+            //    return View(model);
+            //}
             return RedirectToAction("Index");
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Aliyun.OSS;
+using Aliyun.OSS.Model;
 using Bm.Models.Common;
 
 
@@ -32,7 +33,7 @@ namespace Bm.Services.Common
         /// <returns></returns>
         public static string GetUrl(string key)
         {
-            return string.Concat(Endpoint, "/", BucketName, "/", key);
+            return string.Concat(Endpoint.Replace(@"//", @"//" + BucketName + "."), "/", key);
         }
 
         public AliyunOssService()
@@ -97,7 +98,7 @@ namespace Bm.Services.Common
         /// <summary>
         /// 上传一个新文件
         /// </summary>
-        public MessageRecorder<bool> PutObject(string key, MemoryStream ms, ObjectMetadata om = null)
+        public MessageRecorder<bool> PutObject(string key, Stream ms, ObjectMetadata om = null)
         {
             var r = new MessageRecorder<bool>();
             try
@@ -128,5 +129,29 @@ namespace Bm.Services.Common
                 return r.Error($"删除文件失败. 原因：{ex.Message}");
             }
         }
+
+        /// <summary>
+        /// 修改元数据
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public MessageRecorder<bool> ModifyObjectMeta(string key,
+            Action<ObjectMetadata> action)
+        {
+            var r = new MessageRecorder<bool>();
+            try
+            {
+                var meta = _client.GetObjectMetadata(BucketName, key);
+                action?.Invoke(meta);
+                _client.ModifyObjectMeta(BucketName, key, meta);
+                return r.Info("修改文件元数据成功").SetValue(true);
+            }
+            catch (Exception ex)
+            {
+                return r.Error($"修改文件元数据失败. 原因：{ex.Message}");
+            }
+        }
+
     }
 }

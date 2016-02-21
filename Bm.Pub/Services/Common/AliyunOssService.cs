@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Aliyun.OSS;
 using Aliyun.OSS.Model;
 using Bm.Models.Common;
@@ -143,7 +144,6 @@ namespace Bm.Services.Common
             try
             {
                 var meta = _client.GetObjectMetadata(BucketName, key);
-                action?.Invoke(meta);
                 _client.ModifyObjectMeta(BucketName, key, meta);
                 return r.Info("修改文件元数据成功").SetValue(true);
             }

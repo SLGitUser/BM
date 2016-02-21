@@ -113,12 +113,12 @@ namespace Bm.Areas.Biz.Controllers
                 return View(model);
             }
 
-            //var r2 = AccessoryService.ClearExpiration(model.AddrPic);
-            //if (r2.HasError)
-            //{
-            //    FlashMessage(r2);
-            //    return View(model);
-            //}
+            var r2 = AccessoryService.ClearExpiration(model.AddrPic);
+            if (r2.HasError)
+            {
+                FlashMessage(r2);
+                return View(model);
+            }
             return RedirectToAction("Index");
         }
 

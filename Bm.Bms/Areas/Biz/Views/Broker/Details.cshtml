@@ -23,29 +23,94 @@
                 <div class="box-header">
                     <h3 class="box-title">查看数据</h3>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                @Html.Raw(Model.ToHtmlTable()
-                                .Table(new HtmlElement("table")
-                                    .Attr("class", "table data table-bordered table-striped dataTable")
-                                    .Attr("role", "grid")
-                                    .Attr("aria-describedby", "example1_info"))
-                                    .Add(m => m.No)
-                                    .Add(m => m.Name)
-                                    .Add(m => m.Referral)
-                                    .Add(m => m.RegAt)
-                                    .Add(m=>m.FirmNo)
-                                    .Add(m=>m.Gender)
-                                    .Add(m=>m.Intro)
-                                    .Add(m=>m.Mobile)
-                                    .ToString())
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {                                       
+                                        <tr>
+                                            <th style="text-align:center;width:200px;">经纪人名称</th>
+                                            <td>
+                                                <div>
+                                                    <div style="text-align:center">@item.Name</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                                                       <th style="text-align:center">性别</th>
+                                            <td>
+                                                <div>
+                                                    <div  style="text-align:center">@item.Gender</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            
+                                                                                        <th style="text-align:center">经济公司</th>
+                                            <td>
+                                                <div>
+                                                    <div  style="text-align:center">@item.Firm</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            
+                                                                                        <th style="text-align:center">电子邮箱</th>
+                                            <td>
+                                                <div>
+                                                    <div style="text-align:center">@item.Email</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                                                        <th style="text-align:center">个人简介</th>
+                                            <td>
+                                                <div>
+                                                    <div  style="text-align:center">@item.Intro</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            
+                                            <th style="text-align:center">手机号</th>
+                                            <td>
+                                                <div>
+                                                    <div  style="text-align:center">@item.Mobile</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            
+                                                                                        <th  style="text-align:center">推荐人</th>
+                                            <td>
+                                                <div>
+                                                    <div  style="text-align:center">@item.Referral</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            
+                                            <th style="text-align:center">注册时间</th>
+                                            <td>
+                                                <div>
+                                                    <div  style="text-align:center">@item.RegAt</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer clearfix">
+                                @*<ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#">«</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>*@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <a href="@Url.Action("Index")" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>

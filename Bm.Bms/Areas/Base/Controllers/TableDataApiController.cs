@@ -13,10 +13,11 @@ namespace Bm.Areas.Base.Controllers
         /// <param name="noVal">编号的值</param>
         /// <param name="name">要显示的名称</param>
         /// <returns></returns>
-        public object GetDataByTable(string tableName, string no = "", string noVal = "", string name = "")
+        public ActionResult GetDataByTable(string tableName, string no = "", string noVal = "", string name = "")
         {
             string sql = $"select {name} from {tableName} where {no} = '{noVal}'";
-            return ConnectionManager.ExecuteResult<string>(sql);
+            var result = ConnectionManager.ExecuteScalar<string>(sql);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

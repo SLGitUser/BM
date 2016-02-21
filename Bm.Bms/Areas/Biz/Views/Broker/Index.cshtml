@@ -54,10 +54,10 @@
                                 .Add(m => m.No)
                                 .Add(m => m.Name)
                                 .Add(m=>m.RegAt)
-                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
-                                .ToString())
+                                    .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
+                                    .ToString())
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <!-- /.box-body -->

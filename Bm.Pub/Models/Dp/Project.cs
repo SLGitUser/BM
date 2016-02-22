@@ -140,9 +140,9 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("均价")]
+        [Required]
         public int AvgPrice { get; set; }
-
-
+        
         /// <summary>
         /// 读取或者设置咨询电话
         /// </summary>

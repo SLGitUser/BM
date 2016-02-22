@@ -21,8 +21,6 @@ namespace Bm.Services.Dp
             using (var conn = ConnectionManager.Open())
             {
                 var query = new Criteria<Developer>()
-                    .And(m => m.Id, Op.Gt, 0)
-                    .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
                     .Desc(m => m.No);
                 return conn.Query(query);
             }
@@ -40,8 +38,8 @@ namespace Bm.Services.Dp
                 var trans = conn.BeginTransaction();
 
                 var query = new Criteria<Developer>()
-                    .And(m => m.No, Op.Eq, model.No)
-                    .And(m => m.Name, Op.Eq, model.Name);
+                    .Where(m => m.No, Op.Eq, model.No)
+                    .Or(m => m.Name, Op.Eq, model.Name);
                 if (conn.Exists(query))
                 {
                     trans.Rollback();

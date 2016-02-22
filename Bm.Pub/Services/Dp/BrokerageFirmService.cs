@@ -29,8 +29,6 @@ namespace Bm.Services.Dp
             using (var conn = ConnectionManager.Open())
             {
                 var query = new Criteria<BrokerageFirm>()
-                    .And(m => m.Id, Op.Gt, 0)
-                    .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
                     .Desc(m => m.FirmNo);
                 return conn.Query(query);
             }
@@ -50,8 +48,8 @@ namespace Bm.Services.Dp
             {
                 var trans = conn.BeginTransaction();
                 var query = new Criteria<BrokerageFirm>()
-                    .And(m => m.FirmNo, Op.Gt, model.FirmNo)
-                    .And(m => m.Name, Op.Gt, model.Name)
+                    .Where(m => m.FirmNo, Op.Eq, model.FirmNo)
+                    .Or(m => m.Name, Op.Eq, model.Name)
                     .Desc(m => m.FirmNo);
                 if (conn.Exists(query))
                 {

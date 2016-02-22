@@ -56,7 +56,7 @@
         var div = $this.attr("type", "hidden").parent("div");
         var img = $("<image style=\"width:200px; height: 200px;\" />")
             .attr("id", $this.attr("id") + "_img")
-            .attr("src", $this.attr("data_url")+ $this.attr("value"))
+            .attr("src", $this.attr("value") === "" ? "" : $this.attr("data_url")+ $this.attr("value"))
             //.click(function () { fil.click(); })
             .appendTo(div);
         var fil = $("<input type=\"file\" style=\"margin-top: 10px\" />").appendTo(div);

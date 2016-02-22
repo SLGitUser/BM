@@ -7,6 +7,8 @@ using System;
 using System.Linq;
 using System.Web.Routing;
 using Bm.Extensions;
+using System.Web;
+using System.IO;
 
 namespace Bm.Areas.Biz.Controllers
 {
@@ -55,7 +57,7 @@ namespace Bm.Areas.Biz.Controllers
                 TryUpdateModel(model, collection);
                 model.RegAt = DateTime.Now;
                 model.CreatedAt = DateTime.Now;
-                model.CreatedBy = "SYSTEM";
+                model.CreatedBy = "SYSTEM"; 
                 if (!ModelState.IsValid)
                 {
                     FlashError("数据验证未通过，请检查是否存在为空的必填项");
@@ -69,8 +71,10 @@ namespace Bm.Areas.Biz.Controllers
                 {
                     FlashMessage(r);
                     return View(model);
-                }
+                } 
                 return RedirectToAction("Index");
+
+
             }
             catch (Exception e)
             {

@@ -1,5 +1,6 @@
 ﻿@model Bm.Models.Dp.Broker
-@using Bm.Modules.Html
+@using Bm.Modules.Html 
+@using Bm.Services.Common
 @using Bm.Services.Dp
 
 @section Header{
@@ -30,6 +31,10 @@
     $(function() {
         bindNameByNo("FirmNo", "Firm");
     });
+
+   @*
+       
+   *@
 </script>
     @section PageHead {
         <h1>新增经纪人信息<small></small></h1>
@@ -46,7 +51,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">新增经纪人信息</h3>
             </div>
-            <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
+            <form class="form-horizontal" action="@Url.Action("Create")" method="POST" enctype="multipart/form-data">
                 <div class="box-body">
                     @Html.InputFor(m => m.No)
                     @Html.InputFor(m => m.Name)
@@ -59,13 +64,9 @@
                     @Html.InputFor(m => m.Firm)
                     @Html.InputFor(m => m.Intro)
                     @Html.InputFor(m => m.RegAt)
-                    @Html.InputFor(m => m.Referral)
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                        <label for="AddrPic" class="control-label col-sm-3">位置图片</label>
-                        <div class="col-sm-9">
-                            <input type="file" class="form-control" id="AddrPic">
-                        </div>
-                    </div>
+                    @Html.InputFor(m => m.Referral) 
+                    @Html.InputFor(m => m.Pic, new { @class = " upload-file", data_url = AccessoryService.GetUrl("") })
+                   
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

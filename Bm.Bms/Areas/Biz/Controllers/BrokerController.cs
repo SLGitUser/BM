@@ -49,7 +49,7 @@ namespace Bm.Areas.Biz.Controllers
 
         // POST: Biz/Broker/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection,HttpPostedFileBase Pic)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
@@ -57,15 +57,7 @@ namespace Bm.Areas.Biz.Controllers
                 TryUpdateModel(model, collection);
                 model.RegAt = DateTime.Now;
                 model.CreatedAt = DateTime.Now;
-                model.CreatedBy = "SYSTEM";
-                if (Pic == null)
-                {
-                    FlashError("没有上传头像");
-                    return View(model);
-                }
-                var filename = Path.Combine(Request.MapPath("~/Upload"), Path.GetFileName(Pic.FileName));
-                Pic.SaveAs(filename);
-                model.Pic = "../upload/" + Path.GetFileName(Pic.FileName);
+                model.CreatedBy = "SYSTEM"; 
                 if (!ModelState.IsValid)
                 {
                     FlashError("数据验证未通过，请检查是否存在为空的必填项");

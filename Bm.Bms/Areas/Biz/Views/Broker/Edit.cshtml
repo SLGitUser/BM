@@ -1,7 +1,7 @@
 ﻿@model Bm.Models.Dp.Broker
 @using Bm.Modules.Html
-@using Bm.Services.Dp
-
+@using Bm.Services.Dp 
+@using Bm.Services.Common
 @section Header{
     <script src="~/Scripts/init.js"></script>
     <link rel="stylesheet" href="~/Content/css/app.min.css">
@@ -36,12 +36,9 @@
                     @Html.InputFor(m => m.Intro)
                     @Html.InputFor(m => m.RegAt)
                     @Html.InputFor(m => m.Referral)
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                        <label for="AddrPic" class="control-label col-sm-3">位置图片</label>
-                        <div class="col-sm-9">
-                            <input type="file" class="form-control" id="AddrPic">
-                        </div>
-                    </div>
+                    @Html.InputFor(m => m.Pic, new { @class = " upload-file", data_url = AccessoryService.GetUrl("") })
+
+
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

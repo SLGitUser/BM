@@ -3,12 +3,7 @@ using Bm.Models.Dp;
 using Bm.Modules.Orm;
 using Bm.Modules.Orm.Sql;
 using Bm.Services.Common;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace Bm.Services.Dp
 {
@@ -63,8 +58,9 @@ namespace Bm.Services.Dp
                     return r.Error("保存失败");
                 }
                 trans.Commit();
-                return r.SetValue(true);
             }
+            r.Append(AccessoryService.ClearExpiration(model.AddrPic));
+            return r.SetValue(!r.HasError);
 
         }
         /// <summary>
@@ -77,10 +73,10 @@ namespace Bm.Services.Dp
             var r = new MessageRecorder<bool>();
             model.CreatedAt = Now;
             model.CreatedBy = AccountNo;
-
-            using (var conn=ConnectionManager.Open())
+            string oldKey;
+            using (var conn = ConnectionManager.Open())
             {
-                var trans = conn.BeginTransaction(); 
+                var trans = conn.BeginTransaction();
                 var query = new Criteria<Project>()
                     .Where(m => m.No, Op.Eq, model.No)
                     .Or(m => m.Name, Op.Eq, model.Name)
@@ -90,6 +86,11 @@ namespace Bm.Services.Dp
                     trans.Rollback();
                     return r.Error("编号或者名称重复");
                 }
+                var obj = new Criteria<Project>()
+                    .Where(m => m.Id, Op.Eq, model.Id)
+                    .Select(m => m.AddrPic);
+                oldKey = conn.ExecuteScalarEx<string>(obj.ToSelectSql());
+
                 var effectedCount = conn.Update(model, trans);
                 if (!effectedCount)
                 {
@@ -97,8 +98,21 @@ namespace Bm.Services.Dp
                     return r.Error("保存失败");
                 }
                 trans.Commit();
-                return r.SetValue(true);
             }
+            r.Append(AccessoryService.DeleteObject(oldKey));
+            r.Append(AccessoryService.ClearExpiration(model.AddrPic));
+            return r.SetValue(!r.HasError);
+        }
+
+
+        public override MessageRecorder<bool> Delete(params Project[] models)
+        {
+            var r = base.Delete(models);
+            foreach (var model in models)
+            {
+                r.Append(AccessoryService.DeleteObject(model.AddrPic));
+            }
+            return r;
         }
         #endregion
     }

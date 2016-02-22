@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Web;
 using Aliyun.OSS;
 using Bm.Models.Common;
@@ -11,7 +10,7 @@ namespace Bm.Services.Common
     /// <summary>
     /// 附件上传服务
     /// </summary>
-    public sealed class AccessoryService
+    public static class AccessoryService
     {
         /// <summary>
         /// 上传附件
@@ -83,7 +82,21 @@ namespace Bm.Services.Common
         {
             return AliyunOssService.GetUrl(key);
         }
-        
+
+        /// <summary>
+        /// 删除附件
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static MessageRecorder<bool> DeleteObject(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+                return new MessageRecorder<bool>().SetValue(true);
+
+            var service = new AliyunOssService();
+            return service.DeleteObject(key);
+        }
+
         /// <summary>
         /// 清理过期时间
         /// </summary>
@@ -91,6 +104,9 @@ namespace Bm.Services.Common
         /// <returns></returns>
         public static MessageRecorder<bool> ClearExpiration(string key)
         {
+            if (string.IsNullOrEmpty(key))
+                return new MessageRecorder<bool>().SetValue(true);
+
             var service = new AliyunOssService();
             return service.ModifyObjectMeta(key,
                 meta => { meta.ExpirationTime = new DateTime(2050, 1, 1); });

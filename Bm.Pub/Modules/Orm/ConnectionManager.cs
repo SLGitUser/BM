@@ -38,7 +38,7 @@ namespace Bm.Modules.Orm
                 actions.Invoke(connection);
             }
         }
-        
+
         /// <summary>
         /// コネクションプールからOpenした状態のコネクションを取得します
         /// </summary>
@@ -52,7 +52,7 @@ namespace Bm.Modules.Orm
             }
         }
 
-        
+
         public static TModel ExecuteScalar<TModel>(string sql)
         {
             if (string.IsNullOrEmpty(sql)) return default(TModel);
@@ -63,5 +63,9 @@ namespace Bm.Modules.Orm
             }
         }
 
+        public static TModel ExecuteScalarEx<TModel>(this IDbConnection connection, string sql)
+        {
+            return connection.Query<TModel>(sql).FirstOrDefault();
+        }
     }
 }

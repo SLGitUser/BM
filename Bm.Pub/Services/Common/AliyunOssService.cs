@@ -132,6 +132,25 @@ namespace Bm.Services.Common
         }
 
         /// <summary>
+        /// 获取元数据
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public MessageRecorder<ObjectMetadata> GetObjectMetadata(string key)
+        {
+            var r = new MessageRecorder<ObjectMetadata>();
+            try
+            {
+                r.Value = _client.GetObjectMetadata(BucketName, key);
+                return r.Info("获取文件元数据成功");
+            }
+            catch (Exception ex)
+            {
+                return r.Error($"获取文件元数据失败. 原因：{ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// 修改元数据
         /// </summary>
         /// <param name="key"></param>
@@ -144,21 +163,19 @@ namespace Bm.Services.Common
             try
             {
                 var meta = _client.GetObjectMetadata(BucketName, key);
-
-                //TODO 修改修改元数据的问题 
-                //var newMeta = meta == null
-                //    ? new ObjectMetadata()
-                //    : new ObjectMetadata
-                //    {
-                //        ContentType = meta.ContentType,
-                //        ContentDisposition = meta.ContentDisposition,
-                //        CacheControl = meta.CacheControl,
-                //        ContentEncoding = meta.ContentEncoding,
-                //        ContentLength = meta.ContentLength
-                //        //ExpirationTime = meta.ExpirationTime
-                //    };
-                //action?.Invoke(newMeta);
-                //_client.ModifyObjectMeta(BucketName, key, newMeta);
+                var newMeta = new ObjectMetadata { ContentLength = meta.ContentLength };
+                if (!string.IsNullOrEmpty(meta.ContentType))
+                    newMeta.ContentType = meta.ContentType;
+                if (!string.IsNullOrEmpty(meta.CacheControl))
+                    newMeta.CacheControl = meta.CacheControl;
+                if (!string.IsNullOrEmpty(meta.ContentDisposition))
+                    newMeta.ContentDisposition = meta.ContentDisposition;
+                if (!string.IsNullOrEmpty(meta.ContentEncoding))
+                    newMeta.ContentEncoding = meta.ContentEncoding;
+                //TODO 等待修复取值错误 
+                //newMeta.ExpirationTime = meta.ExpirationTime;
+                action?.Invoke(newMeta);
+                _client.ModifyObjectMeta(BucketName, key, newMeta);
                 return r.Info("修改文件元数据成功").SetValue(true);
             }
             catch (Exception ex)
@@ -166,6 +183,5 @@ namespace Bm.Services.Common
                 return r.Error($"修改文件元数据失败. 原因：{ex.Message}");
             }
         }
-
     }
 }

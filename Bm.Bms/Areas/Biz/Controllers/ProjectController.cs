@@ -16,7 +16,7 @@ namespace Bm.Areas.Biz.Controllers
     public sealed class ProjectController : BaseAuthController
     {
         private ProjectService _service;
-        
+
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
@@ -105,18 +105,10 @@ namespace Bm.Areas.Biz.Controllers
             }
             model.UpdatedBy = "SYSTEM";
             model.UpdatedAt = DateTime.Now;
-
             var r = _service.Update(model);
             if (r.HasError)
             {
                 FlashMessage(r);
-                return View(model);
-            }
-
-            var r2 = AccessoryService.ClearExpiration(model.AddrPic);
-            if (r2.HasError)
-            {
-                FlashMessage(r2);
                 return View(model);
             }
             return RedirectToAction("Index");

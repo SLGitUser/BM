@@ -323,8 +323,8 @@ namespace Bm.Modules.Orm
         public string ToSelectSql()
         {
             var buff = new StringBuilder();
-            buff.Append("SELECT");
-            buff.Append(_selectFields.Any() ? string.Join(", ", _selectFields) : " *");
+            buff.Append("SELECT ");
+            buff.Append(_selectFields.Any() ? string.Join(", ", _selectFields) : "*");
             GetFromSql(buff);
             return buff.ToString();
         }

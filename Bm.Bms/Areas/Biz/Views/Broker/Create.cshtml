@@ -7,34 +7,29 @@
     <script src="~/Scripts/init.js"></script>
     <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
-
 <script type="text/javascript">
-    function bindNameByNo(no, name) {
+    
+//绑定下拉框联动
+function bindNameByNo(no, name) {
         var getno = document.getElementsByName(no);
         var getname = document.getElementsByName(name);
         $(getno).change(function() {
             var vala = $(this).val();
             $.ajax({
-                //url: "/Base/TableDataApi/GetDataByTable",
                 url: "/api/no/",
                 data: { tbl: "dp_brokerage_firm", no: "FirmNo", noVal: vala, name: "Name" },
-                //data: { tbl: "dp_brokerage_firm", no: "FirmNo", noVal: vala, name: "Name" },
                 type:"get",
                 dataType: "json"
             }).done(function (data) {
                 $(getname).val(data);
             });
-            
-            //console.info(val+"   "+val2);
         });
     }
     $(function() {
         bindNameByNo("FirmNo", "Firm");
+        $("#FirmNo").trigger("change");
     });
 
-   @*
-       
-   *@
 </script>
     @section PageHead {
         <h1>新增经纪人信息<small></small></h1>
@@ -61,7 +56,7 @@
                     @Html.InputFor(m => m.CityNo)
                     @Html.InputFor(m => m.Gender, SelectListFactory.SexSelectList(), new { @class = "form-control " })
                     @Html.InputFor(m => m.FirmNo, SelectListFactory.BrokerageAllNo())
-                    @Html.InputFor(m => m.Firm)
+                    @Html.HiddenFor(m => m.Firm)
                     @Html.InputFor(m => m.Intro)
                     @Html.InputFor(m => m.RegAt)
                     @Html.InputFor(m => m.Referral) 

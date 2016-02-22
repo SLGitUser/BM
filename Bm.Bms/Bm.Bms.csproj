@@ -125,6 +125,7 @@
     </Content>
     <Content Include="Content\images\firefox.jpg" />
     <Content Include="Content\images\ie.jpg" />
+    <Content Include="Content\js\publicJs.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Biz\Views\Developer\Create.cshtml" />

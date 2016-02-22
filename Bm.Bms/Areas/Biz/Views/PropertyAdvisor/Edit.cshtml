@@ -7,7 +7,32 @@
     <script src="~/Scripts/init.js"></script>
     <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
-    @section PageHead {
+<script type="text/javascript">
+//绑定下拉框联动
+    function bindNameByNo(no, name) {
+        var getno = document.getElementsByName(no);
+        var getname = document.getElementsByName(name);
+        $(getno).change(function() {
+            var vala = $(this).val();
+            $.ajax({
+                url: "/api/no/",
+                data: { tbl: "dp_developer", no: "No", noVal: vala, name: "Name" },
+                type: "get",
+                dataType: "json"
+            }).done(function(data) {
+                $(getname).val(data);
+            });
+        });
+    }
+
+    $(function() {
+        bindNameByNo("OwnerNo", "Owner");
+        $("#OwnerNo").trigger("change");
+    });
+
+</script>
+
+@section PageHead {
         <h1>置业顾问信息<small></small></h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
@@ -33,7 +58,7 @@
                     @Html.InputFor(m => m.Mobile3)
                     @Html.InputFor(m => m.Email)
                     @Html.InputFor(m => m.OwnerNo, SelectListFactory.GetDeveloperAllNo())
-                    @Html.InputFor(m => m.Owner)
+                    @Html.HiddenFor(m => m.Owner)
                     @Html.InputFor(m => m.Intro)
                     @Html.InputFor(m => m.RegAt)
                     @Html.InputFor(m => m.Referral)

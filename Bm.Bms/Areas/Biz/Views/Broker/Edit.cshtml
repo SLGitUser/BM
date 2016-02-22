@@ -6,14 +6,40 @@
     <script src="~/Scripts/init.js"></script>
     <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
-    @section PageHead {
-        <h1>修改经纪人信息<small></small></h1>
-        <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
-            <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>楼盘</a></li>
-            <li class="active">修改经纪人信息</li>
-        </ol>
+
+<script src="~/Content/js/publicJs.js"></script>
+<script type="text/javascript">
+    
+//绑定下拉框联动
+function bindNameByNo(no, name) {
+        var getno = document.getElementsByName(no);
+        var getname = document.getElementsByName(name);
+        $(getno).change(function() {
+            var vala = $(this).val();
+            $.ajax({
+                url: "/api/no/",
+                data: { tbl: "dp_brokerage_firm", no: "FirmNo", noVal: vala, name: "Name" },
+                type:"get",
+                dataType: "json"
+            }).done(function (data) {
+                $(getname).val(data);
+            });
+        });
     }
+    $(function() {
+        bindNameByNo("FirmNo", "Firm");
+        $("#FirmNo").trigger("change");
+    });
+
+</script>
+@section PageHead {
+    <h1>修改经纪人信息<small></small></h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
+        <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>楼盘</a></li>
+        <li class="active">修改经纪人信息</li>
+    </ol>
+}
 
     <!-- Main content -->
     <section class="content">
@@ -32,7 +58,7 @@
                     @Html.InputFor(m => m.CityNo)
                     @Html.InputFor(m => m.Gender, SelectListFactory.SexSelectList(), new { @class = "form-control " })
                     @Html.InputFor(m => m.FirmNo, SelectListFactory.BrokerageAllNo())
-                    @Html.InputFor(m => m.Firm)
+                    @Html.HiddenFor(m => m.Firm)
                     @Html.InputFor(m => m.Intro)
                     @Html.InputFor(m => m.RegAt)
                     @Html.InputFor(m => m.Referral)

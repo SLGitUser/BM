@@ -13,7 +13,7 @@ namespace Bm.Controllers
                 || string.IsNullOrEmpty(noVal)
                 || string.IsNullOrEmpty(name)) return Ok(string.Empty);
 
-            string sql = $"SELECT `{@name}` FROM `{@tbl}` WHERE `{@no}` = '{noVal}'";
+            string sql = $"SELECT `{@name}` FROM `{@tbl}` WHERE `{@no}` = '{@noVal}'";
             var result = ConnectionManager.ExecuteScalar<string>(sql);
             return Ok(result);
         }

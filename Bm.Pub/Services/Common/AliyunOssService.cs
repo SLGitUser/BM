@@ -144,7 +144,21 @@ namespace Bm.Services.Common
             try
             {
                 var meta = _client.GetObjectMetadata(BucketName, key);
-                _client.ModifyObjectMeta(BucketName, key, meta);
+
+                //TODO 修改修改元数据的问题 
+                //var newMeta = meta == null
+                //    ? new ObjectMetadata()
+                //    : new ObjectMetadata
+                //    {
+                //        ContentType = meta.ContentType,
+                //        ContentDisposition = meta.ContentDisposition,
+                //        CacheControl = meta.CacheControl,
+                //        ContentEncoding = meta.ContentEncoding,
+                //        ContentLength = meta.ContentLength
+                //        //ExpirationTime = meta.ExpirationTime
+                //    };
+                //action?.Invoke(newMeta);
+                //_client.ModifyObjectMeta(BucketName, key, newMeta);
                 return r.Info("修改文件元数据成功").SetValue(true);
             }
             catch (Exception ex)

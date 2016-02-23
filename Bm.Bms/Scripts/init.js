@@ -54,14 +54,19 @@
     $("input.upload-file").each(function () {
         var $this = $(this);
         var div = $this.attr("type", "hidden").parent("div");
-        var img = $("<image style=\"width:200px; height: 200px;\" />")
-            .attr("id", $this.attr("id") + "_img")
-            .attr("src", $this.attr("value") === "" ? "" : $this.attr("data_url")+ $this.attr("value"))
-            //.click(function () { fil.click(); })
-            .appendTo(div);
+        var img;
+        if ($this.hasClass("img")) {
+            img = $("<image style=\"width:200px; height: 200px;\" />")
+                .attr("id", $this.attr("id") + "_img")
+                .attr("src", $this.attr("value") === "" ? "" : $this.attr("data_url") + $this.attr("value"))
+                //.click(function () { fil.click(); })
+                .appendTo(div);
+        }
         var fil = $("<input type=\"file\" style=\"margin-top: 10px\" />").appendTo(div);
         var btn = $("<input type=\"button\" value=\"上传\" style=\"margin-top: 10px\" />").appendTo(div);
-        img.click(function () { fil.click() });
+        if ($this.hasClass("img") && img != null) {
+            img.click(function() { fil.click() });
+        }
 
         btn.click(function () {
             var formdata = new FormData(); //FormData object 
@@ -79,8 +84,10 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var obj = $.parseJSON(xhr.responseText);
-                    $("#" + obj.input).val(obj.ids);
-                    $("#" + obj.input+"_img").attr("src", obj.urls);
+                    var input = $("#" + obj.input).val(obj.ids);
+                    if (input.hasClass("img")) {
+                        $("#" + obj.input + "_img").attr("src", obj.urls);
+                    }
                     //alert(xhr.responseText);
                 }
             }

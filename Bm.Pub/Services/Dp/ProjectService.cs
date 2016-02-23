@@ -99,8 +99,11 @@ namespace Bm.Services.Dp
                 }
                 trans.Commit();
             }
-            r.Append(AccessoryService.DeleteObject(oldKey));
-            r.Append(AccessoryService.ClearExpiration(model.AddrPic));
+            if (!Equals(oldKey, model.AddrPic))
+            {
+                r.Append(AccessoryService.DeleteObject(oldKey));
+                r.Append(AccessoryService.ClearExpiration(model.AddrPic));
+            }
             return r.SetValue(!r.HasError);
         }
 

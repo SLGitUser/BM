@@ -10,7 +10,7 @@ namespace Bm.Pub.Test.Modules.Orm.Sql
         [TestCase(Op.Nul, "{0} IS NULL")]
         [TestCase(Op.NotNul, "{0} IS NOT NULL")]
 
-        [TestCase(Op.Eq, "{0} == {1}")]
+        [TestCase(Op.Eq, "{0} = {1}")]
         [TestCase(Op.NotEq, "{0} <> {1}")]
         [TestCase(Op.Gt, "{0} > {1}")]
         [TestCase(Op.Ge, "{0} >= {1}")]

@@ -63,9 +63,5 @@ namespace Bm.Modules.Orm
             }
         }
 
-        public static TModel ExecuteScalarEx<TModel>(this IDbConnection connection, string sql)
-        {
-            return connection.Query<TModel>(sql).FirstOrDefault();
-        }
     }
 }

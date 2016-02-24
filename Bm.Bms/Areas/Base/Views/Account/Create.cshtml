@@ -2,6 +2,13 @@
 @model Bm.Models.Base.Account
 
 @section Header{
+    <script>
+        $(function() {
+            markRequired("#Password");
+        });
+    </script>
+    <script src="~/Scripts/init.js"></script>
+    <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
 
 @section PageHead {
@@ -28,6 +35,8 @@
                 @Html.InputFor(m => m.Password)
                 @Html.InputFor(m => m.Email)
                 @Html.InputFor(m => m.Phone)
+                @Html.InputFor(m => m.Phone2)
+                @Html.InputFor(m => m.Phone3)
                 @Html.InputFor(m => m.Remark)
             </div>
             <!-- /.box-body -->

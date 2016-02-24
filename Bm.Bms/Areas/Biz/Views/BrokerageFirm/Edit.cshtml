@@ -1,5 +1,6 @@
 ﻿@model Bm.Models.Dp.BrokerageFirm
 @using Bm.Modules.Html
+@using Bm.Services.Common
 @using Bm.Services.Dp
 
 @section Header{
@@ -33,7 +34,7 @@
                     @Html.InputFor(m => m.FirmOrgCode)
                     @Html.InputFor(m => m.Address)
                     <br/>
-                    @Html.InputFor(m => m.Pic)
+                    @Html.InputFor(m => m.Pic, new { @class = " upload-file img", data_url = AccessoryService.GetUrl("") })
                     @Html.InputFor(m => m.LegalName)
                     <br/>
                     @Html.InputFor(m => m.LegalCardType)

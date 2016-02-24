@@ -63,7 +63,8 @@ namespace Bm.Services.Dp
                     return r.Error("保存失败");
                 }
                 trans.Commit();
-                return r.SetValue(true);
+                r.Append(AccessoryService.ClearExpiration(model.Pic));
+                return r.SetValue(!r.HasError);
             }
 
         }
@@ -77,7 +78,7 @@ namespace Bm.Services.Dp
             var r = new MessageRecorder<bool>();
             model.CreatedAt = Now;
             model.CreatedBy = AccountNo;
-
+            string oldKey;
             using (var conn=ConnectionManager.Open())
             {
                 var trans = conn.BeginTransaction(); 
@@ -90,6 +91,10 @@ namespace Bm.Services.Dp
                     trans.Rollback();
                     return r.Error("编号或者名称重复");
                 }
+                var obj = new Criteria<BrokerageFirm>()
+                    .Where(m => m.Id, Op.Eq, model.Id)
+                    .Select(m => m.Pic);
+                oldKey = conn.ExecuteScalarEx<string>(obj.ToSelectSql());
                 var effectedCount = conn.Update(model, trans);
                 if (!effectedCount)
                 {
@@ -97,11 +102,26 @@ namespace Bm.Services.Dp
                     return r.Error("保存失败");
                 }
                 trans.Commit();
-                return r.SetValue(true);
             }
+            if (!Equals(oldKey, model.Pic))
+            {
+                r.Append(AccessoryService.DeleteObject(oldKey));
+                r.Append(AccessoryService.ClearExpiration(model.Pic));
+            }
+            return r.SetValue(!r.HasError);
+        }
+
+        public override MessageRecorder<bool> Delete(params BrokerageFirm[] models)
+        {
+            var r = base.Delete(models);
+            foreach (var model in models)
+            {
+                r.Append(AccessoryService.DeleteObject(model.Pic));
+            }
+            return r;
         }
         #endregion
-       
+
     }
 }
 

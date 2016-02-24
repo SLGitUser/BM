@@ -300,7 +300,7 @@ namespace Bm.Models.Base
 
         private string Encrypt(string salt, string password)
         {
-            return string.Concat(Name, "-", salt, "-", password).Md5Hash();
+            return string.Concat(No, "-", salt, "-", password).Md5Hash();
         }
 
         private string _passwordSalt;

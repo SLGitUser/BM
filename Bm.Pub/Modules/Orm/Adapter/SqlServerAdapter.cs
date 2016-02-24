@@ -42,15 +42,15 @@ namespace Bm.Modules.Orm.Adapter
             string columnSql, string valuesSql, object entityToInsert)
         {
             throw new NotImplementedException();
-            var cmd = $"INSERT INTO {tableName} ({columnSql}) VALUES ({valuesSql})";
-            connection.Execute(cmd, entityToInsert, transaction, commandTimeout);
+            //var cmd = $"INSERT INTO {tableName} ({columnSql}) VALUES ({valuesSql})";
+            //connection.Execute(cmd, entityToInsert, transaction, commandTimeout);
 
-            // REVIEW
-            var r = connection.Query("SELECT LAST_INSERT_ID() id", transaction: transaction, commandTimeout: commandTimeout);
-            var id = r.First().id;
-            if (id == null) return 0;
+            //// REVIEW
+            //var r = connection.Query("SELECT LAST_INSERT_ID() id", transaction: transaction, commandTimeout: commandTimeout);
+            //var id = r.First().id;
+            //if (id == null) return 0;
 
-            return Convert.ToInt32(id);
+            //return Convert.ToInt32(id);
         }
     }
 }

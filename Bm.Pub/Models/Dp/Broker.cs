@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Bm.Models.Common;
 
 namespace Bm.Models.Dp
@@ -83,14 +82,12 @@ namespace Bm.Models.Dp
         public DateTime? UpdatedAt { get; set; }
 
         #endregion
-
-
-
+        
         /// <summary>
-        /// 读取或者设置名称
+        /// 读取或者设置姓名
         /// </summary>
         /// <remark></remark>
-        [DisplayName("名称")]
+        [DisplayName("姓名")]
         [StringLength(50)]
         [Required]
         public string Name { get; set; }

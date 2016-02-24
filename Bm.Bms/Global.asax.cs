@@ -89,7 +89,11 @@ namespace Bm
             buff.Append(Environment.NewLine);
             buff.Append("内在异常：");
             buff.Append(lastError.InnerException?.Message ?? string.Empty);
-            Logger.Error(buff.ToString());
+
+            if (!"/favicon.ico".Equals(Request.Path))
+            {
+                Logger.Error(buff.ToString());
+            }
 
             //清除掉Exception
             Context.Server.ClearError();

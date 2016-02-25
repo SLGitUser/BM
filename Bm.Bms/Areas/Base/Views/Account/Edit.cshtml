@@ -1,6 +1,8 @@
 ﻿@using Bm.Modules.Html
 @model Bm.Models.Base.Account
 @section Header{
+    <script src="~/Scripts/init.js"></script>
+    <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
 
 @section PageHead {
@@ -18,7 +20,9 @@
         </div>
         @using (Html.BeginForm("Edit", "Account", FormMethod.Post, new Dictionary<string, object> { { "class", "form-horizontal" } }))
         {
-
+            <div class="box-body">
+                <div class="callout callout-warning">如果不修改密码，请保持密码框为空。</div>
+            </div>
             <div class="box-body">
                 @Html.HiddenFor(m => m.Id)
                 @Html.HiddenFor(m => m.CreatedAt)
@@ -28,6 +32,8 @@
                 @Html.InputFor(m => m.Password)
                 @Html.InputFor(m => m.Email)
                 @Html.InputFor(m => m.Phone)
+                @Html.InputFor(m => m.Phone2)
+                @Html.InputFor(m => m.Phone3)
                 @Html.InputFor(m => m.Remark)
 
 

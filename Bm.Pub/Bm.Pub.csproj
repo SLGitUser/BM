@@ -86,6 +86,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TopSdk">
+      <HintPath>..\Assemblies\TopSdk.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DevRoom.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Models\Base\AccountStatus.cs" />
     <Compile Include="Models\Base\AccountToken.cs" />
     <Compile Include="Models\Base\ActionLog.cs" />
+    <Compile Include="Models\Base\VerificationCode.cs" />
     <Compile Include="Models\Base\Dict.cs" />
     <Compile Include="Models\Base\DictMap.cs" />
     <Compile Include="Models\Base\Nav.cs" />
@@ -170,6 +174,8 @@
     <Compile Include="Modules\Orm\Sql\OpHelper.cs" />
     <Compile Include="Modules\Orm\Sql\Op.cs" />
     <Compile Include="Services\Common\AccessoryService.cs" />
+    <Compile Include="Services\Common\AlidayuService.cs" />
+    <Compile Include="Services\Common\VerificationCodeService.cs" />
     <Compile Include="Services\Common\UploadService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Base\AccountService.cs" />
@@ -191,7 +197,9 @@
     <Compile Include="Services\Dp\PropertyAdvisorService.cs" />
     <Compile Include="Services\Dp\ProjectService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

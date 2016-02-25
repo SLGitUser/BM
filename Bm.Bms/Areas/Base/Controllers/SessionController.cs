@@ -3,6 +3,7 @@ using System.Web.Security;
 using Bm.Extensions;
 using Bm.Modules;
 using Bm.Services.Base;
+using com.senlang.Sdip.Util;
 
 namespace Bm.Areas.Base.Controllers
 {
@@ -31,8 +32,11 @@ namespace Bm.Areas.Base.Controllers
             if (r.HasError)
             {
                 FlashMessage(r);
+                Logger.Warn($"user {r.Value.Name}/{r.Value.No.Right(5)} login failed");
                 return JsonError("用户名或密码错误");
             }
+
+            Logger.Info($"user {r.Value.Name}/{r.Value.No.Right(5)} login success");
 
             FormsAuthentication.SetAuthCookie(r.Value.No, true);
 
@@ -56,6 +60,7 @@ namespace Bm.Areas.Base.Controllers
 
         public ActionResult Logout()
         {
+            Logger.Info($"user /{User?.Identity?.Name?.Right(5)} logout success");
             Reset();
             return RedirectToAction("Login");
         }

@@ -65,7 +65,7 @@
         var fil = $("<input type=\"file\" style=\"margin-top: 10px\" />").appendTo(div);
         var btn = $("<input type=\"button\" value=\"上传\" style=\"margin-top: 10px\" />").appendTo(div);
         if ($this.hasClass("img") && img != null) {
-            img.click(function() { fil.click() });
+            img.click(function () { fil.click() });
         }
 
         btn.click(function () {
@@ -169,4 +169,10 @@ function switchCheckAll(el, inputName) {
     for (var i = 0; i < ids.length; i++) {
         ids[i].checked = thisCheck;
     }
+}
+
+function markRequired(selector) {
+    var input = $(selector);
+    if (input) input.attr("required", "required")
+            .parent("div").parent("div").find("label").addClass("required");
 }

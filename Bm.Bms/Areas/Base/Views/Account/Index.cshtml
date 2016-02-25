@@ -2,13 +2,14 @@
 @model IList<Bm.Models.Base.Account>
 
 @section Header{
-    <script src="~/Content/JavaScript/Js_Tools.js"></script>
+    <script src="~/Scripts/init.js"></script>
+    <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
 
 @section PageHead {
     <h1>
         账户信息
-        <small>（页面账户名：0521）</small>
+        <small></small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
@@ -54,6 +55,8 @@
                                 .Add(m => m.Name)
                                 .Add(m => m.Email)
                                 .Add(m => m.Phone)
+                                .Add(m => m.Phone2)
+                                .Add(m => m.Phone3)
                                 .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
                                 .ToString())
                         </div>

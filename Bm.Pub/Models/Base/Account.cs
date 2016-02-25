@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Bm.Models.Common;
 using Bm.Modules.Helper;
+using Bm.Modules.Orm.Annotation;
 
 
 namespace Bm.Models.Base
@@ -131,6 +134,33 @@ namespace Bm.Models.Base
         public string Phone { get; set; }
 
         /// <summary>
+        /// 读取或者设置手机2
+        /// </summary>
+        /// <remark>
+        /// </remark>
+        [DisplayName("手机2")]
+        [StringLength(11)]
+        public string Phone2 { get; set; }
+
+        /// <summary>
+        /// 读取或者设置手机3
+        /// </summary>
+        /// <remark>
+        /// </remark>
+        [DisplayName("手机3")]
+        [StringLength(11)]
+        public string Phone3 { get; set; }
+        
+        /// <summary>
+        /// 全部有效的账号
+        /// </summary>
+        [IgnoreMapping]
+        public IList<string> ValidNos
+            => new[] {No, Email, Phone, Phone2, Phone3}.Where(m => !string.IsNullOrEmpty(m)).ToList();
+
+
+
+        /// <summary>
         /// 读取或者设置备注
         /// </summary>
         /// <remark>
@@ -138,20 +168,26 @@ namespace Bm.Models.Base
         [DisplayName("备注")]
         [StringLength(50)]
         public string Remark { get; set; }
-        
+
         /// <summary>
         /// 密码，只写
         /// </summary>
         [DisplayName(@"密码")]
+        [MinLength(6)]
         public string Password
         {
             get { return null; }
             set
             {
+                // 如果已经设置密码，但是当前未输入密码，不予重新加密
+                if (string.IsNullOrEmpty(value))
+                    return;
+
                 if (PasswordSalt == null || PasswordSalt.Length < 32)
                 {
                     _passwordSalt = GetSalt();
                 }
+
                 PasswordHash = Encrypt(_passwordSalt, value);
             }
         }
@@ -252,7 +288,7 @@ namespace Bm.Models.Base
             string passwordHash = Encrypt(PasswordSalt, password);
             return PasswordHash.Equals(passwordHash, StringComparison.CurrentCultureIgnoreCase);
         }
-        
+
         /// <summary>
         /// 获得随机的唯一密码种子
         /// </summary>
@@ -264,9 +300,9 @@ namespace Bm.Models.Base
 
         private string Encrypt(string salt, string password)
         {
-            return string.Concat(Name, "-", salt, "-", password).Md5Hash();
+            return string.Concat(No, "-", salt, "-", password).Md5Hash();
         }
-        
+
         private string _passwordSalt;
 
 
@@ -288,7 +324,7 @@ namespace Bm.Models.Base
         /// </summary>
         private IList<AccountRoleRef> _roleRefs;
 
-        
+
 
         #endregion
     }

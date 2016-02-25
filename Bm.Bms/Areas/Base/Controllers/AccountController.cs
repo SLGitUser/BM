@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Bm.Extensions;
 using Bm.Models.Base;
 using Bm.Modules;
 using Bm.Services.Base;
+using Bm.Services.Dp;
 using com.senlang.Sdip.Util;
 
 namespace Bm.Areas.Base.Controllers
 {
     public sealed class AccountController : BaseAuthController
     {
-        private readonly AccountService _service;
+        private AccountService _service;
 
-        public AccountController()
+        protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
             _service = new AccountService(CurrAccountNo);
         }
-
+        
         // GET: Biz/Account
         public ActionResult Index()
         {

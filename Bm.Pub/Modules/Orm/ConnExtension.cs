@@ -19,10 +19,11 @@ namespace Bm.Modules.Orm
         /// <typeparam name="TModel"></typeparam>
         /// <param name="conn"></param>
         /// <param name="sql"></param>
+        /// <param name="trans"></param>
         /// <returns></returns>
-        public static TModel ExecuteScalarEx<TModel>(this IDbConnection conn, string sql)
+        public static TModel ExecuteScalarEx<TModel>(this IDbConnection conn, string sql, IDbTransaction trans = null)
         {
-            return conn.Query<TModel>(sql).FirstOrDefault();
+            return conn.Query<TModel>(sql, transaction: trans).FirstOrDefault();
         }
 
         /// <summary>
@@ -31,26 +32,28 @@ namespace Bm.Modules.Orm
         /// <typeparam name="TModel"></typeparam>
         /// <param name="conn"></param>
         /// <param name="query"></param>
+        /// <param name="trans"></param>
         /// <returns></returns>
-        public static bool Exists<TModel>(this IDbConnection conn, Criteria<TModel> query)
+        public static bool Exists<TModel>(this IDbConnection conn, Criteria<TModel> query, IDbTransaction trans = null)
         {
             var sql = query.Limit(1).ToSelectSql();
             Log.Debug(string.Concat("sql: ", sql));
-            return conn.Query(sql).Any();
+            return conn.Query(sql, transaction:trans).Any();
         }
-        
+
         /// <summary>
         /// 查询对象集合
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <param name="conn"></param>
         /// <param name="query"></param>
+        /// <param name="trans"></param>
         /// <returns></returns>
-        public static IList<TModel> Query<TModel>(this IDbConnection conn, Criteria<TModel> query)
+        public static IList<TModel> Query<TModel>(this IDbConnection conn, Criteria<TModel> query, IDbTransaction trans = null)
         {
             var sql = query.ToSelectSql();
             Log.Debug(string.Concat("sql: ", sql));
-            return conn.Query<TModel>(sql).ToList();
+            return conn.Query<TModel>(sql, transaction: trans).ToList();
         }
 
         /// <summary>
@@ -59,12 +62,13 @@ namespace Bm.Modules.Orm
         /// <typeparam name="TModel"></typeparam>
         /// <param name="conn"></param>
         /// <param name="query"></param>
+        /// <param name="trans"></param>
         /// <returns></returns>
-        public static TModel Get<TModel>(this IDbConnection conn, Criteria<TModel> query)
+        public static TModel Get<TModel>(this IDbConnection conn, Criteria<TModel> query, IDbTransaction trans = null)
         {
             var sql = query.Limit(1).ToSelectSql();
             Log.Debug(string.Concat("sql: ", sql));
-            return conn.Query<TModel>(sql).FirstOrDefault();
+            return conn.Query<TModel>(sql, transaction: trans).FirstOrDefault();
         }
     }
 }

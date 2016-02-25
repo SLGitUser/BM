@@ -102,6 +102,14 @@ namespace Bm.Models.Dp
         public string Name { get; set; }
 
         /// <summary>
+        /// 楼盘编号
+        /// </summary>
+        [DisplayName("楼盘编号")]
+        [StringLength(20)]
+        [Required]
+        public string DpNo { get; set; }
+
+        /// <summary>
         /// 户型名称
         /// </summary>
         [DisplayName("厅室")]

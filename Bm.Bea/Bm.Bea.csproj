@@ -129,7 +129,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="packages.config" />
     <Content Include="Areas\Base\Views\web.config" />
     <Content Include="fonts\mui.ttf" />
@@ -148,6 +150,12 @@
     <Folder Include="Areas\Base\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bm.Pub\Bm.Pub.csproj">
+      <Project>{938cf792-dd27-4a29-8779-5caf50711b55}</Project>
+      <Name>Bm.Pub</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

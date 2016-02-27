@@ -4,6 +4,8 @@ using Bm.Modules.Orm;
 using Bm.Modules.Orm.Sql;
 using Bm.Services.Common;
 using System.Collections.Generic;
+using System.Linq;
+using Bm.Modules.Helper;
 
 namespace Bm.Services.Dp
 {
@@ -57,6 +59,14 @@ namespace Bm.Services.Dp
                     trans.Rollback();
                     return r.Error("保存失败");
                 }
+                var r2 = conn.Insert(model.ProjectInfos);
+                var count = model.ProjectInfos.Count;
+                if (r2 != count)
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                }
+
                 trans.Commit();
             }
             r.Append(AccessoryService.ClearExpiration(model.AddrPic));
@@ -97,6 +107,22 @@ namespace Bm.Services.Dp
                     trans.Rollback();
                     return r.Error("保存失败");
                 }
+
+                foreach (var projectInfo in model.ProjectInfos)
+                {
+                    projectInfo.UpdatedAt = Now;
+                    projectInfo.UpdatedBy = AccountNo;
+                    projectInfo.DpNo = model.No;
+                }
+
+
+                var effectedCount2 = conn.Update(model.ProjectInfos, trans);
+                if (!effectedCount2)
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                }
+
                 trans.Commit();
             }
             if (!Equals(oldKey, model.AddrPic))
@@ -110,13 +136,50 @@ namespace Bm.Services.Dp
 
         public override MessageRecorder<bool> Delete(params Project[] models)
         {
-            var r = base.Delete(models);
-            foreach (var model in models)
+            using (var conn = ConnectionManager.Open())
             {
-                r.Append(AccessoryService.DeleteObject(model.AddrPic));
+                var trans = conn.BeginTransaction();
+                var r = base.Delete(models);
+                foreach (var model in models)
+                {
+                    var query = new Criteria<ProjectInfo>()
+                        .Where(m => m.DpNo, Op.Eq, model.No)
+                        .Asc(m => m.Id);
+                    var proInfo = conn.Query(query);
+                    var err = conn.Delete(proInfo);
+                    if (!err)
+                    {
+                        trans.Rollback();
+                        return r.Error("删除楼盘周边信息失败");
+                    }
+                    trans.Commit();
+                    r.Append(AccessoryService.DeleteObject(model.AddrPic));
+                }
+                return r;
             }
-            return r;
         }
+
+
+        public override Project GetById(long id)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var model = conn.Get<Project>(id);
+
+                if (model != null)
+                {
+                    var query = new Criteria<ProjectInfo>()
+                        .Where(m => m.DpNo, Op.Eq, model.No)
+                        .Asc(m => m.Id)
+                        //.Limit(6)
+                        ;
+                    model.ProjectInfos = conn.Query(query);
+                };
+
+                return model;
+            }
+        }
+
         #endregion
     }
 }

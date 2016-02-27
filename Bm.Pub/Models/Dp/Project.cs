@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Bm.Models.Common;
@@ -187,5 +188,15 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("推客认证类型")]
         public string AuthType { get; set; }
+
+        /// <summary>
+        /// 楼盘周边信息
+        /// </summary>
+        public IList<ProjectInfo> ProjectInfos {
+            get { return _projectInfos;}
+            set { _projectInfos = value; }
+        }
+
+        private IList<ProjectInfo> _projectInfos;
     }
 }

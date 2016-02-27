@@ -4,10 +4,12 @@ using System.Web.Mvc;
 using Bm.Models.Dp;
 using Bm.Modules.Helper;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Routing;
 using Bm.Extensions;
+using Bm.Modules.Orm;
 using Bm.Services.Common;
 
 namespace Bm.Areas.Biz.Controllers
@@ -38,14 +40,28 @@ namespace Bm.Areas.Biz.Controllers
                 FlashWarn("请选择一条数据");
                 return RedirectToAction("Index");
             }
-            var list = _service.GetByIds(ids);
+            if (ids.Length>1)
+            {
+                FlashWarn("只能选择一条数据");
+                return RedirectToAction("Index");
+            }
+
+            var list = _service.GetById(ids[0]);
             return View(list);
         }
 
         // GET: Biz/Project/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new Project();
+            var type = new string[] {"简介", "地段", "配套", "教育", "环境", "交通"};
+            var piList = new List<ProjectInfo>();
+            for (int i = 0; i < type.Length; i++)
+            {
+                piList.Add(new ProjectInfo {Type = type[i]});
+            }
+            model.ProjectInfos = piList;
+            return View(model);
         }
 
         // POST: Biz/Project/Create
@@ -56,22 +72,22 @@ namespace Bm.Areas.Biz.Controllers
             {
                 var model = new Project();
                 TryUpdateModel(model, collection);
-                model.CreatedAt = DateTime.Now;
+                var at = DateTime.Now;
+                model.CreatedAt = at;
                 model.CreatedBy = "SYSTEM";
-                if (!ModelState.IsValid)
+                foreach (var infos in model.ProjectInfos)
                 {
-                    FlashError("数据验证未通过，请检查是否存在为空的必填项");
-                    return View(model);
+                    infos.DpNo = model.No;
+                    infos.CreatedBy = CurrAccountNo;
+                    infos.CreatedAt = at;
                 }
-                model.CreatedAt = DateTime.Now;
-                model.CreatedBy = "SYSTEM";
-
                 var r = _service.Create(model);
                 if (r.HasError)
                 {
                     FlashMessage(r);
                     return View(model);
                 }
+                
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -88,6 +104,7 @@ namespace Bm.Areas.Biz.Controllers
                 var model = _service.GetById(id.Value);
                 return View(model);
             }
+            
             FlashWarn("没有指定ID");
             return RedirectToAction("Index");
         }

@@ -1,5 +1,6 @@
 ﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Dp.Project>
+@using Bm.Services.Common
+@model Bm.Models.Dp.Project
 
 
 @section Header{
@@ -27,7 +28,128 @@
                 <div class="box-body">
                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <th style="text-align: center; width: 200px;">楼盘编号</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.No</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center">楼盘名称</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.Name</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center">开发商编号</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.OwnerNo</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th style="text-align: center">类型</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.BldType</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center">版块</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.BizGrp</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th style="text-align: center">销售状态</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.SaleStatus</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th style="text-align: center">位置图片</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center"><img width="100" height="50" src="@AccessoryService.GetUrl(Model.AddrPic)"/></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th style="text-align: center">均价</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.AvgPrice</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th style="text-align: center">咨询电话</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.SalesTel</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th style="text-align: center">经度</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.Longitude</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th style="text-align: center">纬度</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.Latitude</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th style="text-align: center">推客认证类型</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@Model.AuthType</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                    @foreach (var infos in Model.ProjectInfos)
+                                    {
+  
+                                <tr>
+
+                                    <th style="text-align: center">@infos.Type</th>
+                                    <td>
+                                        <div>
+                                            <div style="text-align: center">@infos.Content</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            @*<div class="col-sm-12">
                                 @Html.Raw(Model.ToHtmlTable()
                                 .Table(new HtmlElement("table")
                                     .Attr("class", "table data table-bordered table-striped dataTable")
@@ -46,7 +168,7 @@
                                     .Add(m => m.Latitude)
                                     .Add(m => m.AuthType)
                                     .ToString())
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>

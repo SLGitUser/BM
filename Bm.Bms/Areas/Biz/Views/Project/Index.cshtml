@@ -56,7 +56,7 @@
                                 .Add(m=>m.AvgPrice)
                                 .Add(m=>m.SalesTel)
                                 .Add(m=>m.Address)
-                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a> <a class=\"\" href=\"{Url.Action("../DevRoom/index", new { m.No })}\"> <i class=\"fa fa-pencil-square-o\"></i> 户型</a> <a class=\"\" href=\"{Url.Action("Index", new { m.No })}\"> <i class=\"fa fa-pencil-square-o\"></i> 设定佣金规则</a>", m => "ca")
+                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a> <a class=\"\" href=\"{Url.Action("Index","DevRoom", new { m.No })}\"> <i class=\"fa fa-pencil-square-o\"></i> 户型</a> <a class=\"\" href=\"{Url.Action("Index", new { m.No })}\"> <i class=\"fa fa-pencil-square-o\"></i> 设定佣金规则</a>", m => "ca")
                                
                                 .ToString())
                         </div>

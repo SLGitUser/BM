@@ -190,6 +190,13 @@ namespace Bm.Models.Dp
         public string AuthType { get; set; }
 
         /// <summary>
+        /// 读取或者设置佣金规则
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("佣金规则")]
+        public string BrokerageRule { get; set; }
+
+        /// <summary>
         /// 楼盘周边信息
         /// </summary>
         public IList<ProjectInfo> ProjectInfos {

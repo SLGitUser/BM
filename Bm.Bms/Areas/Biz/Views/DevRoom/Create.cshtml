@@ -36,7 +36,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
-                    <a href="@Url.Action("Index",new {No=Model.DpNo})" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
+                    <a href="@Url.Action("Index",new {No=ViewData["No"]})" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
                 </div>
                 <!-- /.box-footer -->
 

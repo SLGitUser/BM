@@ -46,6 +46,7 @@ namespace Bm.Areas.Biz.Controllers
         public ActionResult Create(string DpNo)
         {
             var dev = new DevRoom{DpNo=DpNo };
+            ViewData["No"] = DpNo;
             return View(dev);
         }
 

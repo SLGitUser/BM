@@ -154,6 +154,11 @@
     <Content Include="Areas\Biz\Views\Broker\Details.cshtml" />
     <Content Include="Areas\Biz\Views\Broker\Edit.cshtml" />
     <Content Include="Areas\Biz\Views\Broker\Index.cshtml" />
+    <Content Include="Areas\Biz\Views\DevRoom\Create.cshtml" />
+    <Content Include="Areas\Biz\Views\DevRoom\Delete.cshtml" />
+    <Content Include="Areas\Biz\Views\DevRoom\Details.cshtml" />
+    <Content Include="Areas\Biz\Views\DevRoom\Edit.cshtml" />
+    <Content Include="Areas\Biz\Views\DevRoom\Index.cshtml" />
     <None Include="Properties\PublishProfiles\web.config.pubxml" />
     <Content Include="Areas\Base\Views\Account\Details.cshtml" />
     <Content Include="Areas\Base\Views\Account\Edit.cshtml" />
@@ -185,6 +190,7 @@
     <Compile Include="Areas\Biz\BizAreaRegistration.cs" />
     <Compile Include="Areas\Biz\Controllers\DeveloperController.cs" />
     <Compile Include="Areas\Biz\Controllers\BrokerageFirmController.cs" />
+    <Compile Include="Areas\Biz\Controllers\DevRoomController.cs" />
     <Compile Include="Areas\Biz\Controllers\PropertyAdvisorController.cs" />
     <Compile Include="Areas\Biz\Controllers\BrokerController.cs" />
     <Compile Include="Areas\Biz\Controllers\ProjectController.cs" />

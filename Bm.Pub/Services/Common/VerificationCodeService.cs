@@ -30,9 +30,9 @@ namespace Bm.Services.Common
         /// <param name="accountNo">账号</param>
         /// <param name="phoneNo">手机号</param>
         /// <returns></returns>
-        public MessageRecorder<string> MakeCode(AlidayuService.CodeType codeType, string accountNo, string phoneNo)
+        public MessageRecorder<VerificationCode> MakeCode(AlidayuService.CodeType codeType, string accountNo, string phoneNo)
         {
-            var mr = new MessageRecorder<string>();
+            var mr = new MessageRecorder<VerificationCode>();
             if (string.IsNullOrEmpty(phoneNo)) return mr.Error("没有设置手机号");
 
             // 检测是否达到最小时间间隔，10秒
@@ -41,7 +41,7 @@ namespace Bm.Services.Common
                 var query = new Criteria<VerificationCode>()
                     .Where(m => m.PhoneNo, Op.Eq, phoneNo)
                     .And(m => m.CodeType, Op.Eq, codeType)
-                    .And(m => m.ExpiredAt, Op.NotNul, null)
+                    .And(m => m.ExpiredAt, Op.NotNul, DateTime.Now)
                     .Desc(m => m.CreatedAt);
                 var existModel = conn.Get(query);
                 if (existModel != null && existModel.CreatedAt.AddSeconds(MinInterval) > DateTime.Now)
@@ -55,6 +55,7 @@ namespace Bm.Services.Common
             var code = string.Concat(rnd.Next(0, 9), rnd.Next(0, 9), rnd.Next(0, 9), rnd.Next(0, 9), rnd.Next(0, 9));
 
             var r = new AlidayuService().SendCode(codeType, accountNo, phoneNo, code);
+
             mr.Append(r);
             if (r.HasError) return mr;
 
@@ -80,7 +81,7 @@ namespace Bm.Services.Common
             Logger.Info($"验证服务：{codeType}，账户 {accountNo}，号码 {phoneNo}，代码 {code}，流水号 {r.Value}");
 
             // 返回验证码
-            return r.SetValue(code);
+            return mr.SetValue(vcode);
         }
 
         /// <summary>

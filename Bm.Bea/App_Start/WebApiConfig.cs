@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Bm.Bea
 {
@@ -19,6 +17,18 @@ namespace Bm.Bea
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+
+            // Remove the JSON formatter
+            //config.Formatters.Remove(config.Formatters.JsonFormatter);
+
+            // or
+
+            // Remove the XML formatter
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            //var cors = new EnableCorsAttribute("http://127.0.0.1:8020/", "*", "*");
+            //config.EnableCors(cors);
         }
     }
 }

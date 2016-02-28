@@ -16,14 +16,15 @@ namespace Bm.Controllers
         }
 
         // GET: api/Account/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            return Ok("123123");
         }
 
         // POST: api/Account
         public void Post([FromBody]string value)
         {
+            
         }
 
         // PUT: api/Account/5

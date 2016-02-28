@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Bm.Models.Common
 {
@@ -8,6 +9,8 @@ namespace Bm.Models.Common
     /// 消息记录器
     /// </summary>
     /// <typeparam name="TModel">资料类型</typeparam>
+    [Serializable]
+    [DataContract]
     public sealed class MessageRecorder<TModel>
     {
         /// <summary>
@@ -23,6 +26,7 @@ namespace Bm.Models.Common
         /// <summary>
         /// 资源实例
         /// </summary>
+        [DataMember]
         public TModel Value { get; set; }
 
         /// <summary>
@@ -136,6 +140,7 @@ namespace Bm.Models.Common
         /// <summary>
         /// 消息列表
         /// </summary>
+        [DataMember]
         private readonly IList<MessageInfo> _messages = new List<MessageInfo>();
 
         /// <summary>
@@ -157,6 +162,8 @@ namespace Bm.Models.Common
     /// <summary>
     /// 操作消息
     /// </summary>
+    [Serializable]
+    [DataContract]
     public class MessageInfo
     {
         /// <summary>
@@ -187,16 +194,19 @@ namespace Bm.Models.Common
         /// <summary>
         /// 消息类型
         /// </summary>
+        [DataMember]
         public MessageType Type { get; }
 
         /// <summary>
         /// 消息发生时间
         /// </summary>
+        [DataMember]
         public DateTime At { get; }
 
         /// <summary>
         /// 消息内容
         /// </summary>
+        [DataMember]
         public string Message { get; }
     }
 

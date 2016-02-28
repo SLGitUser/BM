@@ -49,6 +49,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -58,6 +62,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -102,27 +110,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\mui.min.css" />
-    <Content Include="css\oa.css" />
     <Content Include="Global.asax" />
-    <Content Include="images\42x42.gif" />
-    <Content Include="images\60x60.gif" />
-    <Content Include="images\cbd.jpg" />
-    <Content Include="images\muwu.jpg" />
-    <Content Include="images\pull_arrow.png" />
-    <Content Include="images\pull_fresh.png" />
-    <Content Include="images\shuijiao.jpg" />
-    <Content Include="images\yuantiao.jpg" />
-    <Content Include="js\app.js" />
-    <Content Include="js\mui.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Base\BaseAreaRegistration.cs" />
-    <Compile Include="Areas\Base\Controllers\PortalController.cs" />
     <Compile Include="Areas\Base\Controllers\RegisterController.cs" />
+    <Compile Include="Areas\Base\Controllers\SessionController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -134,9 +132,12 @@
     </Content>
     <Content Include="packages.config" />
     <Content Include="Areas\Base\Views\web.config" />
-    <Content Include="fonts\mui.ttf" />
     <Content Include="Areas\Base\Views\Register\Index.cshtml" />
-    <Content Include="Areas\Base\Views\Portal\Index.cshtml" />
+    <Content Include="Areas\Base\Views\Session\Login.cshtml" />
+    <Content Include="Areas\Base\Views\Register\Code.cshtml" />
+    <Content Include="User.Vars.config" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Base\Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -148,8 +149,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Base\Models\" />
     <Folder Include="Areas\Base\Views\Shared\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bm.Pub\Bm.Pub.csproj">
@@ -172,7 +173,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62338</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62338/</IISUrl>
+          <IISUrl>http://192.168.0.150:62338/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

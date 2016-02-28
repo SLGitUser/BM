@@ -144,7 +144,9 @@ namespace Bm.Services.Common
                     Extend = accountNo,
                     SmsType = "normal",
                     SmsFreeSignName = signName,
-                    SmsParam = string.Concat("{", $"\"code\": \"{code}\",\"product\": \"{ProductName}\",\"item\": \"{item}\", ", "}"),
+                    SmsParam = string.IsNullOrEmpty(item) ?
+                    string.Concat("{", $"\"code\": \"{code}\",\"product\": \"{ProductName}\"", "}") :
+                    string.Concat("{", $"\"code\": \"{code}\",\"product\": \"{ProductName}\",\"item\": \"{item}\"", "}"),
                     RecNum = phone,
                     SmsTemplateCode = tplNo
                 };

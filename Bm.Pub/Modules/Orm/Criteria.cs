@@ -72,7 +72,7 @@ namespace Bm.Modules.Orm
         private static string WrapValue(Type type, object obj)
         {
             //if (type.IsNumericType()) return obj.ToString();
-            if (type == typeof(string))
+            if (type == typeof(string) || type.IsEnum)
                 return Equals(obj, null) ? "NULL" : string.Concat("'", obj, "'");
             if (type == typeof(DateTime))
                 return string.Concat("'", ((DateTime)obj).ToString("yyyy-MM-dd HH:mm:ss"), "'");

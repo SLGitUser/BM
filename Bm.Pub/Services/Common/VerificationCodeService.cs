@@ -21,7 +21,12 @@ namespace Bm.Services.Common
         /// <summary>
         /// 两次请求最小时间间隔
         /// </summary>
-        private static readonly int MinInterval = 10;
+        private static readonly int RequestInterval = 10;
+
+        /// <summary>
+        /// 过期的最小时间间隔，15分钟
+        /// </summary>
+        private static readonly int ExpiredInterval = 900;
 
         /// <summary>
         /// 生成验证码
@@ -44,7 +49,7 @@ namespace Bm.Services.Common
                     .And(m => m.ExpiredAt, Op.NotNul, DateTime.Now)
                     .Desc(m => m.CreatedAt);
                 var existModel = conn.Get(query);
-                if (existModel != null && existModel.CreatedAt.AddSeconds(MinInterval) > DateTime.Now)
+                if (existModel != null && existModel.CreatedAt.AddSeconds(RequestInterval) > DateTime.Now)
                 {
                     return mr.Error("发送间隔时间太短，请稍候");
                 }
@@ -68,7 +73,7 @@ namespace Bm.Services.Common
                 AliOrderNo = r.Value,
                 Code = code,
                 CreatedBy = "SYSTEM",
-                ExpiredAt = now.AddSeconds(MinInterval),
+                ExpiredAt = now.AddSeconds(ExpiredInterval),
                 Uuid = Guid.NewGuid().ToString("N")
             };
             using (var conn = ConnectionManager.Open())

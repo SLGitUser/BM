@@ -36,7 +36,8 @@ namespace Bm.Modules.Annoation
             if (!isAuth)
             {
                 var url = actionContext.Request.RequestUri.AbsolutePath;
-                Logger.Error($"process {url}, parameters error");
+                var method = actionContext.Request.Method;
+                Logger.Error($"{app} {method} {url}, parameters error");
 
                 var obj = new ApiControllerHelper.MessageRecordOutputModel
                 {
@@ -56,13 +57,15 @@ namespace Bm.Modules.Annoation
         {
             base.OnActionExecuted(actionExecutedContext);
             _stopwatch.Stop();
-            
+
             var t = _stopwatch.ElapsedMilliseconds;
+            var app = actionExecutedContext.Request.GetQueryString("app");
             var url = actionExecutedContext.Request.RequestUri.AbsolutePath;
-            Logger.Info($"process {url}, cost {t} ms");
+            var method = actionExecutedContext.Request.Method;
+            Logger.Info($"{app} {method} {url}, cost {t} ms");
             if (t >= 2000)
             {
-                Logger.Warn($"!SLOW process {url}, cost {t} ms");
+                Logger.Warn($"!SLOW {app} {method} {url}, cost {t} ms");
             }
             _stopwatch.Reset();
         }

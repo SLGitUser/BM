@@ -109,7 +109,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DevRoom.cs" />
     <Compile Include="Extensions\ApiControllerHelper.cs" />
     <Compile Include="Extensions\BaseAuthController.cs" />
     <Compile Include="Extensions\BaseController.cs" />

@@ -26,6 +26,7 @@ namespace Bm.Areas.Biz.Controllers
         // GET: Biz/Project
         public ActionResult Index(string No)
         {
+            ViewData["No"] = No;
             var models = _service.GetAll(No);
             return View(models);
         }
@@ -56,13 +57,14 @@ namespace Bm.Areas.Biz.Controllers
         {
             try
             {
-                var model = new DevRoom();
-                model.CreatedAt = DateTime.Now;
-                model.CreatedBy = "SYSTEM";
+                var model = new DevRoom
+                {
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "SYSTEM"
+                };
                 TryUpdateModel(model, collection);
                 if (!ModelState.IsValid)
                 {
-                    var a = GetModelErrorMsg();
                     FlashError("数据验证未通过，请检查是否存在为空的必填项");
                     return View(model);
                 }

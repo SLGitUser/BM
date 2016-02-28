@@ -1,12 +1,13 @@
 ﻿using System.Web.Http;
 using Bm.Extensions;
+using Bm.Modules.Annoation;
 using Bm.Services.Base;
 
 namespace Bm.Controllers
 {
+    [ApiAuth]
     public class AccountController : ApiController
     {
-
         public IHttpActionResult Get()
         {
             var m = Request.GetQueryString("m");

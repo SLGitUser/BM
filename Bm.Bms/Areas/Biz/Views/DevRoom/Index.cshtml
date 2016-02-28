@@ -1,5 +1,5 @@
 ﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Dp.Project>
+@model IList<Bm.Models.Dp.DevRoom>
 
 @section Header{
     <script src="~/Scripts/init.js"></script>
@@ -7,12 +7,12 @@
 
 @section PageHead {
     <h1>
-        楼盘信息
+        户型信息
         <small></small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li class="active">楼盘信息</li>
+        <li class="active">户型信息</li>
     </ol>
 }
 
@@ -25,7 +25,7 @@
         width: 160px;
     }
 </style>
-@using (Html.BeginForm("Delete", "Project", FormMethod.Get))
+@using (Html.BeginForm("Delete", "DevRoom", FormMethod.Get))
 {
 
     <!-- Main content -->
@@ -33,10 +33,10 @@
         <div class="box">
             <div class="box-header">
                 <div class="btn-group">
-                    <a class="btn btn-default" href="@Url.Action("Create")"><i class="fa fa-plus"></i> 新增</a>
-                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Biz/Project/Delete");'><i class="fa fa-minus"></i> 删除</button>
+                    <a class="btn btn-default" href="@Url.Action("Create",new { DpNo= ViewData["No"] })"><i class="fa fa-plus"></i> 新增</a>
+                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Biz/DevRoom/Delete");'><i class="fa fa-minus"></i> 删除</button>
 
-                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Biz/Project/Details");'><i class="fa fa-eye"></i> 查看</button>
+                    <button type="submit" class="btn btn-default" onclick='$("form").attr("action", "/Biz/DevRoom/Details");'><i class="fa fa-eye"></i> 查看</button>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -53,15 +53,17 @@
                                 .AddCheckBox(m => m.Id, styleFunc: m => "c1")
                                 .Add(m => m.No)
                                 .Add(m => m.Name)
-                                .Add(m=>m.AvgPrice)
-                                .Add(m=>m.SalesTel)
-                                .Add(m=>m.Address)
-                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a> <a class=\"\" href=\"{Url.Action("Index","DevRoom", new { m.No })}\"> <i class=\"fa fa-pencil-square-o\"></i> 户型</a> <a class=\"\" href=\"{Url.Action("Index", new { m.No })}\"> <i class=\"fa fa-pencil-square-o\"></i> 设定佣金规则</a>", m => "ca")
-                               
+                                .Add(m=>m.Room)
+                                .Add(m=>m.TotalPrice)
+                                .Add(m=>m.Area)
+                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
                                 .ToString())
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="box-footer">
+                <a href="@Url.Action("Index","Project")" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
             </div>
             <!-- /.box-body -->
         </div>

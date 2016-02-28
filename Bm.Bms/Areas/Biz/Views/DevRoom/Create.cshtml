@@ -1,0 +1,45 @@
+﻿@model Bm.Models.Dp.DevRoom
+@using Bm.Modules.Html
+@using Bm.Services.Common
+@using Bm.Services.Dp
+
+@section Header{
+    <script src="~/Scripts/init.js"></script>
+    <link rel="stylesheet" href="~/Content/css/app.min.css">
+}
+    @section PageHead {
+        <h1>户型信息<small></small></h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
+            <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>楼盘</a></li>
+            <li class="active">新增户型信息</li>
+        </ol>
+    }
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">新增户型信息</h3>
+            </div>
+            <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
+                <div class="box-body">
+                    @Html.InputFor(m =>m.No)
+                    @Html.InputFor(m=>m.Name)
+                    @Html.InputFor(m => m.Room)
+                    @Html.InputFor(m => m.TotalPrice)
+                    @Html.InputFor(m => m.Pic, new { @class = " upload-file img", data_url = AccessoryService.GetUrl("") })
+                    @Html.InputFor(m => m.Area)
+                    @Html.InputFor(m => m.OrderNo)
+                    @Html.HiddenFor(m=>m.DpNo)
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" class="btn bg-blue btn-flat margin">确认提交</button>
+                    <a href="@Url.Action("Index",new {No=ViewData["No"]})" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
+                </div>
+                <!-- /.box-footer -->
+
+            </form>
+        </div>
+    </section>

@@ -4,31 +4,30 @@ using System.Web.Mvc;
 using Bm.Models.Dp;
 using Bm.Modules.Helper;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Routing;
 using Bm.Extensions;
-using Bm.Modules.Orm;
 using Bm.Services.Common;
 
 namespace Bm.Areas.Biz.Controllers
 {
-    [DisplayName("楼盘信息")]
-    public sealed class ProjectController : BaseAuthController
+    [DisplayName("户型信息")]
+    public sealed class DevRoomController : BaseAuthController
     {
-        private ProjectService _service;
+        private DevRoomService _service;
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            _service = new ProjectService(CurrAccountNo);
+            _service = new DevRoomService(CurrAccountNo);
         }
 
         // GET: Biz/Project
-        public ActionResult Index()
+        public ActionResult Index(string No)
         {
-            var models = _service.GetAll();
+            ViewData["No"] = No;
+            var models = _service.GetAll(No);
             return View(models);
         }
 
@@ -40,28 +39,16 @@ namespace Bm.Areas.Biz.Controllers
                 FlashWarn("请选择一条数据");
                 return RedirectToAction("Index");
             }
-            if (ids.Length>1)
-            {
-                FlashWarn("只能选择一条数据");
-                return RedirectToAction("Index");
-            }
-
-            var list = _service.GetById(ids[0]);
+            var list = _service.GetByIds(ids);;
             return View(list);
         }
 
         // GET: Biz/Project/Create
-        public ActionResult Create()
+        public ActionResult Create(string DpNo)
         {
-            var model = new Project();
-            var type = new string[] {"简介", "地段", "配套", "教育", "环境", "交通"};
-            var piList = new List<ProjectInfo>();
-            for (int i = 0; i < type.Length; i++)
-            {
-                piList.Add(new ProjectInfo {Type = type[i]});
-            }
-            model.ProjectInfos = piList;
-            return View(model);
+            var dev = new DevRoom{DpNo=DpNo };
+            ViewData["No"] = DpNo;
+            return View(dev);
         }
 
         // POST: Biz/Project/Create
@@ -70,25 +57,25 @@ namespace Bm.Areas.Biz.Controllers
         {
             try
             {
-                var model = new Project();
-                TryUpdateModel(model, collection);
-                var at = DateTime.Now;
-                model.CreatedAt = at;
-                model.CreatedBy = "SYSTEM";
-                foreach (var infos in model.ProjectInfos)
+                var model = new DevRoom
                 {
-                    infos.DpNo = model.No;
-                    infos.CreatedBy = CurrAccountNo;
-                    infos.CreatedAt = at;
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "SYSTEM"
+                };
+                TryUpdateModel(model, collection);
+                if (!ModelState.IsValid)
+                {
+                    FlashError("数据验证未通过，请检查是否存在为空的必填项");
+                    return View(model);
                 }
+                
                 var r = _service.Create(model);
                 if (r.HasError)
                 {
                     FlashMessage(r);
                     return View(model);
                 }
-                
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { No=model.DpNo});
             }
             catch (Exception e)
             {
@@ -104,7 +91,6 @@ namespace Bm.Areas.Biz.Controllers
                 var model = _service.GetById(id.Value);
                 return View(model);
             }
-            
             FlashWarn("没有指定ID");
             return RedirectToAction("Index");
         }
@@ -113,7 +99,7 @@ namespace Bm.Areas.Biz.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var model = new Project();
+            var model = new DevRoom();
             TryUpdateModel(model, collection);
             if (!ModelState.IsValid)
             {
@@ -128,7 +114,7 @@ namespace Bm.Areas.Biz.Controllers
                 FlashMessage(r);
                 return View(model);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new { No=model.DpNo});
         }
 
         // GET: Biz/Project/Delete/5
@@ -162,7 +148,7 @@ namespace Bm.Areas.Biz.Controllers
                     return View(list);
                 }
                 FlashSuccess("删除成功");
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new {No=list.First(m=>m.Id==ids[0]).DpNo});
             }
             catch (Exception e)
             {

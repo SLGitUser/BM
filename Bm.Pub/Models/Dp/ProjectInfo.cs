@@ -97,7 +97,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("类型")]
-        public ProjectInfoType.Type Type { get; set; }
+        public string Type { get; set; }
         
         /// <summary>
         /// 读取或者设置周边

@@ -144,9 +144,8 @@ namespace Bm.Models.Dp
         /// 排序号
         /// </summary>
         [DisplayName("排序号")]
-        [StringLength(20)]
         [Required]
-        public int? OrderNo { get; set; }
+        public int OrderNo { get; set; }
 
 
     }

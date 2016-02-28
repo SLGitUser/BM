@@ -1,5 +1,5 @@
 ﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Dp.Project>
+@model IList<Bm.Models.Dp.DevRoom>
 
 @section Header{
     <script src="~/Content/JavaScript/Js_Tools.js"></script>
@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>首页</a></li>
         <li><a href="@Url.Action("Index")"><i class="fa fa-book"></i>楼盘</a></li>
-        <li class="active">删除楼盘信息</li>
+        <li class="active">删除户型信息</li>
     </ol>
 }
 @using (Html.BeginForm())
@@ -33,17 +33,9 @@
                                         .Attr("aria-describedby", "example1_info"))
                                     .Add(m => m.No)
                                     .Add(m => m.Name)
-                                    .Add(m => m.OwnerNo)
-                                    .Add(m => m.BldType)
-                                    .Add(m => m.BizGrp)
-                                    .Add(m => m.SaleStatus)
-                                    .Add(m => m.AddrPic)
-                                    .Add(m => m.AvgPrice)
-                                    .Add(m => m.SalesTel)
-                                    .Add(m => m.Longitude)
-                                    .Add(m => m.Latitude)
-                                    .Add(m => m.AuthType)
-                                    .Add(m => m.BrokerageRule)
+                                    .Add(m => m.Room)
+                                    .Add(m => m.TotalPrice)
+                                    .Add(m => m.Area)
                                     .ToString())
                             </div>
                         </div>
@@ -52,7 +44,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <button type="submit" class="btn bg-blue btn-flat margin"><i class="fa fa-check"></i> 确认删除</button>
-                    <a href="@Url.Action("Index")" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
+                    <a href="@Url.Action("Index",new { No=Model[0].DpNo})" class="btn btn-default btn-flat margin"><i class="fa fa-mail-reply"></i> 返回列表</a>
                 </div>
                 <!-- /.box-footer -->
             </div>

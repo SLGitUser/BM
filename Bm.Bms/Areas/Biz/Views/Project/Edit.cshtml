@@ -37,6 +37,18 @@
                     @Html.InputFor(m => m.Longitude)
                     @Html.InputFor(m => m.Latitude)
                     @Html.InputFor(m => m.AuthType)
+                    @Html.InputFor(m => m.BrokerageRule)
+                    <hr/>
+                    <table class="table data table-bordered table-striped dataTable" style="text-align: center;">
+                        <tr><td style="width:20%"><b>周边类型</b></td><td><b>内容</b></td></tr>
+                    @for (int i = 0; i < Model.ProjectInfos.Count; i++)
+                    {
+                        <tr>
+                            <td>@Html.TextBoxFor(m => Model.ProjectInfos[i].Type,new {ReadOnly="ReadOnly",style="text-align: center;border:none;background-color:transparent;width:100%"})</td>
+                            <td>@Html.TextAreaFor(m => Model.ProjectInfos[i].Content,new {style="width:100%"})</td>
+                        </tr>
+                    }
+                    </table>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

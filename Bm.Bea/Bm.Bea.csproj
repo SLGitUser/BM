@@ -123,8 +123,10 @@
     <Compile Include="Areas\Base\BaseAreaRegistration.cs" />
     <Compile Include="Areas\Base\Controllers\RegisterController.cs" />
     <Compile Include="Areas\Base\Controllers\SessionController.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CodeController.cs" />
+    <Compile Include="Controllers\Base\AccountResetPasswordController.cs" />
+    <Compile Include="Controllers\Base\AccountAuthController.cs" />
+    <Compile Include="Controllers\Base\AccountCreateController.cs" />
+    <Compile Include="Controllers\Base\CodeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

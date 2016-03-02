@@ -153,6 +153,7 @@
     <Compile Include="Models\Dp\Developer.cs" />
     <Compile Include="Models\Dp\Promotion.cs" />
     <Compile Include="Models\Setting\CommonSet.cs" />
+    <Compile Include="Modules\Annoation\ApiAuthAttribute.cs" />
     <Compile Include="Modules\Enumerations.cs" />
     <Compile Include="Modules\GeneralComparer.cs" />
     <Compile Include="Modules\Helper\ExpressionHelper.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Modules\Orm\Sql\Op.cs" />
     <Compile Include="Services\Common\AccessoryService.cs" />
     <Compile Include="Services\Common\AlidayuService.cs" />
+    <Compile Include="Services\Common\ApiAuthService.cs" />
     <Compile Include="Services\Common\QrCodeService.cs" />
     <Compile Include="Services\Common\VerificationCodeService.cs" />
     <Compile Include="Services\Common\UploadService.cs" />
@@ -223,8 +225,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Compile Include="Modules\Helper\StringHelper.Hash.cs" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

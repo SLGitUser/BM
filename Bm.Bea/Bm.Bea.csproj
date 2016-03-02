@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -121,7 +125,10 @@
     <Compile Include="Areas\Base\BaseAreaRegistration.cs" />
     <Compile Include="Areas\Base\Controllers\RegisterController.cs" />
     <Compile Include="Areas\Base\Controllers\SessionController.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Base\AccountResetPasswordController.cs" />
+    <Compile Include="Controllers\Base\AccountAuthController.cs" />
+    <Compile Include="Controllers\Base\AccountCreateController.cs" />
+    <Compile Include="Controllers\Base\CodeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -140,6 +147,7 @@
     <Content Include="User.Vars.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Base\Views\_ViewStart.cshtml" />
+    <None Include="Properties\PublishProfiles\custom.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -175,7 +183,11 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62338</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
+<<<<<<< HEAD
           <IISUrl>http://localhost:2589</IISUrl>
+=======
+          <IISUrl>http://192.168.1.10:62338/</IISUrl>
+>>>>>>> 843e7b22b1f8fc09210c286a8c8af8ee1ce78cb6
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

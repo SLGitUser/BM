@@ -1,12 +1,19 @@
 ﻿using System.Web.Http;
 using Bm.Extensions;
+using Bm.Modules.Annoation;
 using Bm.Services.Base;
 
-namespace Bm.Controllers
+namespace Bm.Controllers.Base
 {
-    public class AccountController : ApiController
+    [ApiAuth]
+    public class AccountAuthController : ApiController
     {
 
+        /// <summary>
+        /// 验证账户登录是否正确
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/base_account_auth")]
         public IHttpActionResult Get()
         {
             var m = Request.GetQueryString("m");

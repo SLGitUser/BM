@@ -70,12 +70,32 @@ namespace Bm.Services.Base
             }
         }
 
+        /// <summary>
+        /// 检查账户是否存在
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public MessageRecorder<bool> IsExists(string username)
+        {
+            var r = new MessageRecorder<bool>();
+            if (string.IsNullOrEmpty(username))
+            {
+                return r.Error("请输入账户名");
+            }
+            var account = GetAll().FirstOrDefault(m => m.ValidNos.Contains(username));
+            return r.SetValue(account != null);
+        }
+
         public MessageRecorder<Account> Auth(string username, string password)
         {
             var r = new MessageRecorder<Account>();
             if (string.IsNullOrEmpty(username))
             {
                 return r.Error("请输入账户名");
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                return r.Error("请输入密码");
             }
             var account = GetAll().FirstOrDefault(m => m.ValidNos.Contains(username));
             if (account == null)
@@ -227,6 +247,48 @@ namespace Bm.Services.Base
                     model.PasswordHash = oriModel.PasswordHash;
                     model.PasswordSalt = oriModel.PasswordSalt;
                 }
+
+                var effectedCount = conn.Update(model, trans);
+                if (!effectedCount)
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                }
+                trans.Commit();
+                return r.SetValue(true);
+            }
+        }
+
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public MessageRecorder<bool> UpdatePassword(string username, string password)
+        {
+            var r = new MessageRecorder<bool>();
+            if (string.IsNullOrEmpty(username)) return r.Error("请设置用户名");
+            if (string.IsNullOrEmpty(password)) return r.Error("请设置密码");
+            
+            using (var conn = ConnectionManager.Open())
+            {
+                var trans = conn.BeginTransaction();
+                var query = new Criteria<Account>()
+                    .Or(m => m.No, Op.Eq, username)
+                    .Or(m => m.Email, Op.Eq, username)
+                    .Or(m => m.Phone, Op.Eq, username)
+                    .Or(m => m.Phone2, Op.Eq, username)
+                    .Or(m => m.Phone3, Op.Eq, username);
+                var model = conn.Get(query);
+                if(model == null)
+                {
+                    trans.Rollback();
+                    return r.Error("账户不存在");
+                }
+                
+                model.Password = password;
 
                 var effectedCount = conn.Update(model, trans);
                 if (!effectedCount)

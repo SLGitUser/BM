@@ -1,14 +1,12 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Bm.Extensions;
-using Bm.Models.Common;
-using Bm.Modules.Annoation;
+using Bm.Modules.Helper;
+using Bm.Modules.Html;
 using Bm.Services.Dp;
 
 namespace Bm.Controllers.Task
 {
-    [ApiAuth]
-    public class HouseController : ApiController
+    public class HouseController : BaseApiController
     {
 
         /// <summary>
@@ -23,7 +21,7 @@ namespace Bm.Controllers.Task
             
             var service = new ProjectService();
             var r = service.GetAllHouse();
-            return Ok(this.Output(r, n => new {n}));
+            return Ok(r, n => new {n});
         }
     }
 }

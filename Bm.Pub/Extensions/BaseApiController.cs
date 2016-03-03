@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Web.Http;
 using Bm.Models.Common;
 using Bm.Modules.Annoation;
+using Bm.Modules.Helper;
 
 namespace Bm.Extensions
 {
@@ -20,16 +21,7 @@ namespace Bm.Extensions
         /// <returns></returns>
         public string GetQueryString(string key)
         {
-            // IEnumerable<KeyValuePair<string,string>> - right!
-            var queryStrings = Request.GetQueryNameValuePairs();
-            if (queryStrings == null)
-                return null;
-
-            var match = queryStrings.FirstOrDefault(kv => string.Compare(kv.Key, key, StringComparison.OrdinalIgnoreCase) == 0);
-            if (string.IsNullOrEmpty(match.Value))
-                return null;
-
-            return match.Value;
+            return Request.GetQueryString(key);
         }
 
         /// <summary>
@@ -41,12 +33,12 @@ namespace Bm.Extensions
         /// <returns></returns>
         public IHttpActionResult Ok<TModel>(MessageRecorder<TModel> model, Func<TModel, object> func = null)
         {
-            var obj = new 
-            {
-                model.HasError,
-                Errors = model.Errors.Select(m => m.Message).ToList(),
-                Model = model.Value == null ? null : func?.Invoke(model.Value) ?? model.Value
-            };
+            var obj = new Dictionary<string, object>
+                {
+                    {"HasError", model.HasError},
+                    {"Errors", model.Errors.Select(m=>m.Message).ToList()},
+                    {"Model", model.Value == null ? null : func?.Invoke(model.Value) ?? model.Value}
+                };
             return Ok(obj);
         }
     }

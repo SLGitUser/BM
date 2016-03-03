@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using Bm.Extensions;
+using Bm.Modules.Helper;
 using Bm.Services.Common;
 using log4net;
 
@@ -39,11 +39,11 @@ namespace Bm.Modules.Annoation
                 var method = actionContext.Request.Method;
                 Logger.Error($"{app} {method} {url}, parameters error");
 
-                var obj = new ApiControllerHelper.MessageRecordOutputModel
+                var obj = new Dictionary<string, object>
                 {
-                    HasError = true,
-                    Errors = new List<string> { "parameters error" },
-                    Model = null
+                    {"HasError", true},
+                    {"Errors", new List<string> { "parameters error" }},
+                    {"Model", null}
                 };
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK, obj);
             }

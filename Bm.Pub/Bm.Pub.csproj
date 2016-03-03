@@ -109,10 +109,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\ApiControllerHelper.cs" />
     <Compile Include="Extensions\BaseApiController.cs" />
     <Compile Include="Extensions\BaseAuthController.cs" />
     <Compile Include="Extensions\BaseController.cs" />
+    <Compile Include="Extensions\JsonpMediaTypeFormatter.cs" />
     <Compile Include="Models\Base\Account.cs" />
     <Compile Include="Models\Base\AccountNavView.cs" />
     <Compile Include="Models\Base\AccountNavigationRef.cs" />
@@ -162,6 +162,7 @@
     <Compile Include="Modules\Helper\ListHelper.cs" />
     <Compile Include="Modules\Helper\ArrayHelper.cs" />
     <Compile Include="Modules\Helper\ObjectHelper.cs" />
+    <Compile Include="Modules\Helper\RequestHelper.cs" />
     <Compile Include="Modules\Helper\StringHelper.Convert.cs" />
     <Compile Include="Modules\Helper\TypeHelper.cs" />
     <Compile Include="Modules\Html\HtmlHelper.Breadcrumb.cs" />

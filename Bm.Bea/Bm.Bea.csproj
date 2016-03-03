@@ -127,6 +127,7 @@
     <Compile Include="Controllers\Base\AccountAuthController.cs" />
     <Compile Include="Controllers\Base\AccountCreateController.cs" />
     <Compile Include="Controllers\Base\CodeController.cs" />
+    <Compile Include="Controllers\Customer\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Task\MainController.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,7 +183,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62338</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.150:62338/</IISUrl>
+          <IISUrl>http://localhost:62338/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Web.Http;
 using Bm.Extensions;
+using Bm.Modules.Helper;
 using Bm.Services.Base;
 
 namespace Bm.Controllers.Base
 {
-    
+
     public class AccountAuthController : BaseApiController
     {
         /// <summary>
@@ -28,16 +29,18 @@ namespace Bm.Controllers.Base
             var account = service.GetAccount(a);
             if (account == null) return Ok(r.Error("账户为空"));
 
-            var roleNo = account.RoleRefs.Select(n => n.RoleNo).Distinct().FirstOrDefault();
-            if (string.IsNullOrEmpty(roleNo)) return Ok(r.Error("角色为空"));
+            var roleNos = account.RoleRefs.Select(n => n.RoleNo).Distinct().ToList();
+            if (roleNos.IsNullOrEmpty()) return Ok(r.Error("角色为空"));
 
-            if (!RoleDirMap.ContainsKey(roleNo)) return Ok(r.Error("当前角色不支持认证"));
-            
+            var validTypes = roleNos.Where(n => RoleDirMap.ContainsKey(n))
+                .Select(n => RoleDirMap[n]).ToList();
+            if (validTypes.IsNullOrEmpty()) return Ok(r.Error("当前角色不支持认证"));
+
             return Ok(r, n => new
             {
                 No = n?.No ?? "",
                 Name = n?.Name ?? "",
-                Type = RoleDirMap[roleNo]
+                Types = validTypes
             });
         }
 
@@ -46,6 +49,6 @@ namespace Bm.Controllers.Base
             { "Broker", "_br"},
             { "PropertyAdvisor", "_pa"},
             { "PropertyManager", "_pm"},
-        }; 
+        };
     }
 }

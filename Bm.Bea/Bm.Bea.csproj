@@ -130,6 +130,7 @@
     <Compile Include="Controllers\Base\AccountCreateController.cs" />
     <Compile Include="Controllers\Base\CodeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Task\MainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,10 +184,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62338</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-<<<<<<< HEAD
-          <IISUrl>http://localhost:2589</IISUrl>
-=======
-          <IISUrl>http://192.168.1.10:62338/</IISUrl>
+          <IISUrl>http://192.168.0.150:62338/</IISUrl>
 >>>>>>> 843e7b22b1f8fc09210c286a8c8af8ee1ce78cb6
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>

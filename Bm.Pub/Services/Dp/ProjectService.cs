@@ -11,6 +11,11 @@ namespace Bm.Services.Dp
 {
     public sealed class ProjectService : RepoService<Project>
     {
+        public ProjectService() : base(null)
+        {
+
+        }
+
         public ProjectService(string accountNo) : base(accountNo)
         {
 
@@ -181,6 +186,18 @@ namespace Bm.Services.Dp
         }
 
         #endregion
+
+        public MessageRecorder<IList<Project>> GetAllHouse()
+        {
+            var r = new MessageRecorder<IList<Project>>();
+            var projectAll = GetAll();
+
+            if (!projectAll.Any())
+            {
+                return r.Error("没有任何房源！");
+            }
+            return r.SetValue(projectAll);
+        }
     }
 }
 

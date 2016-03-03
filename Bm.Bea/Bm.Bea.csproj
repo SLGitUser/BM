@@ -130,6 +130,7 @@
     <Compile Include="Controllers\Base\AccountCreateController.cs" />
     <Compile Include="Controllers\Base\CodeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Task\HouseController.cs" />
     <Compile Include="Controllers\Task\MainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -160,6 +161,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Base\Models\" />
     <Folder Include="Areas\Base\Views\Shared\" />
+    <Folder Include="Controllers\House\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
@@ -184,8 +186,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62338</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.150:62338/</IISUrl>
->>>>>>> 843e7b22b1f8fc09210c286a8c8af8ee1ce78cb6
+          <IISUrl>http://localhost:62338/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

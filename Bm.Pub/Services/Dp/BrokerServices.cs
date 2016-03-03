@@ -121,6 +121,9 @@ namespace Bm.Services.Dp
             return r;
         }
         #endregion
+        #region API访问
+        
+        #endregion
         #region SelectHelper
 
         public static SelectList GetBldType()

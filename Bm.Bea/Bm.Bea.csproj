@@ -120,9 +120,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Base\BaseAreaRegistration.cs" />
-    <Compile Include="Areas\Base\Controllers\RegisterController.cs" />
-    <Compile Include="Areas\Base\Controllers\SessionController.cs" />
     <Compile Include="Controllers\Base\AccountResetPasswordController.cs" />
     <Compile Include="Controllers\Base\AccountAuthController.cs" />
     <Compile Include="Controllers\Base\AccountCreateController.cs" />
@@ -135,17 +132,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="packages.config" />
-    <Content Include="Areas\Base\Views\web.config" />
-    <Content Include="Areas\Base\Views\Register\Index.cshtml" />
-    <Content Include="Areas\Base\Views\Session\Login.cshtml" />
-    <Content Include="Areas\Base\Views\Register\Code.cshtml" />
     <Content Include="User.Vars.config" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Base\Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\custom.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -156,10 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Base\Models\" />
-    <Folder Include="Areas\Base\Views\Shared\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bm.Pub\Bm.Pub.csproj">
@@ -182,7 +167,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62338</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.150:62338/</IISUrl>
+          <IISUrl>http://192.168.1.10:62338/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

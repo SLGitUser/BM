@@ -1,7 +1,6 @@
 ﻿using System.Web.Http;
-using System.Web.Http.Cors;
 
-namespace Bm.Bea
+namespace Bm
 {
     public static class WebApiConfig
     {

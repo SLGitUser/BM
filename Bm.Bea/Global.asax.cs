@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.Http;
 using Bm.Extensions;
 using log4net;
 
-namespace Bm.Bea
+namespace Bm
 {
     public class Global : HttpApplication
     {

@@ -19,6 +19,11 @@ namespace Bm.Models.Common
         public IList<MessageInfo> Messages => _messages;
 
         /// <summary>
+        /// 错误列表
+        /// </summary>
+        public IList<MessageInfo> Errors => _messages.Where(m => m.Type.Equals(MessageType.Error) || m.Type.Equals(MessageType.Fatal)).ToList();
+
+        /// <summary>
         /// 是否有错误
         /// </summary>
         public bool HasError => _messages.Any(m => m.Type.Equals(MessageType.Error) || m.Type.Equals(MessageType.Fatal));

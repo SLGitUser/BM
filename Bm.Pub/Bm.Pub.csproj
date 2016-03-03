@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ApiControllerHelper.cs" />
+    <Compile Include="Extensions\BaseApiController.cs" />
     <Compile Include="Extensions\BaseAuthController.cs" />
     <Compile Include="Extensions\BaseController.cs" />
     <Compile Include="Models\Base\Account.cs" />

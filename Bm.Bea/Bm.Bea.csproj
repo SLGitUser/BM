@@ -115,7 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -124,7 +126,9 @@
     <Compile Include="Controllers\Base\AccountAuthController.cs" />
     <Compile Include="Controllers\Base\AccountCreateController.cs" />
     <Compile Include="Controllers\Base\CodeController.cs" />
+    <Compile Include="Controllers\Customer\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Task\HouseController.cs" />
     <Compile Include="Controllers\Task\MainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -144,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\House\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

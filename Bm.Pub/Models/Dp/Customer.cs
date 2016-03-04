@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Bm.Models.Common;
+using System.Collections.Generic;
 
 namespace Bm.Models.Dp
 {
@@ -211,6 +212,11 @@ namespace Bm.Models.Dp
         [StringLength(50)]
         public string Remark
         { get; set; }
+        public IList<Customer> Customers
+        {
+            get { return Customers; }
+            set { Customers = value; }
+        }
 
     }
 }

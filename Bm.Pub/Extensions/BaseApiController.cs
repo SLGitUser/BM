@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Http;
 using Bm.Models.Common;
 using Bm.Modules.Annoation;
-using Bm.Modules.Helper;
 
 namespace Bm.Extensions
 {
@@ -14,16 +13,6 @@ namespace Bm.Extensions
     [ApiAuth]
     public abstract class BaseApiController : ApiController
     {
-        /// <summary>
-        /// 获得字符串
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public string GetQueryString(string key)
-        {
-            return Request.GetQueryString(key);
-        }
-
         /// <summary>
         /// 返回成功结果
         /// </summary>

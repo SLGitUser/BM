@@ -2,6 +2,7 @@
 using Bm.Extensions;
 using Bm.Models.Common;
 using System;
+using Bm.Modules.Helper;
 
 namespace Bm.Controllers.Customer
 {
@@ -11,7 +12,7 @@ namespace Bm.Controllers.Customer
         [Route("api/base_Customer")]
         public IHttpActionResult Action()
         {
-            var m = GetQueryString("m");
+            var m = Request.GetQueryString("m");
 
             var mr = new MessageRecorder<bool>();
             //TODO 更新本周推客数量、活跃客户数、成交金额

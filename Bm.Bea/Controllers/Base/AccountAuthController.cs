@@ -17,8 +17,8 @@ namespace Bm.Controllers.Base
         [Route("api/base_account_auth")]
         public IHttpActionResult Get()
         {
-            var m = GetQueryString("m");
-            var p = GetQueryString("p");
+            var m = Request.GetQueryString("m");
+            var p = Request.GetQueryString("p");
             var service = new AccountService();
             var r = service.Auth(m, p);
             if (r.HasError) return Ok(r);

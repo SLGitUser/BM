@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using Bm.Extensions;
 using Bm.Models.Common;
+using Bm.Modules.Helper;
 using Bm.Services.Base;
 using Bm.Services.Common;
 
@@ -12,8 +13,8 @@ namespace Bm.Controllers.Base
         public IHttpActionResult Get()
         {
 
-            var m = GetQueryString("m");
-            var t = GetQueryString("t");
+            var m = Request.GetQueryString("m");
+            var t = Request.GetQueryString("t");
             if ("register".Equals(t))
             {
                 var accountService = new AccountService();

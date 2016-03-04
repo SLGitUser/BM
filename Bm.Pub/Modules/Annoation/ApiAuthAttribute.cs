@@ -32,24 +32,31 @@ namespace Bm.Modules.Annoation
             var time = request.GetQueryString("time");
             var sign = request.GetQueryString("sign");
 
-            var isAuth = new ApiAuthService().Auth(app, time, sign);
-            if (!isAuth)
+            if (request.IsDebug() && request.IsLocal())
             {
-                var url = actionContext.Request.RequestUri.AbsolutePath;
-                var method = actionContext.Request.Method;
-                Logger.Error($"{app} {method} {url}, parameters error");
+                base.OnActionExecuting(actionContext);
+            }
+            else
+            {
+                var isAuth = new ApiAuthService().Auth(app, time, sign);
+                if (!isAuth)
+                {
+                    var url = actionContext.Request.RequestUri.AbsolutePath;
+                    var method = actionContext.Request.Method;
+                    Logger.Error($"{app} {method} {url}, parameters error");
 
-                var obj = new Dictionary<string, object>
+                    var obj = new Dictionary<string, object>
                 {
                     {"HasError", true},
                     {"Errors", new List<string> { "parameters error" }},
                     {"Model", null}
                 };
-                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK, obj);
-            }
-            else
-            {
-                base.OnActionExecuting(actionContext);
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK, obj);
+                }
+                else
+                {
+                    base.OnActionExecuting(actionContext);
+                }
             }
         }
 
@@ -69,7 +76,7 @@ namespace Bm.Modules.Annoation
             }
             _stopwatch.Reset();
         }
-        
+
 
     }
 }

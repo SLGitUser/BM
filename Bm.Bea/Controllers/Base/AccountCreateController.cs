@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Bm.Extensions;
+using Bm.Modules.Helper;
 using Bm.Services.Common;
 using Bm.Services.Dp;
 
@@ -14,10 +15,10 @@ namespace Bm.Controllers.Base
         [Route("api/base_account_create")]
         public IHttpActionResult Get()
         {
-            var m = GetQueryString("m");
-            var p = GetQueryString("p");
-            var uuid = GetQueryString("u");
-            var code = GetQueryString("c");
+            var m = Request.GetQueryString("m");
+            var p = Request.GetQueryString("p");
+            var uuid = Request.GetQueryString("u");
+            var code = Request.GetQueryString("c");
 
             // 先检查验证码是否正确
             var service = new VerificationCodeService();

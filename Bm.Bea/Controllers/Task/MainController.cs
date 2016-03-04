@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Bm.Extensions;
 using Bm.Models.Common;
+using Bm.Modules.Helper;
 
 namespace Bm.Controllers.Task
 {
@@ -15,7 +16,7 @@ namespace Bm.Controllers.Task
         [Route("api/task_main_count")]
         public IHttpActionResult Get()
         {
-            var m = GetQueryString("m");
+            var m = Request.GetQueryString("m");
             
             var mr = new MessageRecorder<bool>();
             //TODO 更新本周推客数量、活跃客户数、成交金额

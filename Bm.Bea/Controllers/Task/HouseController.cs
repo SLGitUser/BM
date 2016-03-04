@@ -1,7 +1,6 @@
 ﻿using System.Web.Http;
 using Bm.Extensions;
 using Bm.Modules.Helper;
-using Bm.Modules.Html;
 using Bm.Services.Dp;
 
 namespace Bm.Controllers.Task
@@ -21,7 +20,7 @@ namespace Bm.Controllers.Task
             
             var service = new ProjectService();
             var r = service.GetAllHouse();
-            return Ok(r, n => new {n});
+            return Ok(r);
         }
     }
 }

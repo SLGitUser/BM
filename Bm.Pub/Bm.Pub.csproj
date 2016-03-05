@@ -217,6 +217,7 @@
     <Compile Include="Services\Common\RepoService.cs" />
     <Compile Include="Services\Common\UploadSettings.cs" />
     <Compile Include="Services\Dp\BranchService.cs" />
+    <Compile Include="Services\Dp\PropertyAdvisorAccountService.cs" />
     <Compile Include="Services\Dp\BrokerAccountService.cs" />
     <Compile Include="Services\Dp\BrokerServices.cs" />
     <Compile Include="Services\Dp\DeveloperService.cs" />

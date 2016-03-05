@@ -189,7 +189,7 @@ namespace Bm.Services.Dp
                     .And(m => m.No, Op.In, proNos);
                 var list = conn.Query(projectList);
                 return r.SetValue(list);
-            };
+            }
         }
         /// <summary>
         /// 根据楼盘编号获取所有关系经纪人的信息

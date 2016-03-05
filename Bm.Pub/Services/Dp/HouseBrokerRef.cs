@@ -171,20 +171,23 @@ namespace Bm.Services.Dp
         /// <returns></returns>
         public MessageRecorder<IList<Project>> GetHouseByBrokerNo(string brokerNo)
         {
-            var r = new MessageRecorder<IList<Project>>();
+            var r = new MessageRecorder<IList<Project>>()
+            {
+                Value = new List<Project>()
+            };
+            if (string.IsNullOrEmpty(brokerNo)) return r.Error("请指定经纪人");
+
             using (var conn = ConnectionManager.Open())
             {
                 var refQuery = new Criteria<HouseBrokerRef>()
                     .Where(m => m.BrokerNo, Op.Eq, brokerNo)
                     .Asc(m => m.CreatedAt);
                 var proNos = conn.Query(refQuery).Select(m => m.HouseNo).ToList();
+                if (proNos.IsNullOrEmpty()) return r;
+
                 var projectList = new Criteria<Project>()
                     .And(m => m.No, Op.In, proNos);
                 var list = conn.Query(projectList);
-                if (!list.Any())
-                {
-                    return r.Error("没有任何房源！");
-                }
                 return r.SetValue(list);
             };
         }

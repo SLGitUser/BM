@@ -198,6 +198,7 @@
     <Compile Include="Services\Common\AccessoryService.cs" />
     <Compile Include="Services\Common\AlidayuService.cs" />
     <Compile Include="Services\Common\ApiAuthService.cs" />
+    <Compile Include="Services\Coustomer\CustomerService.cs" />
     <Compile Include="Services\Common\QrCodeService.cs" />
     <Compile Include="Services\Common\VerificationCodeService.cs" />
     <Compile Include="Services\Common\UploadService.cs" />

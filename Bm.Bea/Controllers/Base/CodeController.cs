@@ -15,17 +15,21 @@ namespace Bm.Controllers.Base
 
             var m = Request.GetQueryString("m");
             var t = Request.GetQueryString("t");
+
+            // 注册为经纪人
             if ("register".Equals(t))
             {
                 var accountService = new AccountService();
-                var r1 = accountService.IsExists(m);
+                var r1 = accountService.GetAccountByMobileNo(m);
                 if (r1.HasError) return Ok(r1);
-                if (r1.Value) return Ok(r1.Error("账户已经存在"));
-
+                if (r1.Value != null && r1.Value.IsBroker()) return Ok(r1.Error("账户已经存在"));
+                
                 var service = new VerificationCodeService();
                 var r2 = service.MakeCode(AlidayuService.CodeType.Register, null, m);
                 return Ok(r2, n => n.Uuid);
             }
+
+            // 重置密码
             if ("reset_password".Equals(t))
             {
                 var accountService = new AccountService();

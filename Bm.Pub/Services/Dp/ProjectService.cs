@@ -180,13 +180,10 @@ namespace Bm.Services.Dp
                         ;
                     model.ProjectInfos = conn.Query(query);
                 };
-
                 return model;
             }
         }
-
         #endregion
-
         public MessageRecorder<IList<Project>> GetAllHouse()
         {
             var r = new MessageRecorder<IList<Project>>();

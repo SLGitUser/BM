@@ -253,6 +253,22 @@ namespace Bm.Models.Base
 
         [DisplayName(@"最后错误登录时间")]
         public DateTime? ErrLoginAt { get; set; }
+        
+        /// <summary>
+        /// 读取或者设置推荐人
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("推荐人")]
+        [StringLength(36)]
+        public string Referral { get; set; }
+
+        /// <summary>
+        /// 读取或者设置头像
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("头像")]
+        [StringLength(36)]
+        public string Photo { get; set; }
 
         /// <summary>
         /// 获得验证码

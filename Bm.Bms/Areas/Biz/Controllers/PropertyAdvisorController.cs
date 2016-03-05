@@ -1,11 +1,9 @@
-﻿using Bm.Modules;
-using Bm.Services.Dp;
+﻿using Bm.Services.Dp;
 using System.Web.Mvc;
 using Bm.Models.Dp;
 using Bm.Modules.Helper;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Routing;
 using Bm.Extensions;
 
@@ -65,7 +63,8 @@ namespace Bm.Areas.Biz.Controllers
                 model.CreatedAt = DateTime.Now;
                 model.CreatedBy = "SYSTEM";
 
-                var r = _service.Create(model);
+                var service = new PropertyAdvisorAccountService();
+                var r = service.Create(model.Name, model.MobileNo, model.Title.Equals("案场经理"), model.ProjectNo);
                 if (r.HasError)
                 {
                     FlashMessage(r);
@@ -105,10 +104,17 @@ namespace Bm.Areas.Biz.Controllers
             model.UpdatedBy = "SYSTEM";
             model.UpdatedAt = DateTime.Now;
 
-            var r = _service.Update(model);
-            if (r.HasError)
+            var service = new PropertyAdvisorAccountService();
+            var r1 = service.Remove(model.No, model.ProjectNo);
+            if (r1.HasError)
             {
-                FlashMessage(r);
+                FlashMessage(r1);
+                return View(model);
+            }
+            var r2 = service.Create(model.Name, model.MobileNo, model.Title.Equals("案场经理"), model.ProjectNo);
+            if (r2.HasError)
+            {
+                FlashMessage(r2);
                 return View(model);
             }
             return RedirectToAction("Index");
@@ -138,11 +144,16 @@ namespace Bm.Areas.Biz.Controllers
             var list = _service.GetByIds(ids);
             try
             {
-                var r = _service.Delete(list.ToArray());
-                if (r.HasError)
+
+                var service = new PropertyAdvisorAccountService();
+                foreach (var advisor in list)
                 {
-                    FlashMessage(r);
-                    return View(list);
+                    var r1 = service.Remove(advisor.No, advisor.ProjectNo);
+                    if (r1.HasError)
+                    {
+                        FlashMessage(r1);
+                        return View(list);
+                    }
                 }
                 FlashSuccess("删除成功");
                 return RedirectToAction("Index");

@@ -142,7 +142,10 @@ namespace Bm.Services.Base
             account.ErrLoginCount = 0;
             r.Append(UpdateLoginInfo(account));
 
-            return r.SetValue(account);
+
+            var model = GetAccount(account.No);
+
+            return r.SetValue(model);
         }
 
         /// <summary>

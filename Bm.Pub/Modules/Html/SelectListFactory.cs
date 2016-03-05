@@ -173,9 +173,21 @@ namespace Bm.Modules.Html
         /// <param name="selectMode"></param>
         /// <param name="selectedValue"></param>
         /// <returns></returns>
-        public static SelectList SexSelectList(SelectMode selectMode = SelectMode.Default, string selectedValue = null)
+        public static SelectList GenderList(SelectMode selectMode = SelectMode.Default, string selectedValue = null)
         {
             return SelectList(new[] { "男", "女" }, selectMode, selectedValue);
+        }
+
+        
+        /// <summary>
+        /// 性别下拉框
+        /// </summary>
+        /// <param name="selectMode"></param>
+        /// <param name="selectedValue"></param>
+        /// <returns></returns>
+        public static SelectList PropertyTitleList(SelectMode selectMode = SelectMode.Default, string selectedValue = null)
+        {
+            return SelectList(new[] { "案场顾问", "案场经理" }, selectMode, selectedValue);
         }
 
         /// <summary>
@@ -234,6 +246,22 @@ namespace Bm.Modules.Html
                     .Desc(m => m.No);
                 var models = conn.Query(query);
                 return SelectList(models, m => m.Name, m => m.Name, selectMode, selectedValue);
+            }
+        }
+
+
+        /// <summary>
+        /// 楼盘
+        /// </summary>
+        /// <returns></returns>
+        public static SelectList ProjectList(SelectMode selectMode = SelectMode.Default, object selectedValue = null)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Project>()
+                    .Desc(m => m.No);
+                var models = conn.Query(query);
+                return SelectList(models, m => m.No, m => m.Name, selectMode, selectedValue);
             }
         }
         #endregion

@@ -24,7 +24,7 @@
         <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
             <div class="box-body">
                 @Html.HiddenFor(m => m.Id)
-                @Html.InputFor(m => m.No, new { @readOnly = "readOnly" })
+                @Html.HiddenFor(m => m.No)
                 @Html.InputFor(m => m.Name)
                 @Html.InputFor(m => m.Owner)
                 @Html.InputFor(m => m.BldType, SelectListFactory.GetProjectType())

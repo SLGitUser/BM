@@ -86,15 +86,24 @@ namespace Bm.Models.Dp
 
         #endregion
 
+        ///// <summary>
+        ///// 读取或者设置开发商编号
+        ///// </summary>
+        ///// <remark></remark>
+        //[DisplayName("开发商编号")]
+        //[StringLength(20)]
+        //[Required]
+        //public string OwnerNo { get; set; }
+        
         /// <summary>
         /// 读取或者设置开发商编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("开发商编号")]
-        [StringLength(20)]
+        [DisplayName("开发商")]
+        [StringLength(50)]
         [Required]
-        public string OwnerNo { get; set; }
-        
+        public string Owner { get; set; }
+
         /// <summary>
         /// 读取或者设置编号
         /// </summary>

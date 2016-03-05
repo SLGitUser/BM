@@ -6,6 +6,7 @@ using System.Linq;
 using Bm.Models.Common;
 using Bm.Modules.Helper;
 using Bm.Modules.Orm.Annotation;
+using Bm.Services.Common;
 
 
 namespace Bm.Models.Base
@@ -347,6 +348,23 @@ namespace Bm.Models.Base
         {
             return RoleRefs.Any(m => "Broker".Equals(m.RoleNo));
         }
+
+        /// <summary>
+        /// 是否案场顾问或者案场经理
+        /// </summary>
+        /// <returns></returns>
+        public bool IsProperty()
+        {
+            return RoleRefs.Any(m => m.RoleNo.StartsWith("Property"));
+        }
+
+        public string GetRoleNames()
+        {
+            var roles = new RepoService<Role>("").GetAll();
+            var roleNames = RoleRefs.Select(m => roles.FirstOrDefault(n => n.No.Equals(m.RoleNo)))
+                .Where(m=>m != null).Select(m=>m.Name).Distinct().ToList();
+            return string.Join(",", roleNames);
+        } 
 
         #endregion
     }

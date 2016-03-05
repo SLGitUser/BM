@@ -1,4 +1,5 @@
 ﻿@using Bm.Modules.Html
+@using Bm.Services.Common
 @model Bm.Models.Base.Account
 @section Header{
     <script src="~/Scripts/init.js"></script>
@@ -35,8 +36,8 @@
                 @Html.InputFor(m => m.Phone2)
                 @Html.InputFor(m => m.Phone3)
                 @Html.InputFor(m => m.Remark)
-
-
+                @Html.InputFor(m => m.Referral)
+                @Html.InputFor(m => m.Photo, new { @class=" upload-file img", data_url=AccessoryService.GetUrl("") })
             </div>
               <!-- /.box-body -->
             <div class="box-footer" style="text-align: right;">

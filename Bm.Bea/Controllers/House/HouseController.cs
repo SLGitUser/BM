@@ -2,12 +2,14 @@
 using System.Web.Http;
 using System.Web.Razor.Generator;
 using Bm.Extensions;
+using Bm.Models.Common;
+using Bm.Models.Dp;
 using Bm.Modules.Helper;
 using Bm.Services.Dp;
 
 namespace Bm.Controllers.House
 {
-    
+
     public class HouseController : BaseApiController
     {
 
@@ -35,6 +37,23 @@ namespace Bm.Controllers.House
             var service = new HouseBrokerRefService();
             var r = service.GetHouseByBrokerNo(u);
             return Ok(r);
+        }
+        /// <summary>
+        /// 根据编号获取房源信息
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/get_house_detail")]
+        public IHttpActionResult GetHouseById()
+        {
+            var houseId = Request.GetQueryString("houseId").TryToLong();
+
+            var mr = new MessageRecorder<Project>();
+            if (!houseId.HasValue) return Ok(mr.Error("楼盘编号无效"));
+
+            var service = new ProjectService();
+            var r = service.GetById(houseId.Value);
+
+            return Ok(mr.SetValue(r));
         }
     }
 }

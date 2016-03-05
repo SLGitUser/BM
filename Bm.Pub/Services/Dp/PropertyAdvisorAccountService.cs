@@ -7,12 +7,12 @@ using Bm.Modules.Orm.Sql;
 
 namespace Bm.Services.Dp
 {
-    public sealed class BrokerAccountService
+    public sealed class PropertyAdvisorAccountService
     {
 
-        public MessageRecorder<Broker> Create(string phone, string password)
+        public MessageRecorder<PropertyAdvisor> Create(string phone, string password, string ownerNo)
         {
-            var mr= new MessageRecorder<Broker>();
+            var mr = new MessageRecorder<PropertyAdvisor>();
             
             using (var conn = ConnectionManager.Open())
             {
@@ -47,7 +47,7 @@ namespace Bm.Services.Dp
                 var q1 = new Criteria<AccountRoleRef>()
                     .Where(m => m.AccountNo, Op.Eq, account.No)
                     .And(m=>m.BranchNo, Op.Eq, "420100")
-                    .And(m => m.RoleNo, Op.Eq, "Broker")
+                    .And(m => m.RoleNo, Op.Eq, "PropertyAdvisor")
                     .Limit(1);
                 if (conn.Exists(q1))
                 {
@@ -67,7 +67,7 @@ namespace Bm.Services.Dp
                 var model2 = new AccountRoleRef
                 {
                     AccountNo = account.No,
-                    RoleNo = "Broker",
+                    RoleNo = "PropertyAdvisor",
                     BranchNo = "420100",
                     CreatedAt = DateTime.Now,
                     CreatedBy = "SYSTEM"
@@ -79,13 +79,12 @@ namespace Bm.Services.Dp
                     return mr.Error("账户创建失败，请重试");
                 }
 
-                var model = new Broker
+                var model = new PropertyAdvisor
                 {
                     No = account.No,
                     Name = account.Name,
-                    Mobile = phone,
-                    City = "武汉",
-                    CityNo = "420100",
+                    Mobile1 = phone,
+                    OwnerNo = "420100",
                     RegAt = DateTime.Now,
                     CreatedBy = "SYSTEM",
                     CreatedAt = DateTime.Now

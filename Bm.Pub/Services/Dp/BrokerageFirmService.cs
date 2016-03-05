@@ -18,6 +18,22 @@ namespace Bm.Services.Dp
         {
 
         }
+
+
+        public static BrokerageFirm GetByNo(string firmNo)
+        {
+            if (string.IsNullOrEmpty(firmNo)) return null;
+
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<BrokerageFirm>()
+                    .Where(m=>m.FirmNo, Op.Eq, firmNo)
+                    .Desc(m => m.FirmNo);
+                return conn.Get(query);
+            }
+        }
+
+
         #region 模型操作
 
         /// <summary>

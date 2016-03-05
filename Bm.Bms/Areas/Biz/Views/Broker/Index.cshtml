@@ -1,5 +1,8 @@
-﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Dp.Broker>
+﻿@model IList<Broker>
+@using Bm.Models.Dp
+@using Bm.Modules.Html
+@using Bm.Services.Dp
+@using com.senlang.Sdip.Util
 
 @section Header{
     <script src="~/Scripts/init.js"></script>
@@ -51,9 +54,11 @@
                                     .Attr("role", "grid")
                                     .Attr("aria-describedby", "example1_info"))
                                 .AddCheckBox(m => m.Id, styleFunc: m => "c1")
-                                .Add(m => m.No)
+                                //.Add(m => m.No)
                                 .Add(m => m.Name)
-                                .Add(m=>m.RegAt)
+                                .Add(m => m.Mobile)
+                                .Add(m=>m.CreatedAt, n=>n.AsY4M2D2(), headerName: "注册时间")
+                                .Add(m=>m.FirmNo, n=>BrokerageFirmService.GetByNo(n)?.Name)
                                     .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
                                     .ToString())
                             </div>

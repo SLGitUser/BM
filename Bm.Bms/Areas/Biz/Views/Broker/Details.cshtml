@@ -31,22 +31,22 @@
                             @foreach (var item in Model)
                                         {
                                         <tr>
-                                            <th style="text-align:center;width:200px;">经纪人名称</th>
+                                            <th style="text-align:center;width:200px;">经纪人姓名</th>
                                             <td>
                                                 <div>
                                                     <div style="text-align:center">@item.Name</div>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        @*<tr>
                                             <th style="text-align:center">性别</th>
                                             <td>
                                                 <div>
                                                     <div style="text-align:center">@item.Gender</div>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
+                                        </tr>*@
+                                        @*<tr>
 
                                             <th style="text-align:center">经济公司</th>
                                             <td>
@@ -54,8 +54,8 @@
                                                     <div style="text-align:center">@item.Firm</div>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
+                                        </tr>*@
+                                        @*<tr>
 
                                             <th style="text-align:center">电子邮箱</th>
                                             <td>
@@ -63,15 +63,15 @@
                                                     <div style="text-align:center">@item.Email</div>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
+                                        </tr>*@
+                                        @*<tr>
                                             <th style="text-align:center">个人简介</th>
                                             <td>
                                                 <div>
                                                     <div style="text-align:center">@item.Intro</div>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr>*@
                                         <tr>
 
                                             <th style="text-align:center">手机号</th>
@@ -81,7 +81,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        @*<tr>
 
                                             <th style="text-align:center">推荐人</th>
                                             <td>
@@ -89,13 +89,13 @@
                                                     <div style="text-align:center">@item.Referral</div>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr>*@
                                         <tr>
 
                                             <th style="text-align:center">注册时间</th>
                                             <td>
                                                 <div>
-                                                    <div style="text-align:center">@item.RegAt</div>
+                                                    <div style="text-align:center">@item.CreatedAt</div>
                                                 </div>
                                             </td>
                                         </tr>

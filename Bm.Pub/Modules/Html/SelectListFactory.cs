@@ -264,6 +264,23 @@ namespace Bm.Modules.Html
                 return SelectList(models, m => m.No, m => m.Name, selectMode, selectedValue);
             }
         }
+
+
+        /// <summary>
+        /// 楼盘
+        /// </summary>
+        /// <returns></returns>
+        public static SelectList CityList(SelectMode selectMode = SelectMode.Default, object selectedValue = null)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Area>()
+                    .Where(m => m.Type, Op.Eq, "C")
+                    .Desc(m => m.No);
+                var models = conn.Query(query);
+                return SelectList(models, m => m.No, m => m.Name, selectMode, selectedValue);
+            }
+        }
         #endregion
 
     }

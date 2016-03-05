@@ -50,20 +50,11 @@ function bindNameByNo(no, name) {
             <form class="form-horizontal" action="@Url.Action("Edit")" method="POST">
                 <div class="box-body">
                     @Html.HiddenFor(m=>m.Id)
-                    @Html.InputFor(m => m.No)
-                    @Html.InputFor(m => m.Name)
-                    @Html.InputFor(m => m.Mobile)
-                    @Html.InputFor(m => m.Email)
-                    @Html.InputFor(m => m.City)
-                    @Html.InputFor(m => m.CityNo)
-                    @Html.InputFor(m => m.Gender, SelectListFactory.GenderList(), new { @class = "form-control " })
+                    @Html.HiddenFor(m => m.No)
+                    @Html.InputFor(m => m.Name, new { @readonly = "readonly" })
+                    @Html.InputFor(m => m.Mobile, new { @readonly = "readonly" })
+                    @Html.HiddenFor(m => m.CityNo, new { @readonly = "readonly" })
                     @Html.InputFor(m => m.FirmNo, SelectListFactory.BrokerageAllNo())
-                    @Html.HiddenFor(m => m.Firm)
-                    @Html.InputFor(m => m.Intro)
-                    @Html.InputFor(m => m.RegAt)
-                    @Html.InputFor(m => m.Referral)
-                    @Html.InputFor(m => m.Pic, new { @class = " upload-file img", data_url = AccessoryService.GetUrl("") })
-
 
                 </div>
                 <!-- /.box-body -->

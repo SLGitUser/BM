@@ -51,6 +51,17 @@ namespace Bm.Services.Dp
                     }
                 }
 
+                var q1 = new Criteria<AccountRoleRef>()
+                    .Where(m => m.AccountNo, Op.Eq, account.No)
+                    .And(m=>m.BranchNo, Op.Eq, "420100")
+                    .And(m => m.RoleNo, Op.Eq, "Broker")
+                    .Limit(1);
+                if (conn.Exists(q1))
+                {
+                    trans.Rollback();
+                    return mr.Error("账户已经存在，不能重复创建");
+                }
+
                 var query = new Criteria<Broker>()
                     .Where(m => m.No, Op.Eq, account.No)
                     .Desc(m => m.No);
@@ -58,6 +69,21 @@ namespace Bm.Services.Dp
                 {
                     trans.Rollback();
                     return mr.Error("账户已经存在，不能重复创建");
+                }
+
+                var model2 = new AccountRoleRef
+                {
+                    AccountNo = account.No,
+                    RoleNo = "Broker",
+                    BranchNo = "420100",
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "SYSTEM"
+                };
+                var effectedCount1 = conn.Insert(model2, trans);
+                if (effectedCount1 == -1)
+                {
+                    trans.Rollback();
+                    return mr.Error("账户创建失败，请重试");
                 }
 
                 var model = new Broker
@@ -77,6 +103,7 @@ namespace Bm.Services.Dp
                     trans.Rollback();
                     return mr.Error("账户创建失败，请重试");
                 }
+
                 trans.Commit();
                 mr.SetValue(model);
             }

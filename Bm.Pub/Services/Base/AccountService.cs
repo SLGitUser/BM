@@ -47,10 +47,37 @@ namespace Bm.Services.Base
                 if (model != null)
                 {
                     var roleQuery = new Criteria<AccountRoleRef>()
-                        .Where(m => m.AccountNo, Op.Eq, accountNo);
+                        .Where(m => m.AccountNo, Op.Eq, model.No);
                     model.RoleRefs = conn.Query(roleQuery);
                 }
                 return model;
+            }
+
+        }
+
+
+        public MessageRecorder<Account> GetAccountByMobileNo(string mobileNo)
+        {
+            var r = new MessageRecorder<Account>();
+            if (string.IsNullOrEmpty(mobileNo))
+            {
+                return r.Error("请输入手机号码");
+            }
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Account>()
+                    .Or(m => m.Phone, Op.Eq, mobileNo)
+                    .Or(m => m.Phone2, Op.Eq, mobileNo)
+                    .Or(m => m.Phone3, Op.Eq, mobileNo)
+                    .Limit(1);
+                var model = conn.Query(query).FirstOrDefault();
+                if (model != null)
+                {
+                    var roleQuery = new Criteria<AccountRoleRef>()
+                        .Where(m => m.AccountNo, Op.Eq, model.No);
+                    model.RoleRefs = conn.Query(roleQuery);
+                }
+                return r.SetValue(model);
             }
 
         }

@@ -17,7 +17,6 @@ namespace Bm.Controllers.Task
         public IHttpActionResult Get()
         {
             var m = Request.GetQueryString("m");
-            
             var mr = new MessageRecorder<bool>();
             //TODO 更新本周推客数量、活跃客户数、成交金额
             var now = DateTime.Now;

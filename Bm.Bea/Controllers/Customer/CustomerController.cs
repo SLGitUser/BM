@@ -19,15 +19,14 @@ namespace Bm.Controllers.Customer
             var mr = new MessageRecorder<bool>();
             //TODO 更新本周推客数量、活跃客户数、成交金额
             var now = DateTime.Now;
-            var r2 = _service.GetById(int.Parse(m.ToString()));
-            r2.Name = "张三";
-            return Ok(mr, n => new
+            var  a= Ok(mr, n => new
             {
-                TuikeAmount = r2.Name,
+                TuikeAmount = "张三",
                 ActiveCustomer = now.Hour * 100 + +now.Minute * 2 + now.Second,
                 TotalSales = now.Hour * 200 + +now.Minute * 50 + now.Second * 10,
                 AlertCount = now.Minute % 10
             });
+            return a;
         }
         public IHttpActionResult GetCustomer()
         {

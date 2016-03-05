@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Razor.Generator;
 using Bm.Extensions;
 using Bm.Modules.Helper;
 using Bm.Services.Dp;
@@ -9,7 +10,7 @@ namespace Bm.Controllers.Task
     {
 
         /// <summary>
-        /// 验证账户登录是否正确
+        /// 获取所有房源信息
         /// </summary>
         /// <returns></returns>
         [Route("api/get_house_all")]
@@ -17,7 +18,7 @@ namespace Bm.Controllers.Task
         {
             var m = Request.GetQueryString("m");
             var u = Request.GetQueryString("u");
-            
+
             var service = new ProjectService();
             var r = service.GetAllHouse();
             return Ok(r);

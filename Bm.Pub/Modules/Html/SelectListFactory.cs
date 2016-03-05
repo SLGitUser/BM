@@ -94,7 +94,7 @@ namespace Bm.Modules.Html
         #endregion
 
         #region 枚举类型
-        
+
         /// <summary>
         /// 自动将枚举类型转换为下拉列表，标签为描述文字，值为枚举字符串
         /// </summary>
@@ -142,62 +142,66 @@ namespace Bm.Modules.Html
         }
 
         #endregion
+
         #region 页面需求
+
         /// <summary>
         /// [是否]下拉框
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="selectMode"></param>
+        /// <param name="selectedValue"></param>
         /// <returns></returns>
-        public static SelectList YesOrNo(SelectMode model = SelectMode.Default)
+        public static SelectList YesOrNo(SelectMode selectMode = SelectMode.Default, string selectedValue = null)
         {
-            var select = new[] { new { Value = "是", Text = "是" }, new { Value = "否", Text = "否" } };
-            return new SelectList(select, "Value", "Text");
+            return SelectList(new[] { "是", "否" }, selectMode, selectedValue);
         }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="selectMode"></param>
+        /// <param name="selectedValue"></param>
         /// <returns></returns>
-        public static SelectList NoOrYes(SelectMode model = SelectMode.Default)
+        public static SelectList NoOrYes(SelectMode selectMode = SelectMode.Default, string selectedValue = null)
         {
-            var select = new[] { new { Value = "否", Text = "否" }, new { Value = "是", Text = "是" } };
-            return new SelectList(select, "Value", "Text");
+            return SelectList(new[] { "否", "是" }, selectMode, selectedValue);
         }
+
         /// <summary>
         /// 性别下拉框
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="selectMode"></param>
+        /// <param name="selectedValue"></param>
         /// <returns></returns>
-        public static SelectList SexSelectList(SelectMode model = SelectMode.Default)
+        public static SelectList SexSelectList(SelectMode selectMode = SelectMode.Default, string selectedValue = null)
         {
-            var select = new[] { new { Value = "男", Text = "男" }, new { Value = "女", Text = "女" } };
-            return new SelectList(select, "Value", "Text");
+            return SelectList(new[] { "男", "女" }, selectMode, selectedValue);
         }
+
         /// <summary>
         /// 查询所有开发商编号
         /// </summary>
         /// <returns></returns>
-        public static SelectList GetDeveloperAllNo()
+        public static SelectList GetDeveloperAllNo(SelectMode selectMode = SelectMode.Default, object selectedValue = null)
         {
             using (var conn = ConnectionManager.Open())
             {
                 var query = new Criteria<Developer>()
-                    .And(m => m.Id, Op.Gt, 0)
-                    .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
                     .Desc(m => m.No);
-                var selectList = conn.Query(query).Select(m => new
-                {
-                    m.No,
-                    Text = $"[{m.No}]{m.Name}"
-                }).ToList();
-                return new SelectList(selectList, "No", "Text");
+                var models = conn.Query(query)
+                    .Select(m => new
+                    {
+                        m.No,
+                        Text = $"[{m.No}]{m.Name}"
+                    }).ToList();
+                return SelectList(models, m => m.No, m => m.Text, selectMode, selectedValue);
             }
         }
         /// <summary>
         /// 获取所有经纪人编号
         /// </summary>
         /// <returns></returns>
-        public static SelectList BrokerageAllNo()
+        public static SelectList BrokerageAllNo(SelectMode selectMode = SelectMode.Default, object selectedValue = null)
         {
             using (var conn = ConnectionManager.Open())
             {
@@ -205,28 +209,32 @@ namespace Bm.Modules.Html
                     .And(m => m.Id, Op.Gt, 0)
                     .And(m => m.Id, Op.NotIn, new long[] { 0, -1 })
                     .Desc(m => m.FirmNo);
-                var selectList = conn.Query(query).Select(m => new
-                {
-                    m.FirmNo,
-                    Text = $"[{m.FirmNo}]{m.Name}"
-                }).ToList();
-                return new SelectList(selectList, "FirmNo", "Text");
+                var models = conn.Query(query)
+                    .Select(m => new
+                    {
+                        m.FirmNo,
+                        Text = $"[{m.FirmNo}]{m.Name}"
+                    }).ToList();
+                return SelectList(models, m => m.FirmNo, m => m.Text, selectMode, selectedValue);
             }
 
-        }        /// <summary>
+        }
+
+        /// <summary>
         /// 楼盘类型
         /// </summary>
         /// <returns></returns>
-        public static SelectList GetProjectType()
+        public static SelectList GetProjectType(SelectMode selectMode = SelectMode.Default, object selectedValue = null)
         {
-            //using (var conn = ConnectionManager.Open())
-            //{
-            //var query = new Criteria<BldType>()
-            //    .Desc(m => m.No);
-            //return conn.Query(query);
-            //}
-            var list = new[] { new { Text = "类型1", Value = "类型1" }, new { Text = "类型2", Value = "类型2" } };
-            return new SelectList(list, "Text", "Value");
+            //TODO 针对不同的地区读取不同的楼盘类型
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<AreaTag>()
+                    .Where(m => m.Type, Op.Eq, "T")
+                    .Desc(m => m.No);
+                var models = conn.Query(query);
+                return SelectList(models, m => m.Name, m => m.Name, selectMode, selectedValue);
+            }
         }
         #endregion
 

@@ -11,7 +11,7 @@ namespace Bm.Controllers.Customer
     {
         private CustomerService _service;
 
-        [Route("api/base_CustomerDetails")]
+        [Route("api/base_customer_details")]
         public IHttpActionResult GetAll()
         {
             var m = Request.GetQueryString("m");

@@ -139,6 +139,7 @@
     <Compile Include="Models\Dp\AreaTagType.cs" />
     <Compile Include="Models\Dp\AreaType.cs" />
     <Compile Include="Models\Dp\BrokerageFirm.cs" />
+    <Compile Include="Models\Dp\HouseBrokerRef.cs" />
     <Compile Include="Models\Dp\PropertyAdvisor .cs" />
     <Compile Include="Models\Plat\Branch.cs" />
     <Compile Include="Models\Dp\Broker.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Services\Dp\DeveloperService.cs" />
     <Compile Include="Services\Dp\BrokerageFirmService.cs" />
     <Compile Include="Services\Dp\DevRoomService.cs" />
+    <Compile Include="Services\Dp\HouseBrokerRef.cs" />
     <Compile Include="Services\Dp\PropertyAdvisorService.cs" />
     <Compile Include="Services\Dp\ProjectService.cs" />
   </ItemGroup>

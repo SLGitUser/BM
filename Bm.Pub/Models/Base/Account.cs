@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Bm.Models.Common;
 using Bm.Modules.Helper;
 using Bm.Modules.Orm.Annotation;
@@ -324,7 +323,14 @@ namespace Bm.Models.Base
         /// </summary>
         private IList<AccountRoleRef> _roleRefs;
 
-
+        /// <summary>
+        /// 是否经纪人
+        /// </summary>
+        /// <returns></returns>
+        public bool IsBroker()
+        {
+            return RoleRefs.Any(m => "Broker".Equals(m.RoleNo));
+        }
 
         #endregion
     }

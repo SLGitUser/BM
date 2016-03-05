@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Bm.Models.Common;
+using Bm.Modules.Orm;
+using Bm.Modules.Orm.Sql;
 
 namespace Bm.Models.Dp
 {
@@ -195,6 +197,25 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("佣金规则")]
         public string BrokerageRule { get; set; }
+
+        /// <summary>
+        /// 读取或者设置收藏人数
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("收藏人数")]
+        public int CollectNum {
+            get
+            {
+                var brokers = new Criteria<HouseBrokerRef>()
+                    .Where(m => m.HouseNo, Op.Eq, No);
+                var conn = ConnectionManager.Open();
+                var list = conn.Query(brokers);
+                _collectNum = list.Count;
+                return _collectNum;
+            }
+        }
+
+        private int _collectNum;
 
         /// <summary>
         /// 楼盘周边信息

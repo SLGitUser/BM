@@ -128,7 +128,7 @@
     <Compile Include="Controllers\Base\CodeController.cs" />
     <Compile Include="Controllers\Customer\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Task\HouseController.cs" />
+    <Compile Include="Controllers\House\HouseController.cs" />
     <Compile Include="Controllers\Task\MainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\House\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +171,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62338</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62338/</IISUrl>
+          <IISUrl>http://localhost:62338</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

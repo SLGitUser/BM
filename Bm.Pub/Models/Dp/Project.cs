@@ -185,6 +185,37 @@ namespace Bm.Models.Dp
         public string AddrPic { get; set; }
 
         /// <summary>
+        /// 读取或者设置成交奖
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("成交奖")]
+        public bool Clinch { get; set; }
+        /// <summary>
+        /// 读取或者设置带看奖
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("带看奖")]
+        public bool See { get; set; }
+        /// <summary>
+        /// 读取或者设置认筹奖
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("认筹奖")]
+        public bool From { get; set; }
+        /// <summary>
+        /// 读取或者设置需带看
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("需带看")]
+        public bool NeedSee { get; set; }
+        /// <summary>
+        /// 读取或者设置须30天内带看
+        /// </summary>
+        /// <remark></remark>
+        [DisplayName("须30天内带看")]
+        public bool NeedSeeThirty { get; set; }
+
+        /// <summary>
         /// 读取或者设置推客认证类型
         /// </summary>
         /// <remark></remark>

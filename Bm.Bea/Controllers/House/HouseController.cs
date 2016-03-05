@@ -36,5 +36,19 @@ namespace Bm.Controllers.House
             var r = service.GetHouseByBrokerNo(u);
             return Ok(r);
         }
+        /// <summary>
+        /// 根据编号获取房源信息
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/get_house_detail")]
+        public IHttpActionResult GetHouseById()
+        {
+            //var m = Request.GetQueryString("m");
+            var houseId = Request.GetQueryString("houseId").TryToLong();
+
+            var service = new ProjectService();
+            var r = service.GetById(houseId??0);
+            return Ok(r);
+        }
     }
 }

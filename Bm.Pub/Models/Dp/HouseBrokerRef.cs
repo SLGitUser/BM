@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Bm.Models.Common;
+using Bm.Modules.Orm;
+using Bm.Modules.Orm.Sql;
 
 namespace Bm.Models.Dp
 {
@@ -10,9 +12,23 @@ namespace Bm.Models.Dp
     /// 房源和经纪人关系表
     /// </summary>
     [DisplayName("房源和经纪人关系")]
-    public sealed class HouseBrokerRef:IStamp
+    public sealed class HouseBrokerRef : IStamp
     {
+        #region Implementation of IId
 
+        /// <summary>
+        /// 读取或者设置记录序号
+        /// </summary>
+        /// <value>
+        /// 记录序号
+        /// </value>
+        /// <remarks>
+        /// 建议存储时使用无符号类型
+        /// </remarks>
+        [DisplayName("记录序号")]
+        public long Id { get; set; }
+
+        #endregion
         #region Implementation of ICreateStamp
 
         /// <summary>
@@ -71,19 +87,12 @@ namespace Bm.Models.Dp
 
         [DisplayName("楼房编号")]
         [Required]
-        public string HouseNo { get; set; }
+        public string ProjectNo { get; set; }
 
         [DisplayName("经纪人编号")]
         [Required]
         public string BrokerNo { get; set; }
 
-        [DisplayName("楼房名称")]
-        [Required]
-        public Project ProjectModel { get; set; }
-
-        [DisplayName("经纪人姓名")]
-        [Required]
-        public Broker BrokerModel { get; set; }
 
     }
 }

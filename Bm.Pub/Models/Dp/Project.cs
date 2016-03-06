@@ -262,10 +262,28 @@ namespace Bm.Models.Dp
         private int _collectNum;
 
         /// <summary>
+        /// 楼盘推广合作信息
+        /// </summary>
+        public Promotion Promotions
+        {
+            get
+            {
+                var pro = new Criteria<Promotion>()
+                    .Where(m=>m.DpNo,Op.Eq, No);
+                var query = ConnectionManager.Open().Query(pro).FirstOrDefault();
+                _promotion = query;
+                return _promotion;
+            }
+            set { _promotion = value; }
+        }
+
+        private Promotion _promotion;
+        /// <summary>
         /// 楼盘周边信息
         /// </summary>
-        public IList<ProjectInfo> ProjectInfos {
-            get { return _projectInfos;}
+        public IList<ProjectInfo> ProjectInfos
+        {
+            get { return _projectInfos; }
             set { _projectInfos = value; }
         }
 

@@ -21,6 +21,7 @@ namespace Bm.Services.Dp
         {
 
         }
+
         #region 模型操作
 
         /// <summary>
@@ -69,6 +70,7 @@ namespace Bm.Services.Dp
             return r.SetValue(!r.HasError);
 
         }
+
         ///// <summary>
         ///// 修改
         ///// </summary>
@@ -181,6 +183,7 @@ namespace Bm.Services.Dp
                 return r.SetValue(list);
             }
         }
+
         /// <summary>
         /// 根据楼盘编号获取所有关系经纪人的信息
         /// </summary>
@@ -203,7 +206,8 @@ namespace Bm.Services.Dp
                     return r.Error("没有任何房源！");
                 }
                 return r.SetValue(list);
-            };
+            }
+            ;
         }
 
         #endregion
@@ -223,6 +227,7 @@ namespace Bm.Services.Dp
             }
             return r.SetValue(projectAll);
         }
+
         /// <summary>
         /// 切换经纪人收藏楼盘状态（收藏、解除）
         /// </summary>
@@ -267,6 +272,31 @@ namespace Bm.Services.Dp
             }
             return r;
         }
+
+        /// <summary>
+        /// 切换经纪人收藏楼盘状态（收藏、解除）
+        /// </summary>
+        /// <returns>返回切换后的状态（True：代表收藏；False：代表解除）</returns>
+        public MessageRecorder<bool> IsCollect(string brokerNo, string projectNo)
+        {
+            var r = new MessageRecorder<bool>();
+            using (var conn = ConnectionManager.Open())
+            {
+                if (brokerNo.IsNullOrEmpty())
+                    return r.Error("经纪人编号无效");
+                if (projectNo.IsNullOrEmpty())
+                    return r.Error("楼盘编号无效");
+                //根据经纪人编号获取所有楼盘信息
+                var refQuery = new Criteria<HouseBrokerRef>()
+                    .Where(m => m.ProjectNo, Op.Eq, projectNo)
+                    .And(m => m.BrokerNo, Op.Eq, brokerNo)
+                    .Asc(m => m.CreatedAt);
+                r.SetValue(conn.Query(refQuery).Any());
+                return r;
+            }
+        }
+
+
     }
 }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Bm.Models.Common;
 using Bm.Modules.Orm;
 using Bm.Modules.Orm.Annotation;
@@ -239,7 +240,7 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("佣金规则")]
         public string BrokerageRule { get; set; }
-
+        
         /// <summary>
         /// 读取或者设置收藏人数
         /// </summary>

@@ -7,6 +7,8 @@ using Bm.Extensions;
 using Bm.Models.Common;
 using Bm.Models.Dp;
 using Bm.Modules.Helper;
+using Bm.Modules.Orm;
+using Bm.Modules.Orm.Sql;
 using Bm.Services.Dp;
 
 namespace Bm.Controllers.House
@@ -75,6 +77,26 @@ namespace Bm.Controllers.House
                 {"Result", r.Value}
             };
             return Ok(dic);
+        }
+
+        /// <summary>
+        /// 是否收藏
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/is_collect")]
+        public IHttpActionResult GetIsCollect()
+        {
+            var u = Request.GetQueryString("u");//经纪人编号
+            var h = Request.GetQueryString("h");//房源编号
+            var service = new HouseBrokerRefService();
+            var r = service.IsCollect(u,h);
+            return Ok(new Dictionary<string, object>
+            {
+                {"HasError", r.HasError},
+                {"Errors", r.Errors.Select(m => m.Message).ToList()},
+                {"Result", r.Value}
+            });
+            
         }
     }
 }

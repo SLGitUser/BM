@@ -7,13 +7,12 @@ using Bm.Services.Common;
 using Bm.Models.Dp;
 using System.Collections.Generic;
 using System.Linq;
-using Bm.Services.Dp;
 
 namespace Bm.Controllers.Customers
 {
     public class CustomerController : BaseApiController
     {
-        private static CustomerService _service;
+        private CustomerService _service;
 
         [Route("api/base_customer_details")]
         public IHttpActionResult GetAll()
@@ -40,7 +39,7 @@ namespace Bm.Controllers.Customers
         }
         [HttpGet]
         [Route("api/base_customer_create")] 
-        public IHttpActionResult CreateCustomer()
+        public IHttpActionResult Create()
         {
             var m = Request.GetQueryString("m");
             var c = Request.GetQueryString("c");
@@ -48,7 +47,8 @@ namespace Bm.Controllers.Customers
             var d = Request.GetQueryString("d");
             var e = Request.GetQueryString("e");
             var x = Request.GetQueryString("x");
-            var cust = new Customer { No=e,Name=m,Gender=s, Mobile=c,Level=d,RegAt=DateTime.Now, Remark=x};
+            Customer cust = new Customer()
+            { No=e,Name=m,Gender=s, Mobile=c,Level=d,RegAt=DateTime.Now, Remark=x};
             var r = _service.Create(cust);
             if (r.HasError)
                 return Ok(r);

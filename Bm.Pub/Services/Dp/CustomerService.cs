@@ -27,7 +27,6 @@ namespace Bm.Services.Dp
                     var query = new Criteria<Customer>()
                         .Where(m => m.No, Op.Eq, model.No)
                         .Asc(m => m.Id);
-                    model.Customers = conn.Query(query);
                 };
                 return model;
             }
@@ -66,13 +65,13 @@ namespace Bm.Services.Dp
                     trans.Rollback();
                     return r.Error("保存失败");
                 }
-                var r2 = conn.Insert(model.Customers);
-                var count = model.Customers.Count;
-                if (r2 != count)
-                {
-                    trans.Rollback();
-                    return r.Error("保存失败");
-                } 
+                //var r2 = conn.Insert(model.Customers);
+                //var count = model.Customers.Count;
+                //if (r2 != count)
+                //{
+                //    trans.Rollback();
+                //    return r.Error("保存失败");
+                //} 
                 trans.Commit();
             }
             return r.SetValue(!r.HasError); 

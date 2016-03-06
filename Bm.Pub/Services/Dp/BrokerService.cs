@@ -130,9 +130,23 @@ namespace Bm.Services.Dp
                 return r;
             }
         }
+        /// <summary>
+        /// 根据经纪人编号查询所属公司信息
+        /// </summary>
+        /// <returns></returns>
+        public MessageRecorder<BrokerageFirm> UpdateFirm(string u,string n)
+        {
+            var r = new MessageRecorder<BrokerageFirm>();
+            if (string.IsNullOrEmpty(u)) return r.Error("经纪人编号无效！");
+            if (string.IsNullOrEmpty(n)) return r.Error("公司编号无效！");
+            using (var conn = ConnectionManager.Open())
+            {
 
+                return r;
+            }
+        }
         #endregion
-        #region SelectHelper
+            #region SelectHelper
 
         public static SelectList GetBldType()
         {

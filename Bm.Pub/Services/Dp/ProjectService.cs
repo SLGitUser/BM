@@ -185,14 +185,13 @@ namespace Bm.Services.Dp
             }
         }
 
-
         public Project GetByNo(string no)
         {
             using (var conn = ConnectionManager.Open())
             {
-                var query1 = new Criteria<Project>()
-                    .Where(m=>m.No, Op.Eq, no);
-                var model = conn.Get(query1);
+                var pro = new Criteria<Project>()
+                    .Where(m=>m.No,Op.Eq, no);
+                var model = conn.Query(pro).FirstOrDefault();
 
                 if (model != null)
                 {
@@ -206,7 +205,6 @@ namespace Bm.Services.Dp
                 return model;
             }
         }
-
         #endregion
         public MessageRecorder<IList<Project>> GetAllHouse()
         {

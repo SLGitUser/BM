@@ -47,7 +47,8 @@ namespace Bm.Controllers.Customers
             var d = Request.GetQueryString("d");
             var e = Request.GetQueryString("e");
             var x = Request.GetQueryString("x");
-            Customer cust = new Customer() { No=e,Name=m,Gender=s, Mobile=c,Level=d,RegAt=DateTime.Now, Remark=x};
+            Customer cust = new Customer()
+            { No=e,Name=m,Gender=s, Mobile=c,Level=d,RegAt=DateTime.Now, Remark=x};
             var r = _service.Create(cust);
             if (r.HasError)
                 return Ok(r);

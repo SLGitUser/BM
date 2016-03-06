@@ -99,8 +99,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("地区代码")]
-        [StringLength(50)]
-        [Required]
+        [StringLength(50)] 
         public string CityNo { get; set; }
 
         /// <summary>
@@ -117,8 +116,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("姓名拼音")]
-        [StringLength(40)]
-        [Required]
+        [StringLength(40)] 
         public string Pinyin { get; set; }
 
         /// <summary>
@@ -175,8 +173,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("经纪人编号")]
-        [StringLength(49)]
-        [Required]
+        [StringLength(49)] 
         public string BrokerNo { get; set; }
 
         /// <summary>
@@ -212,11 +209,11 @@ namespace Bm.Models.Dp
         [StringLength(50)]
         public string Remark
         { get; set; }
-        public IList<Customer> Customers
-        {
-            get { return Customers; }
-            set { Customers = value; }
-        }
+        //public IList<Customer> Customers
+        //{
+        //    get { return Customers; }
+        //    set { Customers = value; }
+        //}
 
     }
 }

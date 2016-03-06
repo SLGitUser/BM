@@ -13,8 +13,14 @@ namespace Bm.Services.Dp
 {
    public sealed class CustomerService : RepoService<Customer>
     {
+        public CustomerService() : base(null)
+        {
+
+        }
+
         public CustomerService(string accountNo) : base(accountNo)
         {
+
         }
         public override Customer GetById(long id)
         {

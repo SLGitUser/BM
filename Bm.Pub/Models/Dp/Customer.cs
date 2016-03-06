@@ -173,7 +173,6 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("æ≠ºÕ»À±‡∫≈")]
         [StringLength(49)]
-        [Required]
         public string BrokerNo { get; set; }
 
         /// <summary>
@@ -208,11 +207,7 @@ namespace Bm.Models.Dp
         [StringLength(50)]
         public string Remark
         { get; set; }
-        public IList<Customer> Customers
-        {
-            get { return Customers; }
-            set { Customers = value; }
-        }
+   
 
     }
 }

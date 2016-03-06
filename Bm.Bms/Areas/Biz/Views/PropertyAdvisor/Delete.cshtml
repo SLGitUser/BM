@@ -1,5 +1,6 @@
-﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Dp.PropertyAdvisor>
+﻿@model IList<Bm.Models.Dp.PropertyAdvisor>
+@using Bm.Modules.Html
+@using Bm.Services.Dp
 
 @section PageHead {
     <h1>置业顾问信息<small></small></h1>
@@ -21,24 +22,16 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="row">
+                        <div class="row col-sm-12">
                                 @Html.Raw(Model.ToHtmlTable()
                                     .Table(new HtmlElement("table")
                                         .Attr("class", "table data table-bordered table-striped dataTable")
                                         .Attr("role", "grid")
                                         .Attr("aria-describedby", "example1_info"))
-                                    .Add(m => m.No)
+                                    .Add(m => m.ProjectNo, n=> new ProjectService().GetByNo(n)?.Name)
                                     .Add(m => m.Name)
-                                    .Add(m => m.Gender)
-                                    .Add(m => m.Mobile1)
-                                    .Add(m => m.Mobile2)
-                                    .Add(m => m.Mobile3)
-                                    .Add(m => m.Email)
-                                    .Add(m => m.Owner)
-                                    .Add(m => m.OwnerNo)
-                                    .Add(m => m.Intro)
-                                    .Add(m => m.RegAt)
-                                    .Add(m => m.Referral)
+                                    .Add(m => m.MobileNo)
+                                    .Add(m => m.Title)
                                     .ToString())
                             </div>
                         </div>

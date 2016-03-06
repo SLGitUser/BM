@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Bm.Models.Common;
 using Bm.Modules.Orm;
+using Bm.Modules.Orm.Annotation;
 using Bm.Modules.Orm.Sql;
 
 namespace Bm.Models.Dp
@@ -86,15 +87,24 @@ namespace Bm.Models.Dp
 
         #endregion
 
+        ///// <summary>
+        ///// 读取或者设置开发商编号
+        ///// </summary>
+        ///// <remark></remark>
+        //[DisplayName("开发商编号")]
+        //[StringLength(20)]
+        //[Required]
+        //public string OwnerNo { get; set; }
+        
         /// <summary>
         /// 读取或者设置开发商编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("开发商编号")]
-        [StringLength(20)]
+        [DisplayName("开发商")]
+        [StringLength(50)]
         [Required]
-        public string OwnerNo { get; set; }
-        
+        public string Owner { get; set; }
+
         /// <summary>
         /// 读取或者设置编号
         /// </summary>
@@ -143,8 +153,9 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("均价")]
+        [StringLength(50)]
         [Required]
-        public int AvgPrice { get; set; }
+        public string AvgPrice { get; set; }
         
         /// <summary>
         /// 读取或者设置咨询电话
@@ -234,6 +245,7 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("收藏人数")]
+        [IgnoreMapping]
         public int CollectNum {
             get
             {

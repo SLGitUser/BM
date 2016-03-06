@@ -9,8 +9,23 @@ namespace Bm.Services.Dp
 {
     public sealed class BrokerAccountService
     {
-
-        public MessageRecorder<Broker> Create(string phone, string password)
+        /// <summary>
+        /// 创建用户
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="password"></param>
+        /// <param name="cityCode"></param>
+        /// <param name="name"></param>
+        /// <param name="firmNo"></param>
+        /// <param name="referral"></param>
+        /// <returns></returns>
+        public MessageRecorder<Broker> Create(
+            string phone, 
+            string password,
+            string cityCode = null,
+            string name = null,
+            string firmNo = null,
+            string referral = null)
         {
             var mr= new MessageRecorder<Broker>();
             
@@ -29,12 +44,13 @@ namespace Bm.Services.Dp
                     account = new Account
                     {
                         No = Guid.NewGuid().ToString("N").ToUpper(),
-                        Name = "未来经纪大师",
+                        Name = name ?? "未来经纪大师",
                         Phone = phone,
                         CreatedBy = "SYSTEM",
                         CreatedAt = DateTime.Now,
                         Password = password,
-                        Status = AccountStatus.Type.Normal
+                        Status = AccountStatus.Type.Normal,
+                        Referral = referral
                     };
                     var effectedCount = conn.Insert(account, trans);
                     if (effectedCount == -1)
@@ -68,7 +84,7 @@ namespace Bm.Services.Dp
                 {
                     AccountNo = account.No,
                     RoleNo = "Broker",
-                    BranchNo = "420100",
+                    BranchNo = cityCode ?? "420100",
                     CreatedAt = DateTime.Now,
                     CreatedBy = "SYSTEM"
                 };
@@ -84,9 +100,8 @@ namespace Bm.Services.Dp
                     No = account.No,
                     Name = account.Name,
                     Mobile = phone,
-                    City = "武汉",
-                    CityNo = "420100",
-                    RegAt = DateTime.Now,
+                    CityNo = cityCode ?? "420100",
+                    FirmNo = firmNo,
                     CreatedBy = "SYSTEM",
                     CreatedAt = DateTime.Now
                 };

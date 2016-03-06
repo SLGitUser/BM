@@ -3,12 +3,7 @@ using Bm.Models.Dp;
 using Bm.Modules.Orm;
 using Bm.Modules.Orm.Sql;
 using Bm.Services.Common;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace Bm.Services.Dp
 {
@@ -64,7 +59,6 @@ namespace Bm.Services.Dp
                 }
                 trans.Commit();
             }
-            r.Append(AccessoryService.ClearExpiration(model.Pic));
             return r.SetValue(!r.HasError);
 
         }
@@ -78,7 +72,6 @@ namespace Bm.Services.Dp
             var r = new MessageRecorder<bool>();
             model.CreatedAt = Now;
             model.CreatedBy = AccountNo;
-            string oldKey;
             using (var conn=ConnectionManager.Open())
             {
                 var trans = conn.BeginTransaction(); 
@@ -91,10 +84,6 @@ namespace Bm.Services.Dp
                     trans.Rollback();
                     return r.Error("编号或者名称重复");
                 }
-                var obj = new Criteria<PropertyAdvisor>()
-                    .Where(m => m.Id, Op.Eq, model.Id)
-                    .Select(m => m.Pic);
-                oldKey = conn.ExecuteScalarEx<string>(obj.ToSelectSql());
                 var effectedCount = conn.Update(model, trans);
                 if (!effectedCount)
                 {
@@ -103,23 +92,9 @@ namespace Bm.Services.Dp
                 }
                 trans.Commit();
             }
-            if (!Equals(oldKey, model.Pic))
-            {
-                r.Append(AccessoryService.DeleteObject(oldKey));
-                r.Append(AccessoryService.ClearExpiration(model.Pic));
-            }
             return r.SetValue(!r.HasError);
         }
-
-        public override MessageRecorder<bool> Delete(params PropertyAdvisor[] models)
-        {
-            var r = base.Delete(models);
-            foreach (var model in models)
-            {
-                r.Append(AccessoryService.DeleteObject(model.Pic));
-            }
-            return r;
-        }
+        
         #endregion
     }
 }

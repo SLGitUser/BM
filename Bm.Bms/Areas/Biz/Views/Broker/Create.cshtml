@@ -7,7 +7,7 @@
     <script src="~/Scripts/init.js"></script>
     <link rel="stylesheet" href="~/Content/css/app.min.css">
 }
-<script type="text/javascript">
+@*<script type="text/javascript">
     
 //绑定下拉框联动
 function bindNameByNo(no, name) {
@@ -30,7 +30,7 @@ function bindNameByNo(no, name) {
         $("#FirmNo").trigger("change");
     });
 
-</script>
+</script>*@
     @section PageHead {
         <h1>新增经纪人信息<small></small></h1>
         <ol class="breadcrumb">
@@ -48,20 +48,10 @@ function bindNameByNo(no, name) {
             </div>
             <form class="form-horizontal" action="@Url.Action("Create")" method="POST" enctype="multipart/form-data">
                 <div class="box-body">
-                    @Html.InputFor(m => m.No)
                     @Html.InputFor(m => m.Name)
                     @Html.InputFor(m => m.Mobile)
-                    @Html.InputFor(m => m.Email)
-                    @Html.InputFor(m => m.City)
-                    @Html.InputFor(m => m.CityNo)
-                    @Html.InputFor(m => m.Gender, SelectListFactory.SexSelectList(), new { @class = "form-control " })
+                    @Html.InputFor(m => m.CityNo, SelectListFactory.CityList())
                     @Html.InputFor(m => m.FirmNo, SelectListFactory.BrokerageAllNo())
-                    @Html.HiddenFor(m => m.Firm)
-                    @Html.InputFor(m => m.Intro)
-                    @Html.InputFor(m => m.RegAt)
-                    @Html.InputFor(m => m.Referral) 
-                    @Html.InputFor(m => m.Pic, new { @class=" upload-file img", data_url=AccessoryService.GetUrl("") })
-                   
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

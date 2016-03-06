@@ -1,7 +1,6 @@
 ﻿@model Bm.Models.Dp.Project
 @using Bm.Modules.Html
 @using Bm.Services.Common
-@using Bm.Services.Dp
 
 @section Header{
     <script src="~/Scripts/init.js"></script>
@@ -24,9 +23,9 @@
             </div>
             <form class="form-horizontal" action="@Url.Action("Create")" method="POST">
                 <div class="box-body">
-                    @Html.InputFor(m => m.No)
+                    @Html.HiddenFor(m => m.No)
                     @Html.InputFor(m => m.Name)
-                    @Html.InputFor(m => m.OwnerNo, SelectListFactory.GetDeveloperAllNo())
+                    @Html.InputFor(m => m.Owner)
                     @Html.InputFor(m => m.BldType, SelectListFactory.GetProjectType())
                     @Html.InputFor(m => m.BizGrp)
                     @Html.InputFor(m => m.SaleStatus)
@@ -36,7 +35,7 @@
                     @Html.InputFor(m => m.Address)
                     @Html.InputFor(m => m.Longitude)
                     @Html.InputFor(m => m.Latitude)
-                    @Html.InputFor(m => m.AuthType)
+                    @Html.InputFor(m => m.AuthType, SelectListFactory.SelectList(new[] { "实时", "延时" }))
                     @Html.InputFor(m => m.BrokerageRule)
                     <hr/>
                     <table class="table data table-bordered table-striped dataTable" style="text-align: center;">

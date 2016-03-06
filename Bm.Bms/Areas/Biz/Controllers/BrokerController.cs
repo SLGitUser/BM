@@ -55,7 +55,6 @@ namespace Bm.Areas.Biz.Controllers
             {
                 var model = new Broker();
                 TryUpdateModel(model, collection);
-                model.RegAt = DateTime.Now;
                 model.CreatedAt = DateTime.Now;
                 model.CreatedBy = "SYSTEM"; 
                 if (!ModelState.IsValid)
@@ -65,8 +64,9 @@ namespace Bm.Areas.Biz.Controllers
                 }
                 model.CreatedAt = DateTime.Now;
                 model.CreatedBy = "SYSTEM";
-
-                var r = _service.Create(model);
+                var service = new BrokerAccountService();
+                var r = service.Create(model.Mobile, string.Concat(model.Mobile, "##"), model.CityNo, model.Name, model.FirmNo);
+                
                 if (r.HasError)
                 {
                     FlashMessage(r);

@@ -384,14 +384,56 @@ namespace Bm.Services.Base
             }
         }
 
+
+        public IList<Account> GetToDeleteModels(long[] ids)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Account>()
+                    .Where(m => m.Id, Op.In, ids)
+                    .And("`no` NOT IN (SELECT `AccountNo` FROM `base_account_role_ref` WHERE `RoleNo` NOT IN('BranchAdmin', 'BranchStaff'))");
+                var models = conn.Query(query);
+                return models;
+            }
+        }
+
+        public MessageRecorder<bool> Delete(long[] ids)
+        {
+
+            var mr = new MessageRecorder<bool>();
+
+            using (var conn = ConnectionManager.Open())
+            {
+                var trans = conn.BeginTransaction();
+
+                var query = new Criteria<Account>()
+                    .Where(m => m.Id, Op.In, ids)
+                    .And("`no` NOT IN (SELECT `AccountNo` FROM `base_account_role_ref` WHERE `RoleNo` NOT IN('BranchAdmin', 'BranchStaff'))");
+                var models = conn.Query(query);
+
+                var isOk = models.All(m => conn.Delete(m, trans));
+                if (isOk)
+                {
+                    trans.Commit();
+
+                    foreach (var model in models)
+                    {
+                        mr.Append(AccessoryService.DeleteObject(model.Photo));
+                    }
+                    mr.SetValue(!mr.HasError);
+                }
+                else
+                {
+                    trans.Rollback();
+                }
+                return mr;
+            }
+        }
+
+        [Obsolete("请使用Delete(long[] ids)方法")]
         public override MessageRecorder<bool> Delete(params Account[] models)
         {
-            var r = base.Delete(models);
-            foreach (var model in models)
-            {
-                r.Append(AccessoryService.DeleteObject(model.Photo));
-            }
-            return r;
+            return Delete(models.Select(m => m.Id).ToArray());
         }
     }
 }

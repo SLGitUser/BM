@@ -22,6 +22,9 @@
                 <div class="box-header">
                     <h3 class="box-title">确定删除这些数据吗？</h3>
                 </div>
+            <div class="box-body">
+                <div class="callout callout-warning">如果用户已经注册为经纪人、置业顾问，则无法删除。</div>
+            </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -32,7 +35,7 @@
                                     .Attr("class", "table data table-bordered table-striped dataTable")
                                     .Attr("role", "grid")
                                     .Attr("aria-describedby", "example1_info"))
-                                .Add(m => m.No)
+                                //.Add(m => m.No)
                                 .Add(m => m.Name)
                                 .Add(m => m.Phone)
                                 .Add(m => m.Phone2)

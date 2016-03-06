@@ -28,6 +28,7 @@ namespace Bm.Areas.Base.Controllers
             return View(models);
         }
 
+        
         // GET: Biz/Account/Details/5
         public ActionResult Details(long[] ids)
         {

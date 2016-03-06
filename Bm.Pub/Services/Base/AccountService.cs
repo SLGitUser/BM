@@ -35,6 +35,40 @@ namespace Bm.Services.Base
             }
         }
 
+        public override Account GetById(long id)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Account>()
+                    .Where(m => m.Id, Op.Eq, id)
+                    .Limit(1);
+                var model = conn.Query(query).FirstOrDefault();
+                if (model != null)
+                {
+                    var roleQuery = new Criteria<AccountRoleRef>()
+                        .Where(m => m.AccountNo, Op.Eq, model.No);
+                    model.RoleRefs = conn.Query(roleQuery);
+                }
+                return model;
+            }
+        }
+
+        public override IList<Account> GetByIds(long[] ids)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Account>()
+                    .Where(m => m.Id, Op.In, ids);
+                var models = conn.Query(query);
+                foreach (var model in models)
+                {
+                    var roleQuery = new Criteria<AccountRoleRef>()
+                        .Where(m => m.AccountNo, Op.Eq, model.No);
+                    model.RoleRefs = conn.Query(roleQuery);
+                }
+                return models;
+            }
+        }
 
         public Account GetAccount(string accountNo)
         {

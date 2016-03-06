@@ -8,9 +8,14 @@ using System.Web.Mvc;
 
 namespace Bm.Services.Dp
 {
-    public sealed class BrokerServices: RepoService<Broker>
+    public sealed class BrokerService: RepoService<Broker>
     {
-        public BrokerServices(string accountNo) : base(accountNo)
+        public BrokerService() : base(null)
+        {
+
+        }
+
+        public BrokerService(string accountNo) : base(accountNo)
         {
 
         }
@@ -95,10 +100,37 @@ namespace Bm.Services.Dp
             }
             return r.SetValue(true);
         }
-        
+
         #endregion
         #region API访问
-        
+        /// <summary>
+        /// 根据经纪人编号查询所属公司信息
+        /// </summary>
+        /// <returns></returns>
+        public MessageRecorder<BrokerageFirm> GetByNo(string brokerNo)
+        {
+            var r = new MessageRecorder<BrokerageFirm>();
+            if (string.IsNullOrEmpty(brokerNo)) return r.Error("经纪人编号无效！");
+            using (var conn = ConnectionManager.Open())
+            {
+                var brokerQuery = new Criteria<Broker>()
+                    .Where(m => m.No, Op.Eq, brokerNo)
+                    .Desc(m => m.No);
+                var broker = conn.Get(brokerQuery);
+                if (broker == null) return r.Error("程序错误，请重新登录后重试！");
+                var firmQuery = new Criteria<BrokerageFirm>()
+                    .Where(m => m.FirmNo, Op.Eq, broker.FirmNo)
+                    .Desc(m => m.FirmNo);
+                var firm = conn.Get(firmQuery);
+                if (firm==null)
+                {
+                    r.SetValue(new BrokerageFirm());
+                }
+                r.SetValue(firm);
+                return r;
+            }
+        }
+
         #endregion
         #region SelectHelper
 

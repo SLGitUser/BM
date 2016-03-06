@@ -14,12 +14,12 @@ namespace Bm.Areas.Biz.Controllers
 {
     public sealed class BrokerController : BaseAuthController
     {
-        private BrokerServices _service;
+        private BrokerService _service;
         
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            _service = new BrokerServices(CurrAccountNo);
+            _service = new BrokerService(CurrAccountNo);
         }
 
         // GET: Biz/Broker

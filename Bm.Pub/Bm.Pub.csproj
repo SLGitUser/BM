@@ -219,11 +219,11 @@
     <Compile Include="Services\Dp\BranchService.cs" />
     <Compile Include="Services\Dp\PropertyAdvisorAccountService.cs" />
     <Compile Include="Services\Dp\BrokerAccountService.cs" />
-    <Compile Include="Services\Dp\BrokerServices.cs" />
+    <Compile Include="Services\Dp\BrokerService.cs" />
     <Compile Include="Services\Dp\DeveloperService.cs" />
     <Compile Include="Services\Dp\BrokerageFirmService.cs" />
     <Compile Include="Services\Dp\DevRoomService.cs" />
-    <Compile Include="Services\Dp\HouseBrokerRef.cs" />
+    <Compile Include="Services\Dp\HouseBrokerRefService.cs" />
     <Compile Include="Services\Dp\PropertyAdvisorService.cs" />
     <Compile Include="Services\Dp\ProjectService.cs" />
   </ItemGroup>

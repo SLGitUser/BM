@@ -53,11 +53,12 @@
                                     .Attr("aria-describedby", "example1_info"))
                                 .AddCheckBox(m => m.Id, styleFunc: m => "c1")
                                 .Add(m => m.Name)
-                                .Add(m => m.Email)
                                 .Add(m => m.Phone)
                                 .Add(m => m.Phone2)
                                 .Add(m => m.Phone3)
-                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
+                                //.Add(m => m.Email)
+                                .AddEx(m => m.Id, m=>m.GetRoleNames(), headerName:"角色" )
+                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a> <a class=\"\" href=\"{Url.Action("Details", new { ids = m.Id })}\"> <i class=\"fa fa-eye\"></i> 查看</a>", m => "ca")
                                 .ToString())
                         </div>
                     </div>
@@ -77,4 +78,3 @@
 <script src="http://123.56.185.114:8000/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="http://123.56.185.114:8000/plugins/fastclick/fastclick.js"></script>
-<script src="~/Scripts/datatable.init.js"></script>

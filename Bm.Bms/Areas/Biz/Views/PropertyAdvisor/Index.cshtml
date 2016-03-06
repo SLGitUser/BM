@@ -1,4 +1,7 @@
-﻿@using Bm.Modules.Html
+﻿@using Bm.Models.Dp
+@using Bm.Modules.Html
+@using Bm.Services.Common
+@using Bm.Services.Dp
 @model IList<Bm.Models.Dp.PropertyAdvisor>
 
 @section Header{
@@ -51,18 +54,10 @@
                                     .Attr("role", "grid")
                                     .Attr("aria-describedby", "example1_info"))
                                 .AddCheckBox(m => m.Id, styleFunc: m => "c1")
-                                .Add(m => m.No)
+                                .Add(m => m.ProjectNo, n=> new ProjectService().GetByNo(n)?.Name)
                                     .Add(m => m.Name)
-                                    .Add(m => m.Gender)
-                                    .Add(m => m.Mobile1)
-                                    .Add(m => m.Mobile2)
-                                    .Add(m => m.Mobile3)
-                                    .Add(m => m.Email)
-                                    .Add(m => m.Owner)
-                                    .Add(m => m.OwnerNo)
-                                    .Add(m => m.Intro)
-                                    .Add(m => m.RegAt)
-                                    .Add(m => m.Referral)
+                                    .Add(m => m.MobileNo)
+                                    .Add(m => m.Title)
                                 .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
                                 .ToString())
                         </div>

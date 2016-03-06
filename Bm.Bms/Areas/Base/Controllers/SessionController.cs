@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using System.Web.Security;
 using Bm.Extensions;
 using Bm.Modules;
@@ -31,9 +32,14 @@ namespace Bm.Areas.Base.Controllers
             var r = service.Auth(username, password);
             if (r.HasError)
             {
-                FlashMessage(r);
-                Logger.Warn($"user {r.Value.Name}/{r.Value.No.Right(5)} login failed");
+                Logger.Warn($"user {username} login failed");
                 return JsonError("用户名或密码错误");
+            }
+
+            if (!r.Value.RoleRefs.Any(m => m.RoleNo.StartsWith("Branch")))
+            {
+                Logger.Warn($"user {r.Value.Name}/{r.Value.No.Right(5)} login forbidden");
+                return JsonError("角色类型不正确，拒绝登录");
             }
 
             Logger.Info($"user {r.Value.Name}/{r.Value.No.Right(5)} login success");

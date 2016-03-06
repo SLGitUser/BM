@@ -1,8 +1,9 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Bm.Models.Base;
 using Bm.Models.Common;
+using Bm.Modules.Orm.Annotation;
 
 namespace Bm.Models.Dp
 {
@@ -83,9 +84,7 @@ namespace Bm.Models.Dp
         public DateTime? UpdatedAt { get; set; }
 
         #endregion
-
-
-
+        
         /// <summary>
         /// 读取或者设置名称
         /// </summary>
@@ -100,100 +99,41 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("编号")]
-        [StringLength(20)]
-        [Required]
+        [StringLength(36)]
         public string No { get; set; }
 
         /// <summary>
-        /// 读取或者设置性别
+        /// 读取或者设置手机号码
         /// </summary>
         /// <remark></remark>
-        [DisplayName("性别")]
-        [StringLength(5)]
-        public string Gender { get; set; }
-
-        /// <summary>
-        /// 读取或者设置手机号码1
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("手机号码1")]
+        [DisplayName("手机号码")]
         [StringLength(11)]
         [Required]
-        public string Mobile1 { get; set; }
+        public string MobileNo { get; set; }
 
         /// <summary>
-        /// 读取或者设置手机号码2
+        /// 读取或者设置职位
         /// </summary>
         /// <remark></remark>
-        [DisplayName("手机号码2")]
-        [StringLength(11)]
-        public string Mobile2 { get; set; }
+        [DisplayName("职位")]
+        [StringLength(20)]
+        [Required]
+        public string Title { get; set; }
 
         /// <summary>
-        /// 读取或者设置手机号码3
+        /// 读取或者设置楼盘编号
         /// </summary>
         /// <remark></remark>
-        [DisplayName("手机号码3")]
-        [StringLength(11)]
-        public string Mobile3 { get; set; }
-
-        /// <summary>
-        /// 读取或者设置电子邮箱
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("电子邮箱")]
-        [StringLength(49)]
-        public string Email { get; set; }
-
-        /// <summary>
-        /// 读取或者设置开发商
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("开发商")]
+        [DisplayName("楼盘")]
         [StringLength(50)]
         [Required]
-        public string Owner { get; set; }
+        public string ProjectNo { get; set; }
 
         /// <summary>
-        /// 读取或者设置开发商编号
+        /// 账户信息
         /// </summary>
-        /// <remark></remark>
-        [DisplayName("开发商编号")]
-        [StringLength(50)]
-        [Required]
-        public string OwnerNo { get; set; }
-
-        /// <summary>
-        /// 读取或者设置个人简介
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("个人简介")]
-        [StringLength(200)]
-        public string Intro { get; set; }
-
-        /// <summary>
-        /// 读取或者设置注册时间
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("注册时间")]
-        [Required]
-        public DateTime RegAt { get; set; }
-
-        /// <summary>
-        /// 读取或者设置推荐人
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("推荐人")]
-        [StringLength(50)]
-        public string Referral { get; set; }
-
-        /// <summary>
-        /// 读取或者设置头像
-        /// </summary>
-        /// <remark></remark>
-        [DisplayName("头像")]
-        [StringLength(50)]
-        public string Pic { get; set; }
+        [IgnoreMapping]
+        public Account Account { get; set; }
 
     }
 }

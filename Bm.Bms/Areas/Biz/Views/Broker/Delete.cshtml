@@ -1,8 +1,7 @@
-﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Dp.Broker>
-
+﻿@model IList<Bm.Models.Dp.Broker>
+@using Bm.Modules.Html
 @section Header{
-    <script src="~/Content/JavaScript/Js_Tools.js"></script>
+    <script src="~/Scripts/init.js"></script>
 }
 
 @section PageHead {
@@ -25,7 +24,7 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="row">
+                        <div class="row col-sm-12">
                                 @Html.Raw(Model.ToHtmlTable()
                                     .Table(new HtmlElement("table")
                                         .Attr("class", "table data table-bordered table-striped dataTable")
@@ -33,8 +32,8 @@
                                         .Attr("aria-describedby", "example1_info"))
                                     .Add(m => m.No)
                                     .Add(m => m.Name)
-                                    .Add(m => m.Referral)
-                                    .Add(m => m.RegAt)
+                                    .Add(m => m.Mobile)
+                                    .Add(m => m.CreatedAt)
                                     .ToString())
                             </div>
                         </div>

@@ -35,6 +35,40 @@ namespace Bm.Services.Base
             }
         }
 
+        public override Account GetById(long id)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Account>()
+                    .Where(m => m.Id, Op.Eq, id)
+                    .Limit(1);
+                var model = conn.Query(query).FirstOrDefault();
+                if (model != null)
+                {
+                    var roleQuery = new Criteria<AccountRoleRef>()
+                        .Where(m => m.AccountNo, Op.Eq, model.No);
+                    model.RoleRefs = conn.Query(roleQuery);
+                }
+                return model;
+            }
+        }
+
+        public override IList<Account> GetByIds(long[] ids)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Account>()
+                    .Where(m => m.Id, Op.In, ids);
+                var models = conn.Query(query);
+                foreach (var model in models)
+                {
+                    var roleQuery = new Criteria<AccountRoleRef>()
+                        .Where(m => m.AccountNo, Op.Eq, model.No);
+                    model.RoleRefs = conn.Query(roleQuery);
+                }
+                return models;
+            }
+        }
 
         public Account GetAccount(string accountNo)
         {
@@ -91,9 +125,17 @@ namespace Bm.Services.Base
         {
             using (var conn = ConnectionManager.Open())
             {
-                var query = new Criteria<Account>()
-                    .Desc(m => m.No);
-                return conn.Query(query);
+                var accountQuery = new Criteria<Account>().Desc(m => m.No);
+                var accounts = conn.Query(accountQuery);
+
+                var roleQuery = new Criteria<AccountRoleRef>();
+                var accountRoleRefs = conn.Query(roleQuery);
+                foreach (var account in accounts)
+                {
+                    account.RoleRefs = accountRoleRefs.Where(m => m.AccountNo.Equals(account.No)).ToList();
+                }
+                return accounts;
+
             }
         }
 
@@ -142,7 +184,10 @@ namespace Bm.Services.Base
             account.ErrLoginCount = 0;
             r.Append(UpdateLoginInfo(account));
 
-            return r.SetValue(account);
+
+            var model = GetAccount(account.No);
+
+            return r.SetValue(model);
         }
 
         /// <summary>
@@ -184,7 +229,7 @@ namespace Bm.Services.Base
                     return r.Error("保存失败");
                 }
                 var accountRoleRefQuery = new Criteria<AccountRoleRef>()
-                    .Where(m=>m.AccountNo, Op.Eq, AccountNo);
+                    .Where(m => m.AccountNo, Op.Eq, AccountNo);
                 var accountRoleRef = conn.Get(accountRoleRefQuery);
                 if (string.IsNullOrEmpty(accountRoleRef?.BranchNo))
                 {
@@ -206,8 +251,9 @@ namespace Bm.Services.Base
                     return r.Error("保存失败");
                 }
                 trans.Commit();
-                return r.SetValue(true);
             }
+            r.Append(AccessoryService.ClearExpiration(model.Photo));
+            return r.SetValue(true);
         }
 
         public MessageRecorder<bool> UpdateLoginInfo(Account model)
@@ -223,7 +269,7 @@ namespace Bm.Services.Base
                 + " `LastLoginAt` = @LastLoginAt, `ErrLoginCount` = @ErrLoginCount, `UpdatedAt` = @UpdatedAt, `UpdatedBy` = @UpdatedBy"
                 + " WHERE `no`= @No";
                 var effectedCount = conn.Execute(sql, model, trans);
-                if (effectedCount <= 0 )
+                if (effectedCount <= 0)
                 {
                     trans.Rollback();
                     return r.Error("保存失败");
@@ -246,6 +292,7 @@ namespace Bm.Services.Base
 
             var validNos = model.ValidNos;
             if (validNos.IsNullOrEmpty()) return r.Error("没有有效账户标识");
+            string oldKey;
             using (var conn = ConnectionManager.Open())
             {
                 var trans = conn.BeginTransaction();
@@ -261,6 +308,10 @@ namespace Bm.Services.Base
                     trans.Rollback();
                     return r.Error("编号或者名称重复");
                 }
+                var obj = new Criteria<Account>()
+                    .Where(m => m.Id, Op.Eq, model.Id)
+                    .Select(m => m.Photo);
+                oldKey = conn.ExecuteScalarEx<string>(obj.ToSelectSql());
 
                 // 在不修改密码的情况下，赋予原来的密码
                 if (string.IsNullOrEmpty(model.PasswordHash))
@@ -282,8 +333,13 @@ namespace Bm.Services.Base
                     return r.Error("保存失败");
                 }
                 trans.Commit();
-                return r.SetValue(true);
             }
+            if (!Equals(oldKey, model.Photo))
+            {
+                r.Append(AccessoryService.DeleteObject(oldKey));
+                r.Append(AccessoryService.ClearExpiration(model.Photo));
+            }
+            return r.SetValue(true);
         }
 
 
@@ -298,7 +354,7 @@ namespace Bm.Services.Base
             var r = new MessageRecorder<bool>();
             if (string.IsNullOrEmpty(username)) return r.Error("请设置用户名");
             if (string.IsNullOrEmpty(password)) return r.Error("请设置密码");
-            
+
             using (var conn = ConnectionManager.Open())
             {
                 var trans = conn.BeginTransaction();
@@ -309,12 +365,12 @@ namespace Bm.Services.Base
                     .Or(m => m.Phone2, Op.Eq, username)
                     .Or(m => m.Phone3, Op.Eq, username);
                 var model = conn.Get(query);
-                if(model == null)
+                if (model == null)
                 {
                     trans.Rollback();
                     return r.Error("账户不存在");
                 }
-                
+
                 model.Password = password;
 
                 var effectedCount = conn.Update(model, trans);
@@ -326,6 +382,58 @@ namespace Bm.Services.Base
                 trans.Commit();
                 return r.SetValue(true);
             }
+        }
+
+
+        public IList<Account> GetToDeleteModels(long[] ids)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var query = new Criteria<Account>()
+                    .Where(m => m.Id, Op.In, ids)
+                    .And("`no` NOT IN (SELECT `AccountNo` FROM `base_account_role_ref` WHERE `RoleNo` NOT IN('BranchAdmin', 'BranchStaff'))");
+                var models = conn.Query(query);
+                return models;
+            }
+        }
+
+        public MessageRecorder<bool> Delete(long[] ids)
+        {
+
+            var mr = new MessageRecorder<bool>();
+
+            using (var conn = ConnectionManager.Open())
+            {
+                var trans = conn.BeginTransaction();
+
+                var query = new Criteria<Account>()
+                    .Where(m => m.Id, Op.In, ids)
+                    .And("`no` NOT IN (SELECT `AccountNo` FROM `base_account_role_ref` WHERE `RoleNo` NOT IN('BranchAdmin', 'BranchStaff'))");
+                var models = conn.Query(query);
+
+                var isOk = models.All(m => conn.Delete(m, trans));
+                if (isOk)
+                {
+                    trans.Commit();
+
+                    foreach (var model in models)
+                    {
+                        mr.Append(AccessoryService.DeleteObject(model.Photo));
+                    }
+                    mr.SetValue(!mr.HasError);
+                }
+                else
+                {
+                    trans.Rollback();
+                }
+                return mr;
+            }
+        }
+
+        [Obsolete("请使用Delete(long[] ids)方法")]
+        public override MessageRecorder<bool> Delete(params Account[] models)
+        {
+            return Delete(models.Select(m => m.Id).ToArray());
         }
     }
 }

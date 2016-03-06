@@ -54,13 +54,10 @@ namespace Bm.Areas.Biz.Controllers
         public ActionResult Create()
         {
             var model = new Project();
-            var type = new string[] {"简介", "地段", "配套", "教育", "环境", "交通"};
-            var piList = new List<ProjectInfo>();
-            for (int i = 0; i < type.Length; i++)
-            {
-                piList.Add(new ProjectInfo {Type = type[i]});
-            }
+            var type = new[] {"简介", "地段", "配套", "教育", "环境", "交通"};
+            var piList = type.Select(t => new ProjectInfo {Type = t}).ToList();
             model.ProjectInfos = piList;
+            model.No = Guid.NewGuid().ToString("N").ToUpper();
             return View(model);
         }
 

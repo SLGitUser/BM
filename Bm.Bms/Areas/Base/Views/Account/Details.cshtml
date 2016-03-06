@@ -1,9 +1,7 @@
-﻿@using Bm.Modules.Html
-@model IList<Bm.Models.Base.Account>
+﻿@model IList<Bm.Models.Base.Account>
+@using Bm.Services.Common
+@using com.senlang.Sdip.Util
 
-@{
-
-}
 @section PageHead {
     <h1>账户信息<small></small></h1>
     <ol class="breadcrumb">
@@ -26,17 +24,45 @@
                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">
-                                 @Html.Raw(Model.ToHtmlTable()
-                                .Table(new HtmlElement("table")
-                                    .Attr("class", "table data table-bordered table-striped dataTable")
-                                    .Attr("role", "grid")
-                                    .Attr("aria-describedby", "example1_info"))
-                                .Add(m => m.No)
-                                .Add(m => m.Name)
-                                .Add(m => m.Email)
-                                .Add(m => m.Phone)
-                                .Add(m => m.Remark)
-                                .ToString())
+                                @foreach (var account in Model)
+                                {
+                                    <table class="table data table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                        <tr>
+                                            <td rowspan="4" colspan="2" class="text-center col-sm-4">
+                                                <p>编号(后6位)：@account.No.Right(6)</p>
+                                                @if (string.IsNullOrEmpty(account.Photo))
+                                                {
+                                                    <p>无头像</p>
+                                                }
+                                                else
+                                                {
+                                                    <img src="@AccessoryService.GetUrl(account.Photo)" style="max-width: 120px; max-height: 120px"/>
+                                                }
+                                            </td>
+                                            <th>姓名</th>
+                                            <td class="col-sm-2">@account.Name</td>
+                                            <th>手机号码</th>
+                                            <td class="col-sm-2">@account.Phone</td>
+                                        </tr>
+                                        <tr>
+                                            <th>手机号码2</th>
+                                            <td>@account.Phone2</td>
+                                            <th>手机号码3</th>
+                                            <td>@account.Phone3</td>
+                                        </tr> <tr>
+                                            <th>电子邮件</th>
+                                            <td>@account.Email</td>
+                                            <th>备注</th>
+                                            <td>@account.Remark</td>
+                                        </tr>
+                                        <tr>
+                                            <th>推荐人</th>
+                                            <td>@account.Referral</td>
+                                            <th>角色</th>
+                                            <td>@account.GetRoleNames()</td>
+                                        </tr>
+                                    </table>
+                                }
                             </div>
                         </div>
                     </div>

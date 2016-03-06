@@ -28,6 +28,7 @@ namespace Bm.Areas.Base.Controllers
             return View(models);
         }
 
+        
         // GET: Biz/Account/Details/5
         public ActionResult Details(long[] ids)
         {
@@ -122,7 +123,7 @@ namespace Bm.Areas.Base.Controllers
                 FlashWarn("请选择一条数据");
                 return RedirectToAction("Index");
             }
-            var list = _service.GetByIds(ids);
+            var list = _service.GetToDeleteModels(ids);
             return View(list);
         }
 
@@ -135,21 +136,22 @@ namespace Bm.Areas.Base.Controllers
                 FlashWarn("请选择一条数据");
                 return View();
             }
-            var list = _service.GetByIds(ids);
+            var service = new AccountService();
             try
             {
-                var r = _service.Delete(list.ToArray());
+                var r = service.Delete(ids);
                 if (r.HasError)
                 {
                     FlashMessage(r);
-                    return View(list);
+                    return View(r.Value);
                 }
                 FlashSuccess("删除成功");
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                FlashError("删除失败");
+                FlashError("删除失败:" + e.Message);
+                var list = _service.GetByIds(ids);
                 return View(list);
             }
         }

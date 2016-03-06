@@ -29,21 +29,22 @@ namespace Bm.Modules.Html
         /// <param name="formatFunc">格式函数</param>
         /// <param name="styleFunc">样式表达式函数</param>
         /// <param name="headerName">表格列头名称</param>
-        /// <param name="headerStyleFunc">表格列头样式</param>
+        /// <param name="headerStyle">表格列头样式</param>
         /// <returns></returns>
         public HtmlTable<TModel> Add<TProp>(Expression<Func<TModel, TProp>> propExpr,
             Func<TProp, string> formatFunc = null,
             Func<TProp, string> styleFunc = null,
             string headerName = null,
-            Func<TProp, string> headerStyleFunc = null)
+            string headerStyle = null)
         {
             var propName = propExpr.GetMemberName();
             if (string.IsNullOrEmpty(propName)) return this;
 
             var pi = typeof(TModel).GetProperty(propName);
-            var displayNameAttr = pi.GetAttribute<DisplayNameAttribute>();
-            var displayName = displayNameAttr?.DisplayName.SetWhenNullOrEmpty(pi.Name);
-            _tbl.HeadEles.Add(new HtmlElement("th").Attr("data-prop", pi.Name).Text(displayName));
+            var displayName = headerName ?? pi.GetAttribute<DisplayNameAttribute>()?.DisplayName.SetWhenNullOrEmpty(pi.Name);
+            var th = new HtmlElement("th").Attr("data-prop", pi.Name).Text(displayName);
+            if (headerStyle != null) th.Attr("style", headerStyle);
+            _tbl.HeadEles.Add(th);
 
             var propFunc = propExpr.Compile();
             var fmtFunc = formatFunc ?? (m => m?.ToString());
@@ -67,21 +68,22 @@ namespace Bm.Modules.Html
         /// <param name="formatFunc">格式函数</param>
         /// <param name="styleFunc">样式表达式函数</param>
         /// <param name="headerName">表格列头名称</param>
-        /// <param name="headerStyleFunc">表格列头样式</param>
+        /// <param name="headerStyle">表格列头样式</param>
         /// <returns></returns>
         public HtmlTable<TModel> AddEx<TProp>(Expression<Func<TModel, TProp>> propExpr,
             Func<TModel, string> formatFunc = null,
             Func<TModel, string> styleFunc = null,
             string headerName = null,
-            Func<TProp, string> headerStyleFunc = null)
+            string headerStyle = null)
         {
             var propName = propExpr.GetMemberName();
             if (string.IsNullOrEmpty(propName)) return this;
 
             var pi = typeof(TModel).GetProperty(propName);
-            var displayNameAttr = pi.GetAttribute<DisplayNameAttribute>();
-            var displayName = displayNameAttr?.DisplayName.SetWhenNullOrEmpty(pi.Name);
-            _tbl.HeadEles.Add(new HtmlElement("th").Attr("data-prop", pi.Name).Text(displayName));
+            var displayName = headerName ?? pi.GetAttribute<DisplayNameAttribute>()?.DisplayName.SetWhenNullOrEmpty(pi.Name);
+            var th = new HtmlElement("th").Attr("data-prop", pi.Name).Text(displayName);
+            if (headerStyle != null) th.Attr("style", headerStyle);
+            _tbl.HeadEles.Add(th);
 
             var fmtFunc = formatFunc ?? (m => m.ToString());
             for (var i = 0; i < _models.Count; i++)
@@ -103,13 +105,13 @@ namespace Bm.Modules.Html
         /// <param name="formatFunc">格式函数</param>
         /// <param name="styleFunc">样式表达式函数</param>
         /// <param name="inputName">控件名称</param>
-        /// <param name="headerStyleFunc">表格列头样式</param>
+        /// <param name="headerStyle">表格列头样式</param>
         /// <returns></returns>
         public HtmlTable<TModel> AddCheckBox<TProp>(Expression<Func<TModel, TProp>> propExpr,
             Func<TModel, string> formatFunc = null,
             Func<TModel, string> styleFunc = null,
             string inputName = null,
-            Func<TProp, string> headerStyleFunc = null)
+            string headerStyle = null)
         {
             var propName = propExpr.GetMemberName();
             if (string.IsNullOrEmpty(propName)) return this;
@@ -117,8 +119,11 @@ namespace Bm.Modules.Html
             var iName = inputName.SetWhenNullOrEmpty("ids");
 
             var pi = typeof(TModel).GetProperty(propName);
-            _tbl.HeadEles.Add(new HtmlElement("th").Attr("data-prop", pi.Name).Append(
-                new HtmlElement("input").Attr("type", "checkbox").Attr("onclick", "switchCheckAll(this, '" + iName + "')")));
+            var th = new HtmlElement("th").Attr("data-prop", pi.Name);
+            if (headerStyle != null) th.Attr("style", headerStyle);
+            th.Append(new HtmlElement("input").Attr("type", "checkbox")
+                .Attr("onclick", "switchCheckAll(this, '" + iName + "')"));
+            _tbl.HeadEles.Add(th);
 
             var propFunc = propExpr.Compile();
             var fmtFunc = formatFunc ?? (m => propFunc(m).ToString());

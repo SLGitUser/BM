@@ -402,13 +402,14 @@
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-files-o"></i>
-                            <span>楼盘管理</span>
+                            <span>案场管理</span>
                             <i class="fa fa-angle-left pull-right"></i>
                             @*<span class="label label-primary pull-right">4</span>*@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="@Url.Action("Index", "Developer", new { Area= "Biz"})"><i class="fa fa-circle-o"></i> 开发商信息</a></li>
                             <li><a href="@Url.Action("Index", "Project", new { Area= "Biz"})"><i class="fa fa-circle-o"></i> 楼盘信息</a></li>
+                            <li><a href="@Url.Action("Index","PropertyAdvisor", new { Area= "Biz"})"><i class="fa fa-circle-o"></i> 案场顾问</a></li>
                             @*<li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 佣金规则</a></li>
                             <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 销售经理信息</a></li>*@
                         </ul>
@@ -422,7 +423,6 @@
                         <ul class="treeview-menu">
                             <li><a href="@Url.Action("Index","BrokerageFirm", new { Area= "Biz"})"><i class="fa fa-circle-o"></i> 经纪公司信息</a></li>
                             <li><a href="@Url.Action("Index","Broker", new { Area= "Biz"})"><i class="fa fa-circle-o"></i> 经纪人管理</a></li>
-                            <li><a href="@Url.Action("Index","PropertyAdvisor", new { Area= "Biz"})"><i class="fa fa-circle-o"></i> 置业顾问信息</a></li>
                             @*<li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 开票</a></li>
                             <li><a href="/base/home/index"><i class="fa fa-circle-o"></i> 提现</a></li>*@
                         </ul>

@@ -165,6 +165,17 @@ namespace Bm.Modules.Orm
             return this;
         }
 
+
+        public Criteria<TModel> Where<TProp>(Expression<Func<TModel, TProp>> propExpr, Op op, IList<TProp> values)
+        {
+            if (op != Op.In && op != Op.NotIn)
+                throw new ArgumentException("invalid op", nameof(op));
+
+            _whereSqls.Clear();
+            var sql = MakeInSql(propExpr, op, values);
+            return And(sql);
+        }
+
         public Criteria<TModel> And<TProp>(Expression<Func<TModel, TProp>> propExpr, Op op, TProp value)
         {
             if (op == Op.In || op == Op.NotIn)

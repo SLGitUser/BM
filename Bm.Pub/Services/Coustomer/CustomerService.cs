@@ -42,5 +42,39 @@ namespace Bm.Services.Common
             }
             return r.SetValue(CustomerAll);
         }
+        public override MessageRecorder<bool> Create(Customer model)
+        {
+            var r = new MessageRecorder<bool>();
+            model.CreatedAt = Now;
+            model.CreatedBy = AccountNo;
+            using (var conn = ConnectionManager.Open())
+            {
+                var trans = conn.BeginTransaction();
+                var query = new Criteria<Customer>()
+                    .Where(m => m.No, Op.Eq, model.No)
+                    .Or(m => m.Name, Op.Eq, model.Name)
+                    .Desc(m => m.No);
+                if (conn.Exists(query))
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                }
+                var effectedCount = conn.Insert(model, trans);
+                if (effectedCount == -1)
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                }
+                var r2 = conn.Insert(model.Customers);
+                var count = model.Customers.Count;
+                if (r2 != count)
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                } 
+                trans.Commit();
+            }
+            return r.SetValue(!r.HasError); 
+        }
     }
     }

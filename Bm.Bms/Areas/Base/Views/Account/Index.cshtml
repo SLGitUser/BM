@@ -56,9 +56,9 @@
                                 .Add(m => m.Phone)
                                 .Add(m => m.Phone2)
                                 .Add(m => m.Phone3)
-                                .Add(m => m.Email)
+                                //.Add(m => m.Email)
                                 .AddEx(m => m.Id, m=>m.GetRoleNames(), headerName:"角色" )
-                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a>", m => "ca")
+                                .AddAction(m => m.Id, m => $"<a class=\"\" href=\"{Url.Action("Edit", new { m.Id })}\"> <i class=\"fa fa-pencil-square-o\"></i> 修改</a> <a class=\"\" href=\"{Url.Action("Details", new { ids = m.Id })}\"> <i class=\"fa fa-eye\"></i> 查看</a>", m => "ca")
                                 .ToString())
                         </div>
                     </div>

@@ -183,6 +183,27 @@ namespace Bm.Services.Dp
                 return model;
             }
         }
+
+        public Project GetByNo(string no)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var pro = new Criteria<Project>()
+                    .Where(m=>m.No,Op.Eq, no);
+                var model = conn.Query(pro).FirstOrDefault();
+
+                if (model != null)
+                {
+                    var query = new Criteria<ProjectInfo>()
+                        .Where(m => m.DpNo, Op.Eq, model.No)
+                        .Asc(m => m.Id)
+                        //.Limit(6)
+                        ;
+                    model.ProjectInfos = conn.Query(query);
+                };
+                return model;
+            }
+        }
         #endregion
         public MessageRecorder<IList<Project>> GetAllHouse()
         {

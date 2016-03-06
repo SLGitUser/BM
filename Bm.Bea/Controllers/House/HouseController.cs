@@ -43,15 +43,13 @@ namespace Bm.Controllers.House
         /// </summary>
         /// <returns></returns>
         [Route("api/get_house_detail")]
-        public IHttpActionResult GetHouseById()
+        public IHttpActionResult GetHouseById(string id)
         {
-            var houseId = Request.GetQueryString("houseId").TryToLong();
-
             var mr = new MessageRecorder<Project>();
-            if (!houseId.HasValue) return Ok(mr.Error("楼盘编号无效"));
+            if (id.IsNullOrEmpty()) return Ok(mr.Error("楼盘编号无效"));
 
             var service = new ProjectService();
-            var r = service.GetById(houseId.Value);
+            var r = service.GetByNo(id);
 
             return Ok(mr.SetValue(r));
         }

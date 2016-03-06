@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Bm.Models.Common;
+using Bm.Modules.Orm;
+using Bm.Modules.Orm.Sql;
 
 namespace Bm.Models.Dp
 {
@@ -10,7 +12,7 @@ namespace Bm.Models.Dp
     /// 房源和经纪人关系表
     /// </summary>
     [DisplayName("房源和经纪人关系")]
-    public sealed class HouseBrokerRef:IStamp
+    public sealed class HouseBrokerRef : IStamp
     {
         #region Implementation of IId
 
@@ -90,7 +92,7 @@ namespace Bm.Models.Dp
         [DisplayName("经纪人编号")]
         [Required]
         public string BrokerNo { get; set; }
-        
+
 
     }
 }

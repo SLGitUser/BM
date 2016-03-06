@@ -1,9 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Bm.Models.Common;
-using System.Collections.Generic;
 
 namespace Bm.Models.Dp
 {
@@ -100,7 +99,6 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("地区代码")]
         [StringLength(50)]
-        [Required]
         public string CityNo { get; set; }
 
         /// <summary>
@@ -118,7 +116,6 @@ namespace Bm.Models.Dp
         /// <remark></remark>
         [DisplayName("姓名拼音")]
         [StringLength(40)]
-        [Required]
         public string Pinyin { get; set; }
 
         /// <summary>
@@ -192,7 +189,6 @@ namespace Bm.Models.Dp
         /// </summary>
         /// <remark></remark>
         [DisplayName("保护过期日期")]
-        [Required]
         public DateTime ExpiredAt { get; set; }
 
         /// <summary>

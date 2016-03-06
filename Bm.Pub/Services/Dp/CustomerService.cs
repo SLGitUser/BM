@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bm.Services.Common;
 
-namespace Bm.Services.Common
+namespace Bm.Services.Dp
 {
-   public sealed  class CustomerService : RepoService<Customer>
+   public sealed class CustomerService : RepoService<Customer>
     {
         public CustomerService(string accountNo) : base(accountNo)
         {
@@ -34,13 +35,13 @@ namespace Bm.Services.Common
         public MessageRecorder<IList<Customer>> GetAllCustomer()
         {
             var r = new MessageRecorder<IList<Customer>>();
-            var CustomerAll = GetAll();
+            var customerAll = GetAll();
 
-            if (!CustomerAll.Any())
+            if (!customerAll.Any())
             {
                 return r.Error("没有客户信息");
             }
-            return r.SetValue(CustomerAll);
+            return r.SetValue(customerAll);
         }
         public override MessageRecorder<bool> Create(Customer model)
         {

@@ -126,7 +126,7 @@
     <Compile Include="Controllers\Base\AccountAuthController.cs" />
     <Compile Include="Controllers\Base\AccountCreateController.cs" />
     <Compile Include="Controllers\Base\CodeController.cs" />
-    <Compile Include="Controllers\Customer\CustomerController.cs" />
+    <Compile Include="Controllers\Customers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\House\HouseController.cs" />
     <Compile Include="Controllers\Mine\MineController.cs" />

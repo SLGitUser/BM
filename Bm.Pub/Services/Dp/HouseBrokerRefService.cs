@@ -36,48 +36,38 @@ namespace Bm.Services.Dp
             }
         }
 
-        ///// <summary>
-        ///// 添加
-        ///// </summary>
-        ///// <param name="model"></param>
-        ///// <returns></returns>
-        //public override MessageRecorder<bool> Create(HouseBrokerRef model)
-        //{
-        //    var r = new MessageRecorder<bool>();
-        //    model.CreatedAt = Now;
-        //    model.CreatedBy = AccountNo;
-        //    using (var conn = ConnectionManager.Open())
-        //    {
-        //        var trans = conn.BeginTransaction();
-        //        var query = new Criteria<HouseBrokerRef>()
-        //            .Where(m => m.No, Op.Eq, model.No)
-        //            .Or(m => m.Name, Op.Eq, model.Name)
-        //            .Desc(m => m.No);
-        //        if (conn.Exists(query))
-        //        {
-        //            trans.Rollback();
-        //            return r.Error("保存失败");
-        //        }
-        //        var effectedCount = conn.Insert(model, trans);
-        //        if (effectedCount == -1)
-        //        {
-        //            trans.Rollback();
-        //            return r.Error("保存失败");
-        //        }
-        //        var r2 = conn.Insert(model.ProjectInfos);
-        //        var count = model.ProjectInfos.Count;
-        //        if (r2 != count)
-        //        {
-        //            trans.Rollback();
-        //            return r.Error("保存失败");
-        //        }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override MessageRecorder<bool> Create(HouseBrokerRef model)
+        {
+            var r = new MessageRecorder<bool>();
+            model.CreatedAt = Now;
+            model.CreatedBy = AccountNo;
+            using (var conn = ConnectionManager.Open())
+            {
+                var trans = conn.BeginTransaction();
+                var query = new Criteria<HouseBrokerRef>()
+                    .Where(m => m.BrokerNo, Op.Eq, model.BrokerNo)
+                    .And(m => m.ProjectNo, Op.Eq, model.ProjectNo);
+                if (conn.Exists(query))
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                }
+                var effectedCount = conn.Insert(model, trans);
+                if (effectedCount == -1)
+                {
+                    trans.Rollback();
+                    return r.Error("保存失败");
+                }
+                trans.Commit();
+            }
+            return r.SetValue(!r.HasError);
 
-        //        trans.Commit();
-        //    }
-        //    r.Append(AccessoryService.ClearExpiration(model.AddrPic));
-        //    return r.SetValue(!r.HasError);
-
-        //}
+        }
         ///// <summary>
         ///// 修改
         ///// </summary>
@@ -139,30 +129,29 @@ namespace Bm.Services.Dp
         //}
 
 
-        //public override MessageRecorder<bool> Delete(params Project[] models)
-        //{
-        //    using (var conn = ConnectionManager.Open())
-        //    {
-        //        var trans = conn.BeginTransaction();
-        //        var r = base.Delete(models);
-        //        foreach (var model in models)
-        //        {
-        //            var query = new Criteria<HouseBrokerRef>()
-        //                .Where(m => m.DpNo, Op.Eq, model.No)
-        //                .Asc(m => m.Id);
-        //            var proInfo = conn.Query(query);
-        //            var err = conn.Delete(proInfo);
-        //            if (!err)
-        //            {
-        //                trans.Rollback();
-        //                return r.Error("删除楼盘周边信息失败");
-        //            }
-        //            trans.Commit();
-        //            r.Append(AccessoryService.DeleteObject(model.AddrPic));
-        //        }
-        //        return r;
-        //    }
-        //}
+        public override MessageRecorder<bool> Delete(params HouseBrokerRef[] models)
+        {
+            using (var conn = ConnectionManager.Open())
+            {
+                var trans = conn.BeginTransaction();
+                var r = base.Delete(models);
+                foreach (var model in models)
+                {
+                    var query = new Criteria<HouseBrokerRef>()
+                        .Where(m => m.BrokerNo, Op.Eq, model.BrokerNo)
+                        .And(m => m.ProjectNo, Op.Eq, model.ProjectNo);
+                    var proInfo = conn.Query(query);
+                    var err = conn.Delete(proInfo);
+                    if (!err)
+                    {
+                        trans.Rollback();
+                        return r.Error("删除楼盘周边信息失败");
+                    }
+                    trans.Commit();
+                }
+                return r;
+            }
+        }
 
         /// <summary>
         /// 根据经纪人编号获取所有楼盘信息
@@ -182,7 +171,7 @@ namespace Bm.Services.Dp
                 var refQuery = new Criteria<HouseBrokerRef>()
                     .Where(m => m.BrokerNo, Op.Eq, brokerNo)
                     .Asc(m => m.CreatedAt);
-                var proNos = conn.Query(refQuery).Select(m => m.HouseNo).ToList();
+                var proNos = conn.Query(refQuery).Select(m => m.ProjectNo).ToList();
                 if (proNos.IsNullOrEmpty()) return r;
 
                 var projectList = new Criteria<Project>()
@@ -202,9 +191,9 @@ namespace Bm.Services.Dp
             using (var conn = ConnectionManager.Open())
             {
                 var refQuery = new Criteria<HouseBrokerRef>()
-                    .Where(m => m.HouseNo, Op.Eq, houseNo)
+                    .Where(m => m.ProjectNo, Op.Eq, houseNo)
                     .Asc(m => m.CreatedAt);
-                var proNos = conn.Query(refQuery).Select(m => m.HouseNo).ToList();
+                var proNos = conn.Query(refQuery).Select(m => m.ProjectNo).ToList();
                 var brokerList = new Criteria<Broker>()
                     .And(m => m.No, Op.In, proNos);
                 var list = conn.Query(brokerList);
@@ -217,6 +206,7 @@ namespace Bm.Services.Dp
         }
 
         #endregion
+
         /// <summary>
         /// 获取所有经纪人与房源关系信息
         /// </summary>
@@ -231,6 +221,43 @@ namespace Bm.Services.Dp
                 return r.Error("没有任何房源！");
             }
             return r.SetValue(projectAll);
+        }
+        /// <summary>
+        /// 切换经纪人收藏楼盘状态（收藏、解除）
+        /// </summary>
+        /// <returns>返回切换后的状态（True：代表收藏；False：代表解除）</returns>
+        public MessageRecorder<bool> ChangeStatus(string brokerNo, string projectNo)
+        {
+            var r = new MessageRecorder<bool>();
+            if (brokerNo.IsNullOrEmpty())
+                return r.Error("经纪人编号无效");
+            if (projectNo.IsNullOrEmpty())
+                return r.Error("楼盘编号无效");
+
+            var house = GetHouseByBrokerNo(brokerNo).Value;
+            var yesHouse = house.Where(m => m.No.Equals(projectNo)).ToList();
+            var model = new HouseBrokerRef
+            {
+                ProjectNo = projectNo,
+                BrokerNo = brokerNo
+            };
+            if (!yesHouse.Any())
+            {
+                if (Create(model).HasError)
+                {
+                    return r.Error("收藏失败！");
+                }
+                r.SetValue(true);
+            }
+            else
+            {
+                if (Delete(model).HasError)
+                {
+                    return r.Error("解除收藏失败！");
+                }
+                r.SetValue(false);
+            }
+            return r;
         }
     }
 }

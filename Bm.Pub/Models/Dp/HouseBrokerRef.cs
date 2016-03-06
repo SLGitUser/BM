@@ -71,7 +71,7 @@ namespace Bm.Models.Dp
 
         [DisplayName("楼房编号")]
         [Required]
-        public string HouseNo { get; set; }
+        public string ProjectNo { get; set; }
 
         [DisplayName("经纪人编号")]
         [Required]

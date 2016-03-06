@@ -250,7 +250,7 @@ namespace Bm.Models.Dp
             get
             {
                 var brokers = new Criteria<HouseBrokerRef>()
-                    .Where(m => m.HouseNo, Op.Eq, No);
+                    .Where(m => m.ProjectNo, Op.Eq, No);
                 var conn = ConnectionManager.Open();
                 var list = conn.Query(brokers);
                 _collectNum = list.Count;

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Razor.Generator;
 using Bm.Extensions;
@@ -52,6 +54,27 @@ namespace Bm.Controllers.House
             var r = service.GetByNo(id);
 
             return Ok(mr.SetValue(r));
+        }
+        /// <summary>
+        /// 变换收藏楼盘状态
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/collect_house")]
+        [HttpGet]
+        public IHttpActionResult ChangeHouseStatus()
+        {
+            var u = Request.GetQueryString("u");//经纪人编号
+            var h = Request.GetQueryString("h");//房源编号
+
+            var service = new HouseBrokerRefService();
+            var r = service.ChangeStatus(u,h);
+            var dic = new Dictionary<string, object>
+            {
+                {"HasError", r.HasError},
+                {"Errors", r.Errors.Select(m => m.Message).ToList()},
+                {"Result", r.Value}
+            };
+            return Ok(dic);
         }
     }
 }

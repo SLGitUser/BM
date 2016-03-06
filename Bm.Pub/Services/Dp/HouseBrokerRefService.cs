@@ -1,4 +1,5 @@
-﻿using Bm.Models.Common;
+﻿using System;
+using Bm.Models.Common;
 using Bm.Models.Dp;
 using Bm.Modules.Orm;
 using Bm.Modules.Orm.Sql;
@@ -134,7 +135,7 @@ namespace Bm.Services.Dp
             using (var conn = ConnectionManager.Open())
             {
                 var trans = conn.BeginTransaction();
-                var r = base.Delete(models);
+                var r = new MessageRecorder<bool>();
                 foreach (var model in models)
                 {
                     var query = new Criteria<HouseBrokerRef>()
@@ -233,13 +234,15 @@ namespace Bm.Services.Dp
                 return r.Error("经纪人编号无效");
             if (projectNo.IsNullOrEmpty())
                 return r.Error("楼盘编号无效");
-
+            //根据经纪人编号获取所有楼盘信息
             var house = GetHouseByBrokerNo(brokerNo).Value;
             var yesHouse = house.Where(m => m.No.Equals(projectNo)).ToList();
             var model = new HouseBrokerRef
             {
                 ProjectNo = projectNo,
-                BrokerNo = brokerNo
+                BrokerNo = brokerNo,
+                CreatedAt = DateTime.Now,
+                CreatedBy = "root"
             };
             if (!yesHouse.Any())
             {
@@ -251,7 +254,12 @@ namespace Bm.Services.Dp
             }
             else
             {
-                if (Delete(model).HasError)
+                var refQuery = new Criteria<HouseBrokerRef>()
+                    .Where(m => m.ProjectNo, Op.Eq, projectNo)
+                    .And(m => m.BrokerNo, Op.Eq, brokerNo)
+                    .Asc(m => m.CreatedAt);
+                var refB = ConnectionManager.Open().Query(refQuery).FirstOrDefault();
+                if (Delete(refB).HasError)
                 {
                     return r.Error("解除收藏失败！");
                 }
